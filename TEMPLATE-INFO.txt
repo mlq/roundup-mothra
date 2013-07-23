@@ -1,0 +1,4 @@
+Name: mothra
+Description: This is an extended issue tracker covering project, version and
+  milestone management.
+Intended-for: Developers and small organizations
