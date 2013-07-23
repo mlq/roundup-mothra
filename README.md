@@ -15,3 +15,9 @@ Features
   * [Jinja2](http://jinja.pocoo.org/) templates
   * Built with [LESS](http://lesscss.org)
   * [Font Awesome](http://fortawesome.github.io/Font-Awesome) icons (v2.3.1)
+
+Installation
+------------
+
+Adjust the `domain` and `host` values in _mail_ as well as `web` in the
+_tracker_ section in the config.ini file accordingly to your setup.
