@@ -28,11 +28,11 @@
             <form method="POST" action='{{ request.base }}'>
               <fieldset>
                 <label for="login-name">{{ i18n.gettext('Username') }}</label>
-                <input type='text' id="login-name" name="__login_name"
+                <input type='text' name="__login_name"
                   placeholder='{{ i18n.gettext('Username') }}'>
 
                 <label for="login-password">{{ i18n.gettext('Password') }}</label>
-                <input type="password" id="login-password" name="__login_password"
+                <input type="password" name="__login_password"
                   placeholder='{{ i18n.gettext('Password') }}'>
 
                 <div class="checkbox">
