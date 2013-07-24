@@ -1,0 +1,141 @@
+{% set columns = "id,activity,title,creator,project, status, type" %}
+{% set status_notresolved = "-1,1,2,3,4,5,6" %}
+
+<ul class='nav nav-stacked'>
+  <!-- PROJECTS -->
+  {% if request.user.hasPermission('View', 'project') %}
+    <li class="nav-header dropdown">
+      <a class="dropdown-toggle" id="menu-projects" data-toggle="dropdown" href="#">
+        <i class='icon-fixed-width icon-shield'></i> {{ i18n.gettext('Projects') }}
+      </a>
+
+      <ul class="dropdown-menu"  role="menu" aria-labelledby="menu-projects">
+        {% for project in db.project.list() %}
+        <li>
+          <a href="project{{ project.id }}">
+            <i class="icon-fixed-width icon-leaf"></i> {{ project.name }}
+          </a>
+        </li>
+        {% endfor %}
+
+        {% if request.user.hasPermission('Create', 'project') %}
+        <li>
+          <a href="project?@template=add">
+            <i class="icon-fixed-width icon-plus"></i>
+            {{ i18n.gettext('Create New') }}
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </li>
+  {% endif %}
+
+  <!-- QUERIES -->
+  {% if request.user.hasPermission('View', 'query') %}
+    <li class="nav-header dropdown">
+      <a class="dropdown-toggle" id="menu-queries" data-toggle="dropdown" href="#">
+        <i class='icon-fixed-width icon-search'></i> {{ i18n.gettext('Queries') }}
+      </a>
+
+    <ul class="dropdown-menu"  role="menu" aria-labelledby="menu-queries">
+      {% for query in request.user.queries %}
+      <li>
+        <a href="{{ query.klass }}?{{ query.url }}">
+          <i class="icon-fixed-width icon-pushpin"></i> {{ query.name }}
+        </a>
+      </li>
+      {% endfor %}
+
+      <li>
+        <a href="query?@template=edit">
+          <i class="icon-fixed-width icon-pencil"></i> {{ i18n.gettext('Edit') }}
+        </a>
+      </li>
+    </ul>
+  {% endif %}
+
+  <!-- ISSUE -->
+  {% if request.user.hasPermission('View', 'issue') %}
+    <li class="nav-header dropdown">
+      <a class="dropdown-toggle" id="menu-issues" data-toggle="dropdown" href="#">
+        <i class='icon-fixed-width icon-ticket'></i> {{ i18n.gettext('Issues') }}
+      </a>
+
+      <ul class="dropdown-menu"  role="menu" aria-labelledby="menu-issues">
+      {% if request.user.hasPermission('Create', 'issue') %}
+        <li>
+          <a href="issue?@template=item">
+            <i class="icon-fixed-width icon-plus"></i> {{ i18n.gettext('Create New') }}
+          </a>
+        </li>
+      {% endif %}
+
+      {% if  request.user.username != 'anonymous' %}
+        <li>
+          <a href="{{ request.indexargs_url('issue', {
+            '@sort': '-activity',
+            '@group': 'priority',
+            '@filter': 'status,assignedto',
+            '@columns': columns,
+            '@search_text': '',
+            'status': status_notresolved,
+            'assignedto': request.user.id,
+            '@dispname': i18n.gettext('Your Issues'),
+          }) }}">
+            <i class="icon-fixed-width icon-pushpin"></i> {{ i18n.gettext('Your Issues') }}
+          </a>
+        </li>
+      {% endif %}
+
+      <li>
+        <a href="{{ request.indexargs_url('issue', {
+          '@sort': '-activity',
+          '@group': 'priority',
+          '@filter': 'status,assignedto',
+          '@columns': columns,
+          '@search_text': '',
+          'status': status_notresolved,
+          'assignedto': '-1',
+          '@dispname': i18n.gettext('Show Unassigned'),
+         }) }}">
+           <i class="icon-fixed-width icon-file"></i> {{ i18n.gettext('Show Unassigned') }}
+         </a>
+      </li>
+      <li>
+        <a href="{{ request.indexargs_url('issue', {
+          '@sort': '-activity',
+          '@group': '',
+          '@filter': 'status',
+          '@columns': columns,
+          '@search_text': '',
+          'status': status_notresolved,
+          '@dispname': i18n.gettext('Show All'),
+        }) }}">
+          <i class="icon-fixed-width icon-file-alt"></i> {{ i18n.gettext('Show All') }}
+        </a>
+      </li>
+      <li>
+        <a href="issue?@template=search">
+          <i class="icon-fixed-width icon-search"></i> {{ i18n.gettext('Search') }}
+        </a>
+      </li>
+    </ul>
+  {% endif %}
+
+  <!-- HELP -->
+  <li class="nav-header dropdown">
+    <a class="dropdown-toggle" id="menu-help" data-toggle="dropdown" href="#">
+      <i class='icon-fixed-width icon-bookmark'></i> {{ i18n.gettext('Help') }}
+    </a>
+
+    <ul class="dropdown-menu"  role="menu" aria-labelledby="menu-help">
+      <li>
+        <a href="http://www.roundup-tracker.org">
+          <i class="icon-fixed-width icon-question-sign"></i> Roundup docs
+        </a>
+      </li>
+    </ul>
+  </li>
+
+</ul> <!-- nav -->
+<!-- SHA: 9f4ddd6106e9d02f1d4be1d153b30bbe8ad8645b -->

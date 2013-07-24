@@ -18,8 +18,22 @@
   <body>
     {% include '_include/navbar.html' %}
 
-    {% block content %}
-    {% endblock %}
+    <aside id="sidebar">
+      <nav class="main-menu">
+        {% include '_include/navigation.html' %}
+      </nav>
+    </aside>
+
+    <section id="content-wrapper">
+      {% block content %}
+        <div class="row">
+          <div class="col-12">
+            <h1>Header</h1>
+            <p>Lorem ipsum.</p>
+          </div>
+        </div>
+      {% endblock %}
+    </section>
 
     <script src='@@file/js/jquery.min.js'></script>
     <script src='@@file/js/bootstrap.min.js'></script>

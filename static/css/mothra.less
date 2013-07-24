@@ -1,5 +1,10 @@
+@sidebar_width: 280px;
+@default_padding: 20px;
+
 /* navbar */
 .navbar {
+  margin-bottom: 0;
+
   .navbar-brand {
     max-width: none;
   }
@@ -22,5 +27,33 @@
         padding-bottom: 10px;
       }
     }
+  }
+}
+
+/* sidebar */
+#sidebar {
+  width: @sidebar_width;
+  min-height: 100%;
+  position: fixed;
+  float: left;
+
+  padding: @default_padding;
+}
+
+/* content-wrapper */
+#content-wrapper {
+  margin-left: @sidebar_width;
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  #sidebar {
+    position: static;
+    width: 100%;
+    float: none;
+  }
+
+  #content-wrapper {
+    margin-left: 0;
   }
 }
