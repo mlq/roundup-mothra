@@ -99,6 +99,17 @@
 
 /* content-wrapper */
 #content-wrapper {
+  width: 100%;
+}
+
+@media (min-width: 980px) {
+  #content-wrapper {
+    width: 980px - @sidebar_width;
+  }
+}
+
+/* content */
+#content {
   margin-left: @sidebar_width;
   padding: @default_padding;
   overflow: hidden;
@@ -112,8 +123,8 @@
 
   }
 
-  #content-wrapper {
+  #content {
     padding: 0;
-    margin-left: 0;
+    margin: @default_padding;
   }
 }

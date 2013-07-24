@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
-      {% block title %}
-      {% endblock %}
+      {{ title }}
     </title>
 
     <link rel="stylesheet" type="text/css" href="@@file/css/bootstrap.min.css">
@@ -23,12 +22,17 @@
         {% include '_include/navigation.html' %}
       </nav>
 
-      <footer class="copyright hidden-sm clearfix">
+      <footer class="copyright hidden-sm">
         {% include '_include/footer.html' %}
       </footer>
     </aside>
 
-    <section id="content-wrapper">
+    <section id="content">
+      {% if not wide_layout %}
+        <div id="content-wrapper">
+      {% endif %}
+      {% block breadcrumb %}
+      {% endblock %}
       {% block content %}
         <div class="row">
           <div class="col-12">
@@ -37,10 +41,15 @@
           </div>
         </div>
       {% endblock %}
+      {% if not wide_layout %}
+      </div>
+      {% endif %}
     </section>
 
     <script src='@@file/js/jquery.min.js'></script>
     <script src='@@file/js/bootstrap.min.js'></script>
     <script src='@@file/js/respond.min.js'></script>
+    {% block extrajs %}
+    {% endblock %}
   </body>
 </html>
