@@ -1,4 +1,4 @@
-@default_padding: 20px;
+@default_padding: 15px;
 
 @sidebar_width: 280px;
 @sidebar_background_color: #222222;
@@ -59,7 +59,7 @@
         color: @sidebar_link_hover_color;
       }
 
-      a:active {
+      a:focus {
         background-color: @sidebar_background_color;
       }
 
@@ -84,6 +84,16 @@
         }
       }
     }
+  }
+
+  .copyright {
+    color: #666;
+    text-align: center;
+    position: absolute;
+    bottom: 80px;
+    left: 0;
+    text-align: center;
+    width: @sidebar_width;
   }
 }
 
