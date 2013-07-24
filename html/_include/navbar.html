@@ -1,0 +1,88 @@
+<div class="navbar">
+  <a class="navbar-brand" href="/">
+    <i class="icon-heart"></i> {{ i18n.gettext('mothra bug tracker') }}
+  </a>
+
+  <ul class="nav navbar-nav pull-right">
+    {% if request.user.hasPermission('Register', 'user') %}
+    <li>
+      <a href="user?@template=register">
+        <i class="icon-hand-up"></i> {{ i18n.gettext('Register') }}
+      </a>
+    </li>
+    {% endif %}
+
+    {% if request.user.username == 'anonymous' %}
+    <li class="dropdown">
+      <a class="dropdown-toggle" id="login-menu" data-toggle="dropdown" href="#">
+        <i class="icon-signin"></i> Login
+        <span class="caret"></span>
+      </a>
+      <div class="dropdown-menu" role="form" aria-labelledby="login-menu">
+        <form method="POST" action='{{ request.base }}'>
+          <fieldset>
+            <label for="login-name">{{ i18n.gettext('Username') }}</label>
+            <input type='text' id="login-name" name="__login_name"
+              placeholder='{{ i18n.gettext('Username') }}'>
+
+            <label for="login-password">{{ i18n.gettext('Password') }}</label>
+            <input type="password" id="login-password" name="__login_password"
+              placeholder='{{ i18n.gettext('Password') }}'>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="remember"> {{ i18n.gettext('Remember me?') }}
+              </label>
+            </div>
+
+            <button type="submit" class='btn btn-default btn-block'>
+              {{ i18n.gettext('Login') }}
+            </button>
+
+            <div class="divider"></div>
+
+            <a href="user?@template=forgotten">{{ i18n.gettext('Forgot password?') }}</a>
+
+            <input type="hidden" name="@action" value="login">
+            <input type="hidden" name="__came_from"
+              value='{{request.base}}{{request.env.PATH_INFO}}'>
+          </fieldset>
+        </form>
+      </div>
+    </li>
+    {% else %}
+    <li class='dropdown'>
+      <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+        <i class='icon-user'></i> {{ i18n.gettext('Your Profile') }}
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="user-menu">
+        <li>
+          <a href="user{{ request.user.id }}">
+            <i class="icon-cogs"></i> {{ i18n.gettext('Your Details') }}
+          </a>
+          <li>
+            <a href="{{ request.indexargs_url('issue', {
+              '@sort': '-activity',
+              '@group': 'priority',
+              '@filter': 'status,assignedto',
+              '@columns': 'id,activity,title,creator,status',
+              '@search_text': '',
+              'status': status_notresolved,
+              'assignedto': request.user.id,
+              '@dispname': i18n.gettext('Your tasks'),
+            }) }}">
+            <i class="icon-tasks"></i> {{ i18n.gettext('Your Issues') }}</a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="{{ request.indexargs_url('', {'@action':'logout'}) }}">
+              <i class="icon-signout"></i> {{ i18n.gettext('Logout') }}
+            </a>
+          </li>
+        </li>
+      </ul>
+    </li>
+    {% endif %}
+  </ul>
+</div>
