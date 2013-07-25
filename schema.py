@@ -92,16 +92,14 @@ query = Class(db, "query",
 # User
 #   A user of the tracker
 user = Class(db, "user",
-    username            = String(),
-    password            = Password(),
-    address             = String(),
-    realname            = String(),
-    phone               = String(),
-    organisation        = String(),
-    alternate_addresses = String(),
-    queries             = Multilink('query'),
-    roles               = String(),     # comma-separated string of Role names
-    timezone            = String()
+    username = String(),
+    password = Password(),
+    address  = String(),
+    realname = String(),
+    website  = String(),
+    queries  = Multilink('query'),
+    roles    = String(), # comma-separated string of Role names
+    timezone = String()
   )
 user.setkey("username")
 
@@ -174,8 +172,8 @@ def own_record(db, userid, itemid):
     return userid == itemid
 
 p = db.security.addPermission(name='Edit', klass='user', check=own_record,
-    properties=('username', 'password', 'address', 'realname', 'phone',
-        'organisation', 'alternate_addresses', 'queries', 'timezone'),
+    properties=('username', 'password', 'address', 'realname', 'website',
+        'organisation', 'queries', 'timezone'),
     description="User is allowed to edit their own user details")
 db.security.addPermissionToRole('User', p)
 

@@ -20,6 +20,7 @@ Dependencies
 ------------
 
   * [python2-validate_email](http://pypi.python.org/pypi/validate_email)
+  * [python2-pytz](http://pypi.python.org/pypi/pytz)
 
 Installation
 ------------

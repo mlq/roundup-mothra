@@ -1,0 +1,111 @@
+{% extends '_layout/base.html' %}
+
+{% set title = i18n.gettext('Registration') %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li>
+    <a href="user?@template=index">
+      User
+    </a>
+  </li>
+  <li class="active">
+    {{ title }}
+  </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+  <form method="POST"
+        name ="itemSynopsis"
+        enctype ="multipart/form-data"
+        class="form-horizontal"
+        action ='{{  context.designator() }}'>
+
+    <div class='row'>
+      <label class='col-lg-2 control-label' for='username'>{{ i18n.gettext('Username') }}</label>
+      <div class='col-lg-10'>
+          <input type='text' name="username" required>
+      </div>
+    </div>
+
+    <div class='row'>
+      <label class='col-lg-2 control-label' for='address'>{{ i18n.gettext('Email') }}</label>
+      <div class='col-lg-10'>
+        <input type='text' name="address" required>
+      </div>
+    </div>
+
+    <div class='row'>
+      <label class='col-lg-2 control-label' for='password'>{{ i18n.gettext('Password') }}</label>
+      <div class='col-lg-10'>
+        <input type='password' name='password' required>
+      </div>
+    </div>
+
+    <div class='row'>
+      <label class='col-lg-2 control-label' for='@confirm@password'>{{ i18n.gettext('Confirm Password') }}</label>
+      <div class='col-lg-10'>
+        <input type='password' name='@confirm@password'>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class='row'>
+      <label class='col-lg-2 control-label' for='realname'>{{ i18n.gettext('Full name') }}</label>
+      <div class='col-lg-10'>
+          <input type='text' name="realname">
+      </div>
+    </div>
+
+    {% if request.user.hasPermission('Web Roles') %}
+      <div class='row'>
+        <label class='col-lg-2 control-label' for='roles'>{{ i18n.gettext('Roles (comma
+          seperated)') }}</label>
+        <div class='col-lg-10'>
+          <input type='text' name='roles' value='{{ context.roles }}'>
+        </div>
+      </div>
+    {% endif %}
+
+    <div class='row'>
+      <label class='col-lg-2 control-label' for='website'>{{ i18n.gettext('Website') }}</label>
+      <div class='col-lg-10'>
+        <input type='text' name="website">
+      </div>
+    </div>
+
+    <div class='row'>
+      <label class='col-lg-2 control-label' for='timezone'>{{ i18n.gettext('Timezone') }}</label>
+      <div class='col-lg-10'>
+        <select name="timezone">
+          <option value=""></option>
+          {% for timezone in utils.get_timezones() %}
+            <option value="{{ timezone }}"
+              {% if context.timezone == timezone %}
+                selected="1"
+              {% endif %}
+            >{{ timezone }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-lg-10 col-offset-2'>
+        <button class="btn btn-primary" type="submit" name="submit">
+         {{ i18n.gettext('Register') }}
+       </button>
+
+       <input type="hidden" name="@template" value="register">
+       <input type="hidden" name="@action" value="register">
+      </div>
+    </div>
+  </form>
+{% endblock %}
