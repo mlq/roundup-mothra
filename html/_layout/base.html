@@ -13,6 +13,9 @@
     <link rel="stylesheet" type="text/css" href="@@file/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="@@file/css/font-awesome-ie7.min.css">
     <link rel="stylesheet" type="text/css" href="@@file/css/mothra.css">
+
+    {% block extrahead %}
+    {% endblock %}
   </head>
   <body>
     {% include '_include/navbar.html' %}
@@ -66,9 +69,9 @@
       {% endif %}
     </section>
 
-    <script src='@@file/js/jquery.min.js'></script>
-    <script src='@@file/js/bootstrap.min.js'></script>
-    <script src='@@file/js/respond.min.js'></script>
+    <script type="text/javascript" src='@@file/js/jquery.min.js'></script>
+    <script type="text/javascript" src='@@file/js/bootstrap.min.js'></script>
+    <script type="text/javascript" src='@@file/js/respond.min.js'></script>
     {% block extrajs %}
     {% endblock %}
   </body>

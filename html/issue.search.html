@@ -1,0 +1,268 @@
+{% extends '_layout/base.html' %}
+
+{% set title = i18n.gettext('Issue searching') %}
+
+{% block breadcrumb %}
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li>
+      <a href="{{ request.indexargs_url('issue', {
+        '@sort': '-activity',
+        '@group': 'priority',
+        '@filter': 'status',
+        '@columns': columns_showall,
+        '@search_text': '',
+        'status': '-1,1,2,3,4,5,6',
+        '@dispname': i18n.gettext('Show All'),
+        }) }}">{{ i18n.gettext('Issues') }}</a>
+    <span class="divider">/</span></li>
+    <li class="active">{{ i18n.gettext('Issue searching') }}</li>
+{% endblock %}
+
+{% block extrahead %}
+  <link rel="stylesheet" type="text/css" href="@@file/css/bootstrap-datepicker.css">
+{% endblock %}
+
+{% if request.columns %}
+  {% set cols = request.columns %}
+{% else %}
+  {% set cols = "id activity title status project creator type"|join(' ') %}
+{% endif %}
+
+{% macro search_input(name) %}
+  {% set value = request.form.getvalue(name) %}
+  {% if value|trim == "None" %}
+    {% set value = "" %}
+  {% endif %}
+  <input type="text" name="{{ name }}" value="{{ value }}" id="{{ name }}">
+{% endmacro %}
+
+{% macro column_input(name) %}
+  <input type="checkbox" name="@columns" value="{{ name }}" checked="{{ name in cols }}">
+{% endmacro %}
+
+{% macro sort_input(name) %}
+  <input type="radio" name="@sort" value="{{ name }}" checked="{{ name == sort_on }}">
+{% endmacro %}
+
+{% macro group_input(name) %}
+  <input type="radio" name="@group" value="{{ name }}" checked="{{ name == sort_on }}">
+{% endmacro %}
+
+{% macro search_select(name, db_klass, db_content) %}
+{% set value = request.form.getvalue(name) %}
+<select name="{{ name }}" id="{{ name }}" value="{{ value }}">
+  <option value="">{{ i18n.gettext("Don't care") }}</option>
+  <option value="" disabled="disabled">---</option>
+
+  {% for s in db[db_klass].list() %}
+    <option value="{{ s.id }}" 
+    {% if s.id == value %}
+    selected="1"
+    {% endif %}
+    >{{ s[db_content] }}</option>
+  {% endfor %}
+</select>
+{% endmacro %}
+
+{% macro search_date(name) %}
+  {% set value = request.form.getvalue(name) %}
+  {% if value|trim == "None" %}
+  {% set value = "" %}
+  {% endif %}
+  <div class="dp input-group date" data-date="{{ utils.get_date() }}" data-date-format="yyyy-mm-dd">
+    <input name={{ name }} id="{{ name }}" value="{{ value }}" size="16" type="text" readonly="">
+    <span class="input-group-addon"><i class="icon-calendar"></i></span>
+  </div>
+{% endmacro %}
+
+{% block content %}
+
+  {% include '_include/permission.html' %}
+
+  <form method="GET" name ="itemSynopsis" action ='{{  request.classname }}'>
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>{{ i18n.gettext('Filter on') }}</th>
+          <th>{{ i18n.gettext('Display') }}</th>
+          <th>{{ i18n.gettext('Sort on') }}</th>
+          <th>{{ i18n.gettext('Group on') }}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <th>
+            {{ i18n.gettext('All text') }} 
+          </th>
+          <td colspan="4">
+            {{ search_input("@search_text") }}
+          </td>
+        </tr>
+        <tr>
+          <th>{{ i18n.gettext('Title') }}</th>
+          <td>{{ search_input("title") }}</td>
+          <td>{{ column_input("title") }}</td>
+          <td>{{   sort_input("title") }}</td>
+          <td>{{  group_input("title") }}</td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Project') }}</th>
+          <td>{{ search_select("project", "project", "name") }}</td>
+          <td>{{  column_input("project") }}</td>
+          <td>{{    sort_input("project") }}</td>
+          <td>{{   group_input("project") }}</td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Version') }}</th>
+          <td>{{ search_select("version", "version", "name") }}</td>
+          <td>{{  column_input("version") }}</td>
+          <td>{{    sort_input("version") }}</td>
+          <td>{{   group_input("version") }}</td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Milestone') }}</th>
+          <td>{{ search_select("milestone", "milestone", "name") }}</td>
+          <td>{{  column_input("milestone") }}</td>
+          <td>{{    sort_input("milestone") }}</td>
+          <td>{{   group_input("milestone") }}</td>
+        </tr>
+        <tr>
+          <th>{{ i18n.gettext('Creation date') }}</th>
+          <td>{{  search_date("creation") }}</td>
+          <td>{{ column_input("creation") }}</td>
+          <td>{{   sort_input("creation") }}</td>
+          <td>{{  group_input("creation") }}</td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Creator') }}</th>
+          <td>{{ search_select("creator", "user", "username") }}</td>
+          <td>{{  column_input("creator") }}</td>
+          <td>{{    sort_input("creator") }}</td>
+          <td>{{   group_input("creator") }}</td>
+        </tr>
+        <tr>
+          <th>{{ i18n.gettext('Activity') }}</th>
+          <td>{{  search_date("activity") }}</td>
+          <td>{{ column_input("activity") }}</td>
+          <td>{{   sort_input("activity") }}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Actor') }}</th>
+          <td>{{ search_select("actor", "user", "username") }}</td>
+          <td>{{  column_input("actor") }}</td>
+          <td>{{    sort_input("actor") }}</td>
+          <td>{{   group_input("actor") }}</td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Priority') }}</th>
+          <td>{{ search_select("priority", "priority", "name") }}</td>
+          <td>{{  column_input("priority") }}</td>
+          <td>{{    sort_input("priority") }}</td>
+          <td>{{   group_input("priority") }}</td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Status') }}</th>
+          <td>{{ search_select("status", "status", "name") }}</td>
+          <td>{{  column_input("status") }}</td>
+          <td>{{    sort_input("status") }}</td>
+          <td>{{   group_input("status") }}</td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Type') }}</th>
+          <td>{{ search_select("type", "issue_type", "name") }}</td>
+          <td>{{  column_input("type") }}</td>
+          <td>{{    sort_input("type") }}</td>
+          <td>{{   group_input("type") }}</td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Resolution') }}</th>
+          <td>{{ search_select("resolution", "resolution", "name") }}</td>
+          <td>{{  column_input("resolution") }}</td>
+          <td>{{    sort_input("resolution") }}</td>
+          <td>{{   group_input("resolution") }}</td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Assigned to') }}</th>
+          <td>{{ search_select("assignedto", "user", "username") }}</td>
+          <td>{{  column_input("assignedto") }}</td>
+          <td>{{    sort_input("assignedto") }}</td>
+          <td>{{   group_input("assignedto") }}</td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('No Sort or group') }}</th>
+          <td></td>
+          <td></td>
+          <td>
+            <input type="radio" name="@sort" value="" checked="{{ sort_on == "" }}">
+          </td>
+          <td>
+            <input type="radio" name="@sort" value="" checked="{{ group_on == "" }}">
+          </td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Page size') }}</th>
+          <td colspan="4">
+            {% if request.form['@pagesize'] %}
+            {% set value = request.form['@pagesize'].value %}
+            {% else %}
+            {% set value = 50 %}
+            {% endif %}
+            <input type="text" name="@pagesize" size="3" value="{{ value }}">
+          </td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Start with') }}</th>
+          <td colspan="4">
+            {% if request.form['@startwith'] %}
+            {% set value = request.form['@startwith'].value %}
+            {% else %}
+            {% set value = 0 %}
+            {% endif %}
+            <input type="text" name="@startwith" size="3" value="{{ value }}">
+          </td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Sort descending') }}</th>
+          <td colspan="4">
+            <input type="checkbox" name="@sortdir" checked="{{ sort_desc }}">
+          </td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Group descending') }}</th>
+          <td colspan="4">
+            <input type="checkbox" name="@groupdir" checked="{{ group_desc }}">
+          </td>
+        </tr>
+        <tr>
+          <th>{{  i18n.gettext('Query') }}</th>
+          <td colspan="4">
+            {% if request.form['@queryname'] %}
+            {% set value = request.form['@queryname'].value %}
+            {% else %}
+            {% set value = "" %}
+            {% endif %}
+            <input type="text" name="@queryname" value="{{ value }}">
+            <input type="hidden" name="@old-queryname" value="{{ value }}">
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td colspan="4">
+            <input type="hidden" name="@action" value="search">
+            <input class="btn btn-primary" type="submit" value="{{ i18n.gettext('Search') }}">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+{% endblock %}
+{% block extrajs %}
+  <link rel="stylesheet" type="text/css" href="@@file/css/datepicker.css">
+  <script type="text/javascript" src='@@file/js/bootstrap-datepicker.js'></script>
+  <script type="text/javascript">
+  $('.dp').datepicker();
+  </script>
+{% endblock %}
