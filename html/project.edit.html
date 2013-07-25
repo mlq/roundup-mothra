@@ -1,0 +1,213 @@
+{% extends '_layout/base.html' %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li>
+    <a href="project?@template=index">
+      Projects
+    </a>
+  </li>
+  <li class="active">
+    {{ context.name }}
+  </li>
+</ul>
+{% endblock %}
+
+{% set issues = db.issue.filter(filterspec={"project":context.id}, sort=[('activity', '+')]) %}
+{% set milestones = db.milestone.filter(filterspec={"project":context.id}) %}
+{% set versions = db.version.filter(filterspec={"project":context.id}) %}
+
+{% block content %}
+  {% if context.is_edit_ok() %}
+    <ul class="nav nav-tabs" id="tabs">
+      <li class="active">
+        <a href="#tab-settings" data-toggle="tab">
+          {{ i18n.gettext('Settings') }}
+        </a>
+      </li>
+      <li>
+        <a href="#tab-milestones" data-toggle="tab">
+          {{ i18n.gettext('Milestones') }}
+        </a>
+      </li>
+      <li>
+        <a href="#tab-versions" data-toggle="tab">
+          {{ i18n.gettext('Versions') }}
+        </a>
+      </li>
+      <li>
+        <a href="#tab-history" data-toggle="tab">
+          {{ i18n.gettext('History') }}
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <! -- PROJECT SETTINGS -->
+      <div class="tab-pane active" id="tab-settings">
+        <form class='form-horizontal' method="POST" action='{{ context.designator() }}'>
+          <legend>{{ i18n.gettext('Edit project settings') }}</legend>
+          <div class="row">
+            <label class="col-lg-2 control-label" for="inputName">
+              {{ i18n.gettext('Name') }}
+            </label>
+            <div class="col-lg-10">
+              <input type="text" id="inputName" name="name"
+                placeholder="{{ i18n.gettext('Project name') }}"
+                value="{{ context.name }}">
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="col-lg-2 control-label" for="inputDescription">
+              {{ i18n.gettext('Description') }}
+            </label>
+            <div class="col-lg-10">
+              <textarea id="inputDescription" name="description"
+                placeholder="{{ i18n.gettext('Description') }}">{{ context.description }}</textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="col-lg-2 control-label" for="inputHomepage">
+              {{ i18n.gettext('Home page') }}
+            </label>
+            <div class="col-lg-10">
+              <input type="text" id="inputHomepage" name="homepage"
+              placeholder="{{ i18n.gettext('Home page') }}" value="{{
+              context.homepage }}">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-10 col-offset-2">
+              <input type='submit' name="submit_button" class='btn btn-primary' value="{{ i18n.gettext('Save') }}">
+            </div>
+          </div>
+
+          <input type="hidden" name="@required" value="name">
+          <input type="hidden" name="@action" value="edit">
+          <input type="hidden" name="@template" value="item">
+        </form>
+
+        <form class='form-horizontal' method="POST" action='project{{ context.id }}'>
+          <legend>{{ i18n.gettext('Retire project') }}</legend>
+          <input type="hidden" name="@template" value="index">
+          <input type="hidden" name="@action" value="retire">
+          <input type="submit" value="{{ i18n.gettext('Retire') }}" class='btn'>
+        </form>
+      </div>
+
+      <!-- MILESTONES -->
+      <div class="tab-pane" id="tab-milestones">
+        {% if milestones|length != 0 %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th>{{ i18n.gettext('Milestone') }}</th>
+              <th>{{ i18n.gettext('Retire') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for milestone in milestones %}
+            <tr>
+              <td>{{ milestone.name }}</td>
+              <td>
+                <form class='form-horizontal' method="POST" action='milestone{{ milestone.id }}'>
+                  <input type="hidden" name="@action" value="retire">
+                  <input type="submit" value="{{ i18n.gettext('Retire') }}" class='btn btn-tiny'>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+
+        <form class='form-horizontal' method="POST" action='milestone'>
+          <legend>{{ i18n.gettext('New milestone') }}</legend>
+          <div class="row">
+            <label class="col-lg-2 control-label" for="inputName">
+              {{ i18n.gettext('Name') }}
+            </label>
+            <div class="col-lg-10">
+              <input type="text" id="inputName" name="name"
+                placeholder="{{ i18n.gettext('Milestone name') }}">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-10 col-offset-2">
+              <input type='submit' class='btn btn-primary' value="{{
+              i18n.gettext('Create milestone') }}">
+            </div>
+          </div>
+
+          <input type="hidden" name="@required" value="name">
+          <input type="hidden" name="project" value="{{ context.id }}">
+          <input type="hidden" name="@action" value="new">
+        </form>
+      </div>
+
+        <!-- VERSIONS -->
+      <div class="tab-pane" id="tab-versions">
+        <legend>{{ i18n.gettext('Versions') }}</legend>
+
+        {% if versions|length != 0 %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th>{{ i18n.gettext('Version') }}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for version in versions %}
+            <tr>
+              <td>{{ version.name }}</td>
+              <td>
+                <form class='form-horizontal' method="POST" action='version{{ version.id }}'>
+                  <input type="hidden" name="@action" value="retire">
+                  <input type="submit" value="{{ i18n.gettext('Retire') }}" class='btn'>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+
+        <form class='form-horizontal' method="POST" action='version'>
+          <div class="row">
+            <label class="col-lg-2 control-label" for="inputName">
+              {{ i18n.gettext('Name') }}
+            </label>
+            <div class="col-lg-10">
+              <input type="text" id="inputName" name="name"
+                placeholder="{{ i18n.gettext('Version name') }}">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-10 col-offset-2">
+              <input type='submit' class='btn btn-primary' value="{{
+              i18n.gettext('Create version') }}">
+            </div>
+          </div>
+
+          <input type="hidden" name="@required" value="name">
+          <input type="hidden" name="project" value="{{ context.id }}">
+          <input type="hidden" name="@action" value="new">
+        </form>
+      </div>
+      <!-- HISTORY -->
+      <div class="tab-pane" id="tab-history">
+        {{ context.history() }}
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

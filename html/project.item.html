@@ -1,0 +1,128 @@
+{% extends '_layout/base.html' %}
+
+{% set title = context.name %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li>
+    <a href="project?@template=index">
+      Projects
+    </a>
+  </li>
+  <li class="active">
+    {{ context.name }}
+  </li>
+</ul>
+{% endblock %}
+
+{% set issues = db.issue.filter(filterspec={"project":context.id}, sort=[('+', 'activity')]) %}
+{% set milestones = db.milestone.filter(filterspec={"project":context.id}) %}
+{% set versions = db.version.filter(filterspec={"project":context.id}) %}
+
+{% block content %}
+  {% if context.is_view_ok() %}
+    <div class="row">
+      <div class="col-4">
+        <h4>{{ context.name }}
+          {% if context.is_edit_ok() %}
+          <small>(<a href="project{{ context.id
+              }}?@template=edit">Edit</a>)</small>
+          {% endif %}
+        </h4>
+        <p>{{ context.description }}</p>
+
+        {% if context.homepage %}
+        <p><a target="_self" href="{{ context.homepage }}"><i class="icon-globe"></i> {{
+          i18n.gettext('Homepage') }}</a></p>
+        {% endif %}
+      </div>
+      <div id="plotStatus" class="col-4" style="height: 200px;"></div>
+      <div id="plotType" class="col-4" style="height: 200px;"></div>
+    </div>
+
+    {% for milestone in milestones %}
+      {% if loop.first %}
+        <h4>{{ i18n.gettext('Roadmap') }}</h4>
+      {% endif %}
+
+      {% set milestone_issues =
+      db.issue.filter(filterspec={"project":context.id,"milestone":milestone.id}, sort=[('+', 'creation')]) %}
+      <h5>{{ milestone.name }}</h5>
+      <div class="progress">
+        <div class="bar bar-success" style="width: {{ utils.project_milestone_get_done(milestone_issues) }}%;"></div>
+        <div class="bar bar-warning" style="width: {{ utils.project_milestone_get_progress(milestone_issues) }}%;"></div>
+      </div>
+
+      {% if milestone_issues|length != 0 %}
+      <ul class="unstyled">
+        {% for issue in milestone_issues %}
+        <li>
+         {% if issue.status.plain() == "resolved" %}
+           <a class="inactive" href='issue{{ issue.id }}'>
+          {% else %}
+            <a href='issue{{ issue.id }}'>
+          {% endif %}
+
+          {% if issue.issue_type.plain() == "feature request" %}
+            Feature
+          {% elif issue.issue_type.plain() == "security" %}
+            Security
+          {% else %}
+            Patch
+           {% endif %}
+          #{{ issue.id }}
+          </a>:
+           {{ issue.title.plain(hyperlink=0) }}
+         </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% if not loop.last %}
+        <hr>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+{% block extrajs %}
+<script type="text/javascript" src='@@file/js/jquery.flot.min.js'></script>
+<script type="text/javascript" src='@@file/js/jquery.flot.pie.min.js'></script>
+<script type="text/javascript">
+var data = [
+{{ utils.project_flot_status(issues) }}
+];
+$.plot('#plotStatus', data, {
+    series: {
+        pie: {
+            show: true,
+          innerRadius: 0.5
+        }
+    },
+    legend: {
+        show: true
+    }
+});
+
+var data = [
+{{ utils.project_flot_type(issues) }}
+];
+
+$.plot('#plotType', data, {
+    series: {
+        pie: {
+          show: true,
+          innerRadius: 0.5
+        }
+    },
+    legend: {
+        show: true
+    }
+});
+</script>
+{% endblock %}
+{% endblock %}
+<!-- SHA: 1914b6e906230113d740ba05ece779b1c3800da2 -->
