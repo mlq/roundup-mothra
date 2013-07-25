@@ -1,0 +1,129 @@
+{% extends '_layout/base.html' %}
+
+{% macro render_include(query, request) %}
+  {% if query.id not in request.user.queries %}
+  <select name="user{{ request.user.id }}@add@queries">
+    <option value="">{{ i18n.gettext('Leave out') }}</option>
+    <option value="{{ query.id }}">{{ i18n.gettext('Include') }}</option>
+  </select>
+  {% endif %}
+  {% if query.id in request.user.queries %}
+  <select name="user{{ request.user.id }}@remove@queries">
+    <option value="">{{ i18n.gettext('Leave in') }}</option>
+    <option value="{{ query.id }}">{{ i18n.gettext('Remove') }}</option>
+  </select>
+  {% endif %}
+{% endmacro %}
+
+{% set title = i18n.gettext('Queries') %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li class="active">
+    {{ title }}
+  </li>
+</ul>
+{% endblock %}
+
+
+{% block content %}
+{% include '_include/permission.html' %}
+
+{% if context.is_edit_ok %}
+<form
+  method="POST"
+  name="editQueries"
+  action ='{{ context.designator() }}'
+  enctype="multipart/form-data">
+  <table class='table table-striped'>
+    <thead>
+      <tr>
+        <th>{{ i18n.gettext('Query') }}</th>
+        <th>{{ i18n.gettext('Include') }}</th>
+        <th>{{ i18n.gettext('Edit') }}</th>
+        <th>{{ i18n.gettext('Private') }}</th>
+        <th>{{ i18n.gettext('Delete') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for query in request.user.queries %}
+        <tr>
+          <td>
+            <a href="{{ query.klass }}?{{ query.url }}">{{ query.name }}</a>
+          </td>
+          <td>
+              {{ render_include(query, request) }}
+          </td>
+          <td>
+            <a href="query{{ query.id }}">{{ i18n.gettext('Edit') }}</a>
+          </td>
+          <td>
+            <select name="query{{ query.id }}@private_for">
+              <option
+              {% if query.private_for == request.user.id %}
+                selected="selected"
+              {% endif %}
+                value="{{ request.user.id }}">{{ i18n.gettext('Yes') }}</option>
+
+              <option
+              {% if query.private_for == None %}
+                selected="selected"
+              {% endif %}
+                value="-1">{{ i18n.gettext('No') }}</option>
+            </select>
+          </td>
+          <td>
+            <a href="query?id={{query.id}}&@action=retire&@template=edit">{{ i18n.gettext('Delete') }}</a>
+          </td>
+        </tr>
+      {% endfor %}
+      {% for query in db.query.filter(filterspec={'private_for' : None}) %}
+        {% if query.creator != request.user.id %}
+          <tr>
+            <td>
+              <a href="{{ query.klass }}?{{ query.url }}">{{ query.name }}</a>
+            </td>
+            <td>
+              {{ render_include(query, request) }}
+            </td>
+            <td colspan="3">
+              {% if query.is_edit_ok %}
+                <a href="query{{ query.id }}">{{ i18n.gettext('Edit') }}</a>
+              {% else %}
+                {{ i18n.gettext('Not yours') }}
+              {% endif %}
+            </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+      {% if request.user.queries %}
+      <tr>
+        <td colspan="5">
+          <input type="hidden" name="@action" value="edit">
+          <input type="hidden" name="@template" value="edit">
+          <button class="btn btn-default btn-primary" type="submit">
+           {{ i18n.gettext('Save') }}
+         </button>
+        </td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</form>
+{% endif %}
+
+{% block extrajs %}
+<script language="javascript">
+  function retire(qid) {
+    window.location = 'query'+qid+'?@action=retire&@template=edit';
+  }
+</script>
+{% endblock %}
+
+{% endblock %}
+<!-- SHA: 363b034c31bc94ec883633a0bd8b7c02a010cb46 -->
