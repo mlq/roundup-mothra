@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top">
+<header class="navbar navbar-fixed-top">
   <a class="navbar-brand" href="/">
     <i class="icon-heart"></i> {{ i18n.gettext('mothra bug tracker') }}
   </a>
@@ -8,7 +8,7 @@
     <i class="icon-ellipsis-vertical"></i>
   </button>
 
-  <div class="nav-collapse navbar-responsive-collapse collapse">
+  <nav id="top-menu" class="nav-collapse navbar-responsive-collapse collapse">
     <ul class="nav navbar-nav pull-right">
       {% if request.user.hasPermission('Register', 'user') %}
         <li>
@@ -117,5 +117,5 @@
         </li>
       {% endif %}
     </ul>
-  </div>
-</div>
+  </nav>
+</header>
