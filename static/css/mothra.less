@@ -1,4 +1,5 @@
 @default_padding: 15px;
+@font_size: 12px;
 
 @sidebar_width: 280px;
 @sidebar_background_color: #222222;
@@ -6,6 +7,34 @@
 @sidebar_link_hover_color: #EEEEEE;
 @sidebar_link_hover_background_color: #2A2A2A;
 @sidebar_icon_color: #777777;
+
+body {
+  font-size: @font_size;
+}
+
+label, input, button, select, textarea {
+  font-size: @font_size;
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  font-size: @font_size;
+}
 
 /* navbar */
 .navbar {
@@ -104,7 +133,7 @@
 
 @media (min-width: 980px) {
   #content-wrapper {
-    width: 980px - @sidebar_width;
+    width: 980px - @sidebar_width - @default_padding;
   }
 }
 
