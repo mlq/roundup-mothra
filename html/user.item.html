@@ -1,0 +1,81 @@
+{% extends '_layout/base.html' %}
+
+{% set title = context.username.plain() %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li>
+    <a href="user?@template=index">
+      User
+    </a>
+  </li>
+  <li class="active">
+    {{ title }}
+  </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+  {% include '_include/permission.html' %}
+
+  {% if context.is_view_ok() %}
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#tab-user" data-toggle="tab">
+          {{ i18n.gettext('Profile') }}
+        </a>
+      </li>
+      {% if context.is_edit_ok() %}
+      <li class="pull-right">
+        <a href="user{{context.id}}?@template=edit">
+          <i class="icon-pencil icon-fixed-width"></i> {{ i18n.gettext('Edit') }}
+        </a>
+      </li>
+      {% endif %}
+      <li class="pull-right">
+        <a href="#tab-history" data-toggle="tab">
+          <i class="icon-time icon-fixed-width"></i> {{ i18n.gettext('History') }}
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab-user">
+        <dl class='dl-horizontal dl-padding'>
+          {% if context.realname %}
+          <dt>{{ i18n.gettext('Name') }}</dt>
+          <dd>{{ context.realname }}</dd>
+          {% endif %}
+          {% if context.username %}
+          <dt>{{ i18n.gettext('Username') }}</dt>
+          <dd>{{ context.username }}</dd>
+          {% endif %}
+          {% if context.website %}
+          <dt>{{ i18n.gettext('Website') }}</dt>
+          <dd>
+            <a href="{{ context.website }}">
+              {{ context.website }}
+            </a>
+          </dd>
+          {% endif %}
+          {% if context.timezone %}
+          <dt>{{ i18n.gettext('Timezone') }}</dt>
+          <dd>{{ context.timezone }}</dd>
+          {% endif %}
+          {% if context.address %}
+          <dt>{{ i18n.gettext('E-Mail') }}</dt>
+          <dd>{{ context.address }}</dd>
+          {% endif %}
+        </dl>
+      </div>
+      <div class="tab-pane" id="tab-history">
+        {{ context.history() }}
+      </div>
+  </div>
+  {% endif %}
+{% endblock %}

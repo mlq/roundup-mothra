@@ -1,0 +1,50 @@
+{% extends '_layout/base.html' %}
+
+{% set title = i18n.gettext('Edit') + ' ' + context.username.plain() %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li>
+    <a href="user?@template=index">
+      User
+    </a>
+  </li>
+  <li>
+    <a href="user{{ context.id }}">
+      {{ context.username }}
+    </a>
+  </li>
+  <li class="active">
+    {{ i18n.gettext('Edit') }}
+  </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+  {% include '_include/permission.html' %}
+
+  {% if context.is_view_ok() %}
+    <form method="POST"
+          name ="itemSynopsis"
+          enctype ="multipart/form-data"
+          class="form-horizontal"
+          action ='{{ context.designator() }}'>
+
+        {% include '_include/form_user_edit.html' %}
+
+        <div class='control-group'>
+          <div class='controls'>
+            <input type="hidden" name="@template" value="item">
+            <input type="hidden" value="new" name="@action">
+            <input class="btn btn-primary" type="submit" value="{{
+            i18n.gettext('Submit') }}" name="submit_button">
+          </div>
+        </div>
+    </form>
+  {% endif %}
+{% endblock %}

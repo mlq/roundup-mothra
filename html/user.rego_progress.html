@@ -1,0 +1,25 @@
+{% extends '_layout/base.html' %}
+
+{% set title = i18n.gettext('Registration in progress') %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li class="active">
+    {{ i18n.gettext('Registration') }}
+  </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+  <h2>{{ title }}</h2>
+  <p>
+    {{ i18n.gettext('You will shortly receive an email to confirm your
+    registration. To complete the registration process, visit the link indicated
+    in the email.') }}
+  </p>
+{% endblock %}

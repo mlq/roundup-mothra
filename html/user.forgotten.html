@@ -1,0 +1,53 @@
+{% extends '_layout/base.html' %}
+
+{% set title = i18n.gettext('Reset password') %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li>
+    <a href="user?@template=index">
+      User
+    </a>
+  </li>
+  <li class="active">
+    {{ title }}
+  </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+  <form class="form-horizontal" method="POST" action='{{ context.designator() }}'>
+    <legend>{{ title }}</legend>
+    <div class='row'>
+      <label class='col-lg-2 control-label' for='address'>
+        {{ i18n.gettext('Email') }}
+      </label>
+      <div class='col-lg-10'>
+        <input type='text' name="address">
+      </div>
+    </div>
+    <div class='row'>
+      <label class='col-lg-2 control-label' for='username'>
+        {{ i18n.gettext('Username') }}
+      </label>
+      <div class='col-lg-10'>
+        <input type='text' name="username">
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-lg-10 col-offset-2'>
+      <button type="submit" value="submit" class='btn btn-primary'>
+        {{ i18n.gettext('Reset password') }}
+      </button>
+    </div>
+
+    <input type="hidden" name="@action" value="passrst">
+    <input type="hidden" name="@template" value="forgotten">
+  </form>
+{% endblock %}

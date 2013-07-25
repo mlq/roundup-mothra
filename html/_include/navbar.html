@@ -64,8 +64,7 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="user-menu">
-            {% if request.user.hasPermission('View', 'user') or
-              request.user.hasPermission('Edit', 'user') %}
+            {% if request.user.hasPermission('View', 'user') %}
               <li>
                 <a href="user">
                   <i class="icon-fixed-width icon-group"></i> {{ i18n.gettext('User List') }}

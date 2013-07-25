@@ -1,0 +1,67 @@
+{% extends '_layout/base.html' %}
+
+{% set title = i18n.gettext('Users') %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li class="active">
+    {{ title }}
+  </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+  {% include '_include/permission.html' %}
+
+  {% if context.is_view_ok() %}
+    <table class='table table-striped'>
+      <thead>
+        <tr>
+          <th>{{ i18n.gettext('Username') }}</th>
+          <th>{{ i18n.gettext('Real name') }}</th>
+          <th>{{ i18n.gettext('Email address') }}</th>
+          <th>{{ i18n.gettext('Website') }}</th>
+          {% if context.is_retire_ok() %}
+            <th>{{ i18n.gettext('Retire') }}</th>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+      {% for user in context.list() %}
+        <tr>
+          <td>
+            <a href='user{{ user.id }}'>{{ user.username }}</a>
+          </td>
+          <td>{{ user.realname.plain() }}</td>
+          <td>
+            <a href="mailto://{{ user.address }}">
+              {{ user.address }}
+            </a>
+          </td>
+          <td>
+            <a href="{{ user.website.plain() }}">
+              {{ user.website.plain() }}
+            </a>
+          </td>
+          {% if context.is_retire_ok() %}
+            <td>
+              <form method="POST" action='user{{ user.id }}' class='form-inline'>
+                <input type="hidden" name="@template" value="index">
+                <input type="hidden" name="@action" value="retire">
+                <button type="submit" value="retire" class='btn btn-small'>
+                  {{ i18n.gettext('Retire') }}
+                </button>
+              </form>
+            </td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endblock %}

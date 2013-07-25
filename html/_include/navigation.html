@@ -10,7 +10,7 @@
         <i class='icon-fixed-width icon-shield'></i> {{ i18n.gettext('Projects') }}
       </a>
 
-      <ul class="dropdown-menu"  role="menu" aria-labelledby="menu-projects">
+      <ul class="dropdown-menu" role="menu" aria-labelledby="menu-projects">
         {% for project in db.project.list() %}
         <li>
           <a href="project{{ project.id }}">
@@ -20,7 +20,7 @@
         {% endfor %}
 
         <li>
-          <a href="project@template=index">
+          <a href="project">
             <i class="icon-fixed-width icon-list"></i>
             {{ i18n.gettext('View all') }}
           </a>
@@ -46,7 +46,7 @@
         <i class='icon-fixed-width icon-search'></i> {{ i18n.gettext('Queries') }}
       </a>
 
-    <ul class="dropdown-menu"  role="menu" aria-labelledby="menu-queries">
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu-queries">
       {% for query in request.user.queries %}
       <li>
         <a href="{{ query.klass }}?{{ query.url }}">
@@ -70,7 +70,7 @@
         <i class='icon-fixed-width icon-ticket'></i> {{ i18n.gettext('Issues') }}
       </a>
 
-      <ul class="dropdown-menu"  role="menu" aria-labelledby="menu-issues">
+      <ul class="dropdown-menu" role="menu" aria-labelledby="menu-issues">
       {% if request.user.hasPermission('Create', 'issue') %}
         <li>
           <a href="issue?@template=item">
@@ -131,13 +131,29 @@
     </ul>
   {% endif %}
 
+  <!-- QUERIES -->
+  {% if request.user.hasPermission('View', 'user') %}
+    <li class="nav-header dropdown">
+      <a class="dropdown-toggle" id="menu-user" data-toggle="dropdown" href="#">
+        <i class='icon-fixed-width icon-group'></i> {{ i18n.gettext('User') }}
+      </a>
+
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu-queries">
+      <li>
+        <a href="user">
+          <i class="icon-fixed-width icon-list"></i> {{ i18n.gettext('User List') }}
+        </a>
+      </li>
+    </ul>
+  {% endif %}
+
   <!-- HELP -->
   <li class="nav-header dropdown">
     <a class="dropdown-toggle" id="menu-help" data-toggle="dropdown" href="#">
       <i class='icon-fixed-width icon-bookmark'></i> {{ i18n.gettext('Help') }}
     </a>
 
-    <ul class="dropdown-menu"  role="menu" aria-labelledby="menu-help">
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu-help">
       <li>
         <a href="http://www.roundup-tracker.org">
           <i class="icon-fixed-width icon-question-sign"></i> Roundup docs
