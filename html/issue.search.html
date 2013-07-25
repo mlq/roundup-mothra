@@ -1,21 +1,31 @@
 {% extends '_layout/base.html' %}
 
-{% set title = i18n.gettext('Issue searching') %}
+{% set title = i18n.gettext('Search') %}
 
 {% block breadcrumb %}
-  <li><a href="/">Home</a> <span class="divider">/</span></li>
+<ul class="breadcrumb">
   <li>
-      <a href="{{ request.indexargs_url('issue', {
-        '@sort': '-activity',
-        '@group': 'priority',
-        '@filter': 'status',
-        '@columns': columns_showall,
-        '@search_text': '',
-        'status': '-1,1,2,3,4,5,6',
-        '@dispname': i18n.gettext('Show All'),
-        }) }}">{{ i18n.gettext('Issues') }}</a>
-    <span class="divider">/</span></li>
-    <li class="active">{{ i18n.gettext('Issue searching') }}</li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li>
+    <a href="{{ request.indexargs_url('issue', {
+      '@sort': '-activity',
+      '@group': 'priority',
+      '@filter': 'status',
+      '@columns': columns_showall,
+      '@search_text': '',
+      'status': '-1,1,2,3,4,5,6',
+      '@dispname': i18n.gettext('Show All'),
+    }) }}">
+      {{ i18n.gettext('Issues') }}
+    </a>
+  </li>
+  <li class="active">
+    {{ title }}
+  </li>
+</ul>
 {% endblock %}
 
 {% block extrahead %}
