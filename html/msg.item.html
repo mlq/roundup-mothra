@@ -1,0 +1,46 @@
+{% extends '_layout/base.html' %}
+
+{% set title = i18n.gettext('Message') %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li class="active">
+    {{ title }}
+  </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+  {% include '_include/permission.html' %}
+
+  {% if context.is_view_ok() %}
+    <div class="panel">
+      <div class="panel-heading">
+        <a href='msg{{ context.id }}'>
+          <i class="icon-comment"></i>
+        </a>
+        <a href="user{{ context.author.id }}">
+          {{ context.author }}
+        </a>
+        {{ i18n.gettext('commented') }}
+        <div class="pull-right">
+          {{ context.date.reldate() }}
+        </div>
+      </div>
+
+      <pre>{{ context.content.hyperlinked() }}</pre>
+    </div>
+
+    {% if context.files %}
+      <h4 id="issue-files">{{ i18n.gettext('Files') }}</h4>
+      {% include '_include/files.html' %}
+    {% endif %}
+
+    {{ context.history() }}
+  {% endif %}
+{% endblock %}
