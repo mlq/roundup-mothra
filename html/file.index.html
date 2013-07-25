@@ -1,0 +1,23 @@
+{% extends '_layout/base.html' %}
+
+{% if context.id %}
+{% set title = i18n.gettext('Files') %}
+{% endif %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li class="active">
+    {{ title }}
+  </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+{% include '_include/permission.html' %}
+{% include '_include/files.html' %}
+{% endblock %}

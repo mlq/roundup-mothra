@@ -1,0 +1,150 @@
+{% extends '_layout/base.html' %}
+
+{% if not context.id and context.is_edit_ok() %}
+{% set title = i18n.gettext('New Issue') %}
+{% elif context.id and context.is_edit_ok() %}
+{% set title = i18n.gettext('Edit Issue') %}
+{% else %}
+{% set title = i18n.gettext('Issue') + context.id  %}
+{% endif %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li>
+    <a href="{{ request.indexargs_url('issue', {
+      '@sort': '-activity',
+      '@group': 'priority',
+      '@filter': 'status',
+      '@columns': columns_showall,
+      '@search_text': '',
+      'status': '-1,1,2,3,4,5,6',
+      '@dispname': i18n.gettext('Show All'),
+    }) }}">
+      {{ i18n.gettext('Issues') }}
+    </a>
+  </li>
+  <li class="active">
+    {{ title }}
+  </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+  {% include '_include/permission.html' %}
+  {% if context.is_view_ok() %}
+    <ul class="nav nav-tabs" id="tabs">
+      <li class="active">
+        <a href="#tab-issue" data-toggle="tab">
+          {{ title }}
+        </a>
+      </li>
+
+      {% if context.id %}
+      <li class="pull-right">
+        <a href="#tab-history" data-toggle="tab">
+          <i class="icon-time icon-fixed-width"></i> {{ i18n.gettext('History') }}
+        </a>
+      </li>
+      <li class="pull-right">
+        <a href="#issue-messages">
+          <i class="icon-comments icon-fixed-width"></i> {{ i18n.gettext('Messages') }}
+        </a>
+      </li>
+      {% endif %}
+      {% if context.files %}
+      <li class="pull-right">
+        <a href="#issue-files">
+          <i class="icon-file-alt icon-fixed-width"></i> {{ i18n.gettext('Files') }}
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab-issue">
+        <div class="well">
+          {% if context.id %}
+            <p>
+              <div class="pull-left">
+                {{ i18n.gettext('Created on') }} {{ context.creation }}
+                {{ i18n.gettext('by') }}
+                <a href="user{{ context.creator.id }}">
+                 {{ context.creator }}
+                </a>
+              </div>
+              <div class="pull-right">
+                {{ i18n.gettext('Last changed on') }} {{ context.activity }}
+                {{ i18n.gettext('by') }}
+                <a href="user{{ context.actor.id }}">
+                 {{ context.actor }}
+                </a>
+              </div>
+              <div class="clearfix"></div>
+            </p>
+            <hr>
+          {% endif %}
+
+          {% if context.is_edit_ok() %}
+            {% include 'issue.item.edit.html' %}
+          {% else %}
+            {% include 'issue.item.readonly.html' %}
+          {% endif %}
+        </div>
+
+        {% if context.files %}
+          <h4 id="issue-files">{{ i18n.gettext('Files') }}</h4>
+          {% include '_include/files.html' %}
+        {% endif %}
+
+        {% if context.messages %}
+          <h4 id="issue-messages">Messages</h4>
+          {% for msg in context.messages %}
+          <div class="panel">
+            <div class="panel-heading">
+              <a href='msg{{ msg.id }}'>
+                <i class="icon-comment"></i>
+              </a>
+              <a href="user{{ msg.author.id }}">
+                {{ msg.author }}
+              </a>
+              {{ i18n.gettext('commented') }}
+              <div class="pull-right">
+                {{ msg.date.reldate() }}
+              </div>
+            </div>
+
+            <pre>{{ msg.content.hyperlinked() }}</pre>
+          </div>
+          {% endfor %}
+        {% endif %}
+      </div> <!-- tab-issue -->
+      {% if context.id %}
+      <div class="tab-pane" id="tab-history">
+        <h4>History</h4>
+        {{ context.history() }}
+      </div> <!-- tab-history -->
+      {% endif %}
+    </div> <!-- tab-content -->
+  {% endif %}
+{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+$('#tabs a[href="#issue-messages"]').click(function (e) {
+  e.preventDefault();
+  $('#tabs a[href="#tab-issue"]').tab('show');
+  location.href = "#issue-messages"
+})
+
+$('#tabs a[href="#issue-files"]').click(function (e) {
+  e.preventDefault();
+  $('#tabs a[href="#tab-issue"]').tab('show');
+  location.href = "#issue-files"
+})
+</script>
+{% endblock %}

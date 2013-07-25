@@ -1,12 +1,16 @@
 @default_padding: 15px;
 @font_size: 12px;
 
+@navbar_height: 50px;
+
 @sidebar_width: 280px;
 @sidebar_background_color: #222222;
 @sidebar_link_color: #CCCCCC;
 @sidebar_link_hover_color: #EEEEEE;
 @sidebar_link_hover_background_color: #2A2A2A;
 @sidebar_icon_color: #777777;
+
+@issue_dl_padding: 10px;
 
 body {
   font-size: @font_size;
@@ -65,6 +69,10 @@ input[type="color"],
       }
     }
   }
+}
+
+.sort {
+  padding: 10px;
 }
 
 /* sidebar */
@@ -129,6 +137,7 @@ input[type="color"],
 /* content-wrapper */
 #content-wrapper {
   width: 100%;
+  min-height: 100%;
 }
 
 @media (min-width: 980px) {
@@ -140,8 +149,8 @@ input[type="color"],
 /* content */
 #content {
   margin-left: @sidebar_width;
+  margin-top: @navbar_height;
   padding: @default_padding;
-  overflow: hidden;
 }
 
 @media (max-width: 767px) {
@@ -155,5 +164,39 @@ input[type="color"],
   #content {
     padding: 0;
     margin: @default_padding;
+  }
+}
+
+.tab-content {
+  margin-top: @default_padding;
+}
+
+.panel {
+  font-size: @font_size;
+
+  .panel-heading {
+    font-size: @font_size;
+  }
+
+  pre {
+    font-size: @font_size;
+    border: 0;
+    background: inherit;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.btn-tiny {
+  font-size: @font_size;
+  padding: 2px 4px;
+}
+
+dl.dl-issue {
+  margin: 0;
+  margin-bottom: -2 * @issue_dl_padding;
+
+  dt,dd {
+    padding-bottom: @issue_dl_padding;
   }
 }

@@ -1,0 +1,36 @@
+{% macro render_issue_status(status) %}
+  {% if status == "unread" %}
+    {% set label = "label-important" %}
+  {% elif status == "confirmed" %}
+    {% set label = "label-inverse" %}
+  {% elif status == "deferred" %}
+    {% set label = "" %}
+  {% elif status == "feedback" %}
+    {% set label = "label-info" %}
+  {% elif status == "in-progress" %}
+    {% set label = "label-warning" %}
+  {% elif status == "testing" %}
+    {% set label = "label-testing" %}
+  {% elif status == "resolved" %}
+    {% set label = "label-success" %}
+  {% elif status == "" %}
+    {% set label = "" %}
+    {% set status = "no status" %}
+  {% endif %}
+
+  <span class="label {{ label }}"> {{ status }} </span>
+{% endmacro %}
+
+{% macro render_issue_priority(priority) %}
+  {% if priority == "critical" %}
+    {% set label = "label-important" %}
+  {% elif priority == "high" %}
+    {% set label = "label-warning" %}
+  {% elif priority == "normal" %}
+    {% set label = "label-info" %}
+  {% elif priority == "low" %}
+    {% set label = "" %}
+  {% endif %}
+
+  <span class="label {{ label }}"> {{ priority }} </span>
+{% endmacro %}

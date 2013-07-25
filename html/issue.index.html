@@ -1,0 +1,196 @@
+{% import "_macros/issue.html" as macro_issue %}
+
+{% extends '_layout/base.html' %}
+
+{% set fluid_layout = true %}
+
+{% set title = i18n.gettext('List of issues') %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li class="active">
+    {{ title }}
+  </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+  {% include '_include/permission.html' %}
+  {% if context.is_view_ok() %}
+    <ul class="nav nav-tabs">
+      <li class="dropdown pull-right">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+          <i class="icon-sort"></i> Sort <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu sort">
+          <li>
+            {% include '_include/sort.html' %}
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    {% if context.list() %}
+      <table class='table table-striped table-condensed'>
+        <thead>
+          <tr>
+            {% if request.show.id %}
+              <th>{{ i18n.gettext('ID') }}</th>
+            {% endif %}
+            {% if request.show.creation %}
+              <th>{{ i18n.gettext('Creation') }}</th>
+            {% endif %}
+            {% if request.show.activity %}
+              <th>{{ i18n.gettext('Activity') }}</th>
+            {% endif %}
+            {% if request.show.priority %}
+              <th>{{ i18n.gettext('Priority') }}</th>
+            {% endif %}
+            {% if request.show.actor %}
+              <th>{{ i18n.gettext('Actor') }}</th>
+            {% endif %}
+            {% if request.show.title %}
+              <th>{{ i18n.gettext('Title') }}</th>
+            {% endif %}
+            {% if request.show.status %}
+              <th>{{ i18n.gettext('Status') }}</th>
+            {% endif %}
+            {% if request.show.resolution %}
+              <th>{{ i18n.gettext('Resolution') }}</th>
+            {% endif %}
+            {% if request.show.creator %}
+              <th>{{ i18n.gettext('Creator') }}</th>
+            {% endif %}
+            {% if request.show.assignedto %}
+              <th>{{ i18n.gettext('Assigned to') }}</th>
+            {% endif %}
+            {% if request.show.project %}
+              <th>{{ i18n.gettext('Project') }}</th>
+            {% endif %}
+            {% if request.show.version %}
+              <th>{{ i18n.gettext('Version') }}</th>
+            {% endif %}
+            {% if request.show.milestone %}
+              <th>{{ i18n.gettext('Milestone') }}</th>
+            {% endif %}
+            {% if request.show.issue_type %}
+              <th>{{ i18n.gettext('Type') }}</th>
+            {% endif %}
+            {% if request.show.resolution %}
+              <th>{{ i18n.gettext('Resolution') }}</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for issue in context.list() %}
+            <tr>
+              {% if request.show.id %}
+                <td>
+                  <a href='issue{{ issue.id }}'>#{{ issue.id }}</a>
+                </td>
+              {% endif %}
+              {% if request.show.creation %}
+                <td>
+                  {{ issue.creation.reldate() }}
+                </td>
+              {% endif %}
+              {% if request.show.activity %}
+                <td>
+                  {{ issue.activity.reldate() }}
+                </td>
+              {% endif %}
+              {% if request.show.priority %}
+                <td>
+                  {{ macro_issue.render_issue_priority(issue.priority.plain()) }}
+                </td>
+              {% endif %}
+              {% if request.show.actor %}
+                <td>
+                  <a href='user{{ issue.actor.id }}'>
+                    {% if issue.actor.realname %}
+                      {% if issue.actor.realname|trim == "[hidden]"%}
+                        {{ issue.actor.plain() }}
+                      {% else %}
+                        {{ issue.actor.realname }}
+                      {% endif %}
+                    {% else %}
+                      {{ issue.actor.plain() }}
+                    {% endif %}
+                  </a>
+                </td>
+              {% endif %}
+              {% if request.show.title %}
+               <td>
+                <a href='issue{{ issue.id }}'>{{ issue.title.plain(hyperlink=0) }}</a>
+               </td>
+              {% endif %}
+              {% if request.show.status %}
+                <td>
+                  {{ macro_issue.render_issue_status(issue.status.plain()) }}
+                </td>
+              {% endif %}
+              {% if request.show.resolution %}
+                <td>
+                  {{ issue.resolution.plain() }}
+                </td>
+              {% endif %}
+              {% if request.show.creator %}
+                <td>
+                  <a href='user{{ issue.creator.id }}'>
+                    {% if issue.creator.realname %}
+                      {% if issue.creator.realname|trim == "[hidden]"%}
+                        {{ issue.creator.plain() }}
+                      {% else %}
+                        {{ issue.creator.realname }}
+                      {% endif %}
+                    {% else %}
+                      {{ issue.creator.plain() }}
+                    {% endif %}
+                  </a>
+                </td>
+              {% endif %}
+              {% if request.show.assignedto %}
+                <td>
+                  {{ issue.assignedto.plain() }}
+                </td>
+              {% endif %}
+              {% if request.show.project %}
+                <td>
+                  {{ issue.project.plain() }}
+                </td>
+              {% endif %}
+              {% if request.show.version %}
+                <td>
+                  {{ issue.version.plain() }}
+                </td>
+              {% endif %}
+              {% if request.show.milestone %}
+                <td>
+                  {{ issue.milestone.plain() }}
+                </td>
+              {% endif %}
+              {% if request.show.issue_type %}
+                <td>
+                  {{ issue.issue_type.plain() }}
+                </td>
+              {% endif %}
+              {% if request.show.resolution %}
+                <td>
+                  {{ issue.resolution.plain() }}
+                </td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+
+    {% include '_include/pagination.html' %}
+  {% endif %}
+
+{% endblock %}

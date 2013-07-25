@@ -13,7 +13,7 @@
       {% if request.user.hasPermission('Register', 'user') %}
         <li>
           <a href="user?@template=register">
-            <i class="icon-hand-up"></i> {{ i18n.gettext('Register') }}
+            <i class="icon-fixed-width icon-hand-up"></i> {{ i18n.gettext('Register') }}
           </a>
         </li>
       {% endif %}
@@ -21,7 +21,7 @@
       {% if request.user.username == 'anonymous' %}
         <li class="dropdown">
           <a class="dropdown-toggle" id="login-menu" data-toggle="dropdown" href="#">
-            <i class="icon-signin"></i> Login
+            <i class="icon-fixed-width icon-signin"></i> Login
             <span class="caret"></span>
           </a>
           <div class="dropdown-menu" role="form" aria-labelledby="login-menu">

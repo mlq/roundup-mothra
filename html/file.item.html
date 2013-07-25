@@ -1,0 +1,93 @@
+{% extends '_layout/base.html' %}
+
+{% if context.id %}
+{% set title = i18n.gettext('Edit') + ' ' + context.name.plain() %}
+{% else %}
+{% set title = i18n.gettext('Edit File') %}
+{% endif %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li class="active">
+    {{ title }}
+  </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+  {% include '_include/permission.html' %}
+  {% if context.is_view_ok() and context.id %}
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#tab-file" data-toggle="tab">
+          {{ context.name }}
+        </a>
+      </li>
+
+      <li class="pull-right">
+        <a href="#tab-history" data-toggle="tab">
+          <i class="icon-time icon-fixed-width"></i> {{ i18n.gettext('History') }}
+        </a>
+      </li>
+      {% if context.is_edit_ok() %}
+      <li class="pull-right">
+        <a href="#tab-edit" data-toggle="tab">
+          <i class="icon-pencil icon-fixed-width"></i> {{ i18n.gettext('Edit') }}
+        </a>
+      </li>
+      {% endif %}
+      <li class="pull-right">
+        <a href='file{{ context.id }}/{{ context.name }}'>
+          <i class="icon-download-alt"></i> {{ i18n.gettext('Download') }}
+        </a>
+      </li>
+    </ul> <!-- nav -->
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab-file">
+        <pre>{{ context.content }}</pre>
+      </div> <!-- tab-file -->
+      {% if context.is_edit_ok() %}
+      <div class="tab-pane" id="tab-edit">
+        <form class="form-horizontal" method="POST"
+          enctype="multipart/form-data" action='{{ context.designator() }}'>
+          <div class="row">
+            <label class="col-lg-2 control-label" for="name">{{ i18n.gettext('Name') }}</label>
+            <div class="col-lg-10">
+              {{ context.name.field() }}
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-lg-2 control-label" for="type">{{ i18n.gettext('Type') }}</label>
+            <div class="col-lg-10">
+              {{ context.type.field() }}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-10 col-offset-2">
+              <button class="btn btn-default btn-primary" type="submit" name="submit_button">
+                {{ i18n.gettext('Submit') }}
+              </button>
+            </div>
+          </div>
+
+          <input type="hidden" name="@template" value="item">
+          <input type="hidden" name="@action" value="edit">
+          <input type="hidden" name="@required" value="name,type">
+          {% if request.form.has_key('@multilink') %}
+            <input type="hidden" name="@multilink" value='request.form.@multilink.value()'>
+          {% endif %}
+        </form>
+      </div> <!-- tab-edit -->
+      {% endif %}
+      <div class="tab-pane" id="tab-history">
+        {{ context.history() }}
+      </div> <!-- tab-history -->
+    </div> <!-- tab-content -->
+  {% endif %}
+{% endblock %}

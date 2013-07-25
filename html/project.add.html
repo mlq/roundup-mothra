@@ -21,54 +21,53 @@
 {% endblock %}
 
 {% block content %}
-{% if request.user.hasPermission('View', 'project') %}
-  <h2>{{ title }}</h2>
+  {% include '_include/permission.html' %}
+  {% if request.user.hasPermission('View', 'project') %}
+    <h2>{{ title }}</h2>
 
-  <form class="form-horizontal" method="POST" action='{{ context.designator() }}'>
-    <div class="row">
-      <label for="inputName" class="col-lg-2 control-label">
-        {{ i18n.gettext('Name') }}
-      </label>
-      <div class="col-lg-10">
-        <input type="text" id="inputName" name="name"
-          placeholder="{{ i18n.gettext('Project name') }}">
+    <form class="form-horizontal" method="POST" action='{{ context.designator() }}'>
+      <div class="row">
+        <label for="inputName" class="col-lg-2 control-label">
+          {{ i18n.gettext('Name') }}
+        </label>
+        <div class="col-lg-10">
+          <input type="text" id="inputName" name="name"
+            placeholder="{{ i18n.gettext('Project name') }}">
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <label for="inputDescription" class="col-lg-2 control-label">
-        {{ i18n.gettext('Description') }}
-      </label>
-      <div class="col-lg-10">
-        <textarea id="inputDescription" name="description"
-          placeholder="{{ i18n.gettext('Description') }}">
-        </textarea>
+      <div class="row">
+        <label for="inputDescription" class="col-lg-2 control-label">
+          {{ i18n.gettext('Description') }}
+        </label>
+        <div class="col-lg-10">
+          <textarea id="inputDescription" name="description"
+            placeholder="{{ i18n.gettext('Description') }}">
+          </textarea>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <label for="inputHomepage" class="col-lg-2 control-label">
-        {{ i18n.gettext('Home page') }}
-      </label>
-      <div class="col-lg-10">
-        <input type="text" id="inputHomepage" name="homepage"
-          placeholder="{{ i18n.gettext('Home page') }}">
+      <div class="row">
+        <label for="inputHomepage" class="col-lg-2 control-label">
+          {{ i18n.gettext('Home page') }}
+        </label>
+        <div class="col-lg-10">
+          <input type="text" id="inputHomepage" name="homepage"
+            placeholder="{{ i18n.gettext('Home page') }}">
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-lg-10 col-offset-2">
-        <button type='submit' class='btn btn-primary'>
-          {{ i18n.gettext('Create project') }}
-        </button>
+      <div class="row">
+        <div class="col-lg-10 col-offset-2">
+          <button type='submit' class='btn btn-primary'>
+            {{ i18n.gettext('Create project') }}
+          </button>
+        </div>
       </div>
-    </div>
 
-    <input type="hidden" name="@required" value="name">
-    <input type="hidden" name="@template" value="item">
-    <input type="hidden" name="@action" value="new">
-  </form>
-{% else %}
-  {% include '_include/error-permission.html' %}
-{% endif %}
+      <input type="hidden" name="@required" value="name">
+      <input type="hidden" name="@template" value="item">
+      <input type="hidden" name="@action" value="new">
+    </form>
+  {% endif %}
 {% endblock %}

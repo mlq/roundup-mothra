@@ -1,0 +1,150 @@
+{% set required_columns = "title,priority,project" %}
+
+<form method="POST"
+  {% if context.id %}
+    action="issue{{ context.id }}"
+  {% else %}
+    action="issue"
+  {% endif %}
+  name="itemSynopsis"
+  enctype="multipart/form-data"
+  class="form-horizontal"
+>
+  <div class="row">
+    <label class="col-lg-2 control-label" for="title">{{ i18n.gettext('Title') }}</label>
+    <div class="col-lg-10">
+      <input name="title" id="title" type="text" class="input-xxlarge" value="{{ context.title }}" required>
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="col-lg-2 control-label" for="project">{{ i18n.gettext('Project') }}</label>
+    <div class="col-lg-10">
+      {{ context.project.menu() }}
+    </div>
+  </div>
+
+  {% if context.project %}
+    {% set versions = db.version.filter(filterspec={'project':context.project.id}) %}
+    <div class="row">
+      <label class="col-lg-2 control-label" for="version">{{ i18n.gettext('Version') }}</label>
+      <div class="col-lg-10">
+        <select name="version">
+          <option value="-1"
+            {% if not context.version %}
+              selected="1"
+            {% endif %}
+          >{{ i18n.gettext('- no selection -') }}</option>
+          {% for version in versions %}
+            <option value="{{ version.id }}"
+            {% if context.version.plain()|trim == version.name %}
+              selected="1"
+            {% endif %}
+            >{{ version.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    {% set milestones = db.milestone.filter(filterspec={'project':context.project.id}) %}
+    <div class="row">
+      <label class="col-lg-2 control-label" for="milestone">{{ i18n.gettext('Milestone') }}</label>
+      <div class="col-lg-10">
+        <select name="milestone">
+          <option value="-1"
+          {% if not context.version %}
+            selected="1"
+          {% endif %}
+          >{{ i18n.gettext('- no selection -') }}</option>
+          {% for milestone in milestones %}
+            <option value="{{ milestone.id }}"
+            {% if context.milestone.plain()|trim == milestone.name %}
+              selected="1"
+            {% endif %}
+            >{{ milestone.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="row">
+    <label class="col-lg-2 control-label" for="status">{{ i18n.gettext('Status') }}</label>
+    <div class="col-lg-10">
+      {{ context.status.menu() }}
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="col-lg-2 control-label" for="issue_type">{{ i18n.gettext('Type') }}</label>
+    <div class="col-lg-10">
+      {{ context.issue_type.menu() }}
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="col-lg-2 control-label" for="status">{{ i18n.gettext('Resolution') }}</label>
+    <div class="col-lg-10">
+      {{ context.resolution.menu() }}
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="col-lg-2 control-label" for="priority">{{ i18n.gettext('Priority') }}</label>
+    <div class="col-lg-10">
+      {{ context.priority.menu() }}
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="col-lg-2 control-label" for="assignedto">{{ i18n.gettext('Assigned to') }}</label>
+    <div class="col-lg-10">
+      {{ context.assignedto.menu() }}
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="col-lg-2 control-label" for="superseder">{{ i18n.gettext('Superseder') }}</label>
+    <div class="col-lg-10">
+      <input type="text" name="superseder" value="{{ context.superseder }}">
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="col-lg-2 control-label" for="nosy">{{ i18n.gettext('Nosy list') }}</label>
+    <div class="col-lg-10">
+      <input type="text" name="nosy" value="{{ context.nosy }}">
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="col-lg-2 control-label" for="change_note">{{ i18n.gettext('Change note') }}</label>
+    <div class="col-lg-10">
+      <textarea name="@note" rows="5" class="input-xxlarge" id="change_note"></textarea>
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="col-lg-2 control-label" for="file_upload">{{ i18n.gettext('File') }}</label>
+    <div class="col-lg-10">
+      <input type="file" name="@file" id="file_upload" title="{{ i18n.gettext('Search for a file to add') }}">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-10 col-offset-2">
+      <button class="btn btn-default btn-primary" type="submit" name="submit_button">
+        {{ i18n.gettext('Submit') }}
+      </button>
+      {% if context.id %}
+      <a class="btn btn-default" href="{{ context.copy_url() }}">
+        {{ i18n.gettext('Make a copy') }}
+      </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <input type="hidden" value="new" name="@action">
+  <input type="hidden" name="@template" value="item">
+  <input type="hidden" name="@required" value="{{ required_columns }}">
+</form>
