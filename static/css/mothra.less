@@ -148,8 +148,8 @@ input[type="color"],
 
 /* content */
 #content {
+  padding-top: @navbar_height;
   margin-left: @sidebar_width;
-  margin-top: @navbar_height;
   padding: @default_padding;
 }
 
@@ -163,7 +163,9 @@ input[type="color"],
 
   #content {
     padding: 0;
-    margin: @default_padding;
+    margin: 0;
+    margin-top: @default_padding;
+    margin-bottom: @default_padding;
   }
 }
 
