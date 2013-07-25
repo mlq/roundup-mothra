@@ -4,7 +4,7 @@
 <ul class='nav nav-stacked'>
   <!-- PROJECTS -->
   {% if request.user.hasPermission('View', 'project') %}
-    {% if project in db.project.list() or request.user.hasPermission('Create', 'project') %}
+    {% if db.project.list() or request.user.hasPermission('Create', 'project') %}
     <li class="nav-header dropdown">
       <a class="dropdown-toggle" id="menu-projects" data-toggle="dropdown" href="#">
         <i class='icon-fixed-width icon-shield'></i> {{ i18n.gettext('Projects') }}

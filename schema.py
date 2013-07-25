@@ -222,7 +222,7 @@ db.security.addPermissionToRole('Anonymous', 'Web Access')
 # Allow anonymous users to register
 db.security.addPermissionToRole('Anonymous', 'Register', 'user')
 
-# Allow anonymous users access to view issues (and the related, linked
+# Allow anonymous users access to view issues (and the related items)
 for cl in 'issue', 'file', 'msg', 'issue_type', 'priority', 'resolution', \
     'status', 'project', 'milestone', 'version':
     db.security.addPermissionToRole('Anonymous', 'View', cl)
