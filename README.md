@@ -16,6 +16,11 @@ Features
   * Built with [LESS](http://lesscss.org)
   * [Font Awesome](http://fortawesome.github.io/Font-Awesome) icons (v2.3.1)
 
+Dependencies
+------------
+
+  * [python2-validate_email](http://pypi.python.org/pypi/validate_email)
+
 Installation
 ------------
 

@@ -19,6 +19,13 @@
         </li>
         {% endfor %}
 
+        <li>
+          <a href="project@template=index">
+            <i class="icon-fixed-width icon-list"></i>
+            {{ i18n.gettext('View all') }}
+          </a>
+        </li>
+
         {% if request.user.hasPermission('Create', 'project') %}
         <li>
           <a href="project?@template=add">

@@ -111,7 +111,6 @@ msg = FileClass(db, "msg",
     author     = Link("user", do_journal = 'no'),
     recipients = Multilink("user", do_journal = 'no'),
     date       = Date(),
-    summary    = String(),
     files      = Multilink("file"),
     messageid  = String(),
     inreplyto  = String()
