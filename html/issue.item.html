@@ -118,7 +118,7 @@
               </div>
             </div>
 
-            <pre>{{ msg.content.hyperlinked() }}</pre>
+            <pre>{{ utils.markdown(msg.content.hyperlinked()) }}</pre>
           </div>
           {% endfor %}
         {% endif %}

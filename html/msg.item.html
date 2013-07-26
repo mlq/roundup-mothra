@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <pre>{{ context.content.hyperlinked() }}</pre>
+      <pre>{{ utils.markdown(context.content.hyperlinked()) }}</pre>
     </div>
 
     {% if context.files %}

@@ -11,6 +11,7 @@ Features
   * Version management for projects
   * Milestones management projects
   * Conventional and wise default values
+  * Markdown support
   * Responsive design for either mobile, tablet or desktop with [Twitter Bootstrap](http://twitter.github.io/bootstrap) (v3.0.0)
   * [Jinja2](http://jinja.pocoo.org/) templates
   * Built with [LESS](http://lesscss.org)
@@ -21,6 +22,7 @@ Dependencies
 
   * [python2-validate_email](http://pypi.python.org/pypi/validate_email)
   * [python2-pytz](http://pypi.python.org/pypi/pytz)
+  * [python2-markdown)http://pypi.python.org/pypi/Markdown)
 
 Installation
 ------------
