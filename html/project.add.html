@@ -25,14 +25,20 @@
   {% if request.user.hasPermission('View', 'project') %}
     <h2>{{ title }}</h2>
 
-    <form class="form-horizontal" method="POST" action='{{ context.designator() }}'>
+    <form class="form-horizontal"
+          method="POST"
+          action='{{ context.designator() }}'
+          data-validate="parsley"
+          novalidate
+          >
+
       <div class="row">
         <label for="inputName" class="col-lg-2 control-label">
           {{ i18n.gettext('Name') }}
         </label>
         <div class="col-lg-10">
           <input type="text" id="inputName" name="name"
-            placeholder="{{ i18n.gettext('Project name') }}">
+            placeholder="{{ i18n.gettext('Project name') }}" required>
         </div>
       </div>
 
@@ -53,7 +59,7 @@
         </label>
         <div class="col-lg-10">
           <input type="text" id="inputHomepage" name="homepage"
-            placeholder="{{ i18n.gettext('Home page') }}">
+            placeholder="{{ i18n.gettext('Home page') }}" data-type="url">
         </div>
       </div>
 

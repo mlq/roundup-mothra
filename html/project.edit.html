@@ -50,7 +50,12 @@
     <div class="tab-content">
       <! -- PROJECT SETTINGS -->
       <div class="tab-pane active" id="tab-settings">
-        <form class='form-horizontal' method="POST" action='{{ context.designator() }}'>
+        <form class='form-horizontal'
+              method="POST"
+              action='{{ context.designator() }}'
+              data-validate="parsley"
+              novalidate>
+
           <legend>{{ i18n.gettext('Edit project settings') }}</legend>
           <div class="row">
             <label class="col-lg-2 control-label" for="inputName">
@@ -59,7 +64,7 @@
             <div class="col-lg-10">
               <input type="text" id="inputName" name="name"
                 placeholder="{{ i18n.gettext('Project name') }}"
-                value="{{ context.name }}">
+                value="{{ context.name }}" required="required">
             </div>
           </div>
 
@@ -80,7 +85,7 @@
             <div class="col-lg-10">
               <input type="text" id="inputHomepage" name="homepage"
               placeholder="{{ i18n.gettext('Home page') }}" value="{{
-              context.homepage }}">
+              context.homepage }}" required="required" data-type="url">
             </div>
           </div>
           <div class="row">
@@ -94,7 +99,11 @@
           <input type="hidden" name="@template" value="item">
         </form>
 
-        <form class='form-horizontal' method="POST" action='project{{ context.id }}'>
+        <form class='form-horizontal'
+               method="POST"
+               action='project{{ context.id }}'
+                data-validate="parsley"
+                novalidate>
           <legend>{{ i18n.gettext('Retire project') }}</legend>
           <input type="hidden" name="@template" value="index">
           <input type="hidden" name="@action" value="retire">
@@ -117,7 +126,11 @@
             <tr>
               <td>{{ milestone.name }}</td>
               <td>
-                <form class='form-horizontal' method="POST" action='milestone{{ milestone.id }}'>
+                <form class='form-horizontal'
+                      method="POST"
+                      action='milestone{{ milestone.id }}'
+                      data-validate="parsley"
+                      novalidate>
                   <input type="hidden" name="@action" value="retire">
                   <input type="submit" value="{{ i18n.gettext('Retire') }}" class='btn btn-tiny'>
                 </form>
@@ -128,7 +141,11 @@
         </table>
         {% endif %}
 
-        <form class='form-horizontal' method="POST" action='milestone'>
+        <form class='form-horizontal'
+              method="POST"
+              action='milestone'
+              data-validate="parsley"
+              novalidate>
           <legend>{{ i18n.gettext('New milestone') }}</legend>
           <div class="row">
             <label class="col-lg-2 control-label" for="inputName">
@@ -136,7 +153,8 @@
             </label>
             <div class="col-lg-10">
               <input type="text" id="inputName" name="name"
-                placeholder="{{ i18n.gettext('Milestone name') }}">
+                placeholder="{{ i18n.gettext('Milestone name') }}"
+                required="required">
             </div>
           </div>
 
@@ -181,14 +199,19 @@
         </table>
         {% endif %}
 
-        <form class='form-horizontal' method="POST" action='version'>
+        <form class='form-horizontal'
+              method="POST"
+              action='version'
+              data-validate="parsley"
+              novalidate>
           <div class="row">
             <label class="col-lg-2 control-label" for="inputName">
               {{ i18n.gettext('Name') }}
             </label>
             <div class="col-lg-10">
               <input type="text" id="inputName" name="name"
-                placeholder="{{ i18n.gettext('Version name') }}">
+                placeholder="{{ i18n.gettext('Version name') }}"
+                required="required">
             </div>
           </div>
 
