@@ -1,4 +1,27 @@
-{% set required_columns = "title,priority,project" %}
+{% set required_columns = "title,priority,project,type" %}
+
+{% macro render_select(name, list, required) %}
+<select name="{{ name }}"
+  {% if required %}
+  required="required"
+  {% endif %}
+  >
+    {% if not required %}
+    <option value="-1" selected="1">
+      {{ i18n.gettext('- no selection -') }}
+    </option>
+    {% else %}
+    <option></option>
+    {% endif %}
+    {% for item in list %}
+      <option value="{{ item.id }}"
+      {% if context[name].plain()|trim == item.name %}
+        selected="1"
+      {% endif %}
+      >{{ item.name }}</option>
+    {% endfor %}
+  </select>
+{% endmacro %}
 
 <form method="POST"
   {% if context.id %}
@@ -9,18 +32,21 @@
   name="itemSynopsis"
   enctype="multipart/form-data"
   class="form-horizontal"
+  data-validate="parsley"
+  novalidate
 >
   <div class="row">
     <label class="col-lg-2 control-label" for="title">{{ i18n.gettext('Title') }}</label>
     <div class="col-lg-10">
-      <input name="title" id="title" type="text" class="input-xxlarge" value="{{ context.title }}" required>
+      <input name="title" id="title" type="text" class="input-xxlarge" value="{{ context.title }}" required="required">
     </div>
   </div>
 
+  {% set projects = db.project.list() %}
   <div class="row">
     <label class="col-lg-2 control-label" for="project">{{ i18n.gettext('Project') }}</label>
     <div class="col-lg-10">
-      {{ context.project.menu() }}
+      {{ render_select("project", projects, True) }}
     </div>
   </div>
 
@@ -29,20 +55,7 @@
     <div class="row">
       <label class="col-lg-2 control-label" for="version">{{ i18n.gettext('Version') }}</label>
       <div class="col-lg-10">
-        <select name="version">
-          <option value="-1"
-            {% if not context.version %}
-              selected="1"
-            {% endif %}
-          >{{ i18n.gettext('- no selection -') }}</option>
-          {% for version in versions %}
-            <option value="{{ version.id }}"
-            {% if context.version.plain()|trim == version.name %}
-              selected="1"
-            {% endif %}
-            >{{ version.name }}</option>
-          {% endfor %}
-        </select>
+        {{ render_select('version', versions, False) }}
       </div>
     </div>
 
@@ -50,23 +63,26 @@
     <div class="row">
       <label class="col-lg-2 control-label" for="milestone">{{ i18n.gettext('Milestone') }}</label>
       <div class="col-lg-10">
-        <select name="milestone">
-          <option value="-1"
-          {% if not context.version %}
-            selected="1"
-          {% endif %}
-          >{{ i18n.gettext('- no selection -') }}</option>
-          {% for milestone in milestones %}
-            <option value="{{ milestone.id }}"
-            {% if context.milestone.plain()|trim == milestone.name %}
-              selected="1"
-            {% endif %}
-            >{{ milestone.name }}</option>
-          {% endfor %}
-        </select>
+        {{ render_select('milestone', milestones, False) }}
       </div>
     </div>
   {% endif %}
+
+  {% set priorities = db.priority.list() %}
+  <div class="row">
+    <label class="col-lg-2 control-label" for="priority">{{ i18n.gettext('Priority') }}</label>
+      <div class="col-lg-10">
+      {{ render_select("priority", priorities, True) }}
+    </div>
+  </div>
+
+  {% set issue_types = db.issue_type.list() %}
+  <div class="row">
+    <label class="col-lg-2 control-label" for="issue_type">{{ i18n.gettext('Type') }}</label>
+    <div class="col-lg-10">
+      {{ render_select('issue_type', issue_types, True) }}
+    </div>
+  </div>
 
   <div class="row">
     <label class="col-lg-2 control-label" for="status">{{ i18n.gettext('Status') }}</label>
@@ -76,23 +92,9 @@
   </div>
 
   <div class="row">
-    <label class="col-lg-2 control-label" for="issue_type">{{ i18n.gettext('Type') }}</label>
-    <div class="col-lg-10">
-      {{ context.issue_type.menu() }}
-    </div>
-  </div>
-
-  <div class="row">
     <label class="col-lg-2 control-label" for="status">{{ i18n.gettext('Resolution') }}</label>
     <div class="col-lg-10">
       {{ context.resolution.menu() }}
-    </div>
-  </div>
-
-  <div class="row">
-    <label class="col-lg-2 control-label" for="priority">{{ i18n.gettext('Priority') }}</label>
-    <div class="col-lg-10">
-      {{ context.priority.menu() }}
     </div>
   </div>
 

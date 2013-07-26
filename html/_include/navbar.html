@@ -25,15 +25,19 @@
             <span class="caret"></span>
           </a>
           <div class="dropdown-menu" role="form" aria-labelledby="login-menu">
-            <form method="POST" action='{{ request.base }}'>
+            <form method="POST" action='{{ request.base }}'
+              data-validate="parsley"
+              novalidate>
               <fieldset>
                 <label for="login-name">{{ i18n.gettext('Username') }}</label>
                 <input type='text' name="__login_name"
-                  placeholder='{{ i18n.gettext('Username') }}'>
+                  placeholder='{{ i18n.gettext('Username') }}'
+                  required="required">
 
                 <label for="login-password">{{ i18n.gettext('Password') }}</label>
                 <input type="password" name="__login_password"
-                  placeholder='{{ i18n.gettext('Password') }}'>
+                  placeholder='{{ i18n.gettext('Password') }}'
+                  required="required">
 
                 <div class="checkbox">
                   <label>

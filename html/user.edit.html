@@ -33,7 +33,10 @@
           name ="itemSynopsis"
           enctype ="multipart/form-data"
           class="form-horizontal"
-          action ='{{ context.designator() }}'>
+          action ='{{ context.designator() }}'
+          data-validate="parsley"
+          novalidate
+          >
 
         {% include '_include/form_user_edit.html' %}
 

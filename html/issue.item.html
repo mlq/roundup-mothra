@@ -134,17 +134,17 @@
 {% endblock %}
 
 {% block extrajs %}
-<script type="text/javascript">
-$('#tabs a[href="#issue-messages"]').click(function (e) {
-  e.preventDefault();
-  $('#tabs a[href="#tab-issue"]').tab('show');
-  location.href = "#issue-messages"
-})
+  <script type="text/javascript">
+  $('#tabs a[href="#issue-messages"]').click(function (e) {
+    e.preventDefault();
+    $('#tabs a[href="#tab-issue"]').tab('show');
+    location.href = "#issue-messages"
+  })
 
-$('#tabs a[href="#issue-files"]').click(function (e) {
-  e.preventDefault();
-  $('#tabs a[href="#tab-issue"]').tab('show');
-  location.href = "#issue-files"
-})
-</script>
+  $('#tabs a[href="#issue-files"]').click(function (e) {
+    e.preventDefault();
+    $('#tabs a[href="#tab-issue"]').tab('show');
+    location.href = "#issue-files"
+  })
+  </script>
 {% endblock %}

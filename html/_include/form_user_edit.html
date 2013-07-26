@@ -1,7 +1,7 @@
 <div class='row'>
   <label class='col-lg-2 control-label' for='username'>{{ i18n.gettext('Username') }}</label>
   <div class='col-lg-10'>
-    <input type='text' name="username" value="{{ context.username }}" required>
+    <input type='text' name="username" value="{{ context.username }}" required="required">
   </div>
 </div>
 
@@ -15,21 +15,21 @@
 <div class='row'>
   <label class='col-lg-2 control-label' for='address'>{{ i18n.gettext('Email') }}</label>
   <div class='col-lg-10'>
-    <input type='text' name="address" value="{{ context.address }}" required>
+    <input type='text' name="address" value="{{ context.address }}" required="required">
   </div>
 </div>
 
 <div class='row'>
   <label class='col-lg-2 control-label' for='password'>{{ i18n.gettext('Password') }}</label>
   <div class='col-lg-10'>
-    <input type='password' name='password' value="{{ context.password }}" required>
+    <input id="password" type='password' name='password' value="{{ context.password }}" required="required">
   </div>
 </div>
 
 <div class='row'>
   <label class='col-lg-2 control-label' for='@confirm@password'>{{ i18n.gettext('Confirm Password') }}</label>
   <div class='col-lg-10'>
-    <input type='password' name='@confirm@password' value="{{ context.password }}">
+    <input type='password' name='@confirm@password' value="{{ context.password }}" data-equalto="#password">
   </div>
 </div>
 
