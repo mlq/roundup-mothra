@@ -1,0 +1,87 @@
+{% extends '_layout/base.html' %}
+
+{% set title = context.name.plain() %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li>
+    <a href="project{{ context.project.id }}">
+      {{ context.project.name }}
+    </a>
+  </li>
+  <li>
+    <a href="milestone?@template=index">
+      Milestones
+    </a>
+  </li>
+  <li class="active">
+    {{ title }}
+  </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+  {% include '_include/permission.html' %}
+
+  {% if context.is_view_ok() %}
+    <h2>{{ context.name }}</h2>
+
+    {% set milestone_issues =
+    db.issue.filter(filterspec={"milestone":context.id}, sort=[('+', 'status'), ('+', 'creation')]) %}
+
+    {% if milestone_issues|length != 0 %}
+      <div class="progress">
+        <div class="progress-bar progress-bar-success"
+          style="width: {{ utils.project_milestone_get_done(milestone_issues) }}%;">
+        </div>
+        <div class="progress-bar progress-bar-warning"
+          style="width: {{ utils.project_milestone_get_progress(milestone_issues) }}%;">
+        </div>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>{{ i18n.gettext('ID') }}</th>
+            <th>{{ i18n.gettext('Type') }}</th>
+            <th>{{ i18n.gettext('Name') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for issue in milestone_issues %}
+          {% if issue.status.plain() == "resolved" %}
+          <tr class="success">
+          {% elif issue.status.plain() == "in-progress" %}
+          <tr class="warning">
+          {% else %}
+          <tr>
+          {% endif %}
+            <td>
+              <a href="issue{{ issue.id }}">
+                {{ issue.id }}
+              </a>
+            </td>
+            <td>
+              {% if issue.issue_type.plain() == "feature request" %}
+                Feature
+              {% elif issue.issue_type.plain() == "security" %}
+                Security
+              {% else %}
+                Patch
+              {% endif %}
+            </td>
+            <td>
+             {{ issue.title.plain(hyperlink=0) }}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  {% endif %}
+{% endblock %}

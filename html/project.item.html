@@ -27,7 +27,7 @@
 {% block content %}
   {% if context.is_view_ok() %}
     <div class="row">
-      <div class="col-4">
+      <div class="col-sm-4">
         <h4>{{ context.name }}
           {% if context.is_edit_ok() %}
           <small>(<a href="project{{ context.id
@@ -41,8 +41,8 @@
           i18n.gettext('Homepage') }}</a></p>
         {% endif %}
       </div>
-      <div id="plotStatus" class="col-4" style="height: 200px;"></div>
-      <div id="plotType" class="col-4" style="height: 200px;"></div>
+      <div id="plotStatus" class="col-sm-4" style="height: 200px;"></div>
+      <div id="plotType" class="col-sm-4" style="height: 200px;"></div>
     </div>
 
     {% for milestone in milestones %}
@@ -52,10 +52,12 @@
 
       {% set milestone_issues =
       db.issue.filter(filterspec={"project":context.id,"milestone":milestone.id}, sort=[('+', 'creation')]) %}
-      <h5>{{ milestone.name }}</h5>
+      <a href="milestone{{ milestone.id}}">
+        <h5>{{ milestone.name }}</h5>
+      </a>
       <div class="progress">
-        <div class="bar bar-success" style="width: {{ utils.project_milestone_get_done(milestone_issues) }}%;"></div>
-        <div class="bar bar-warning" style="width: {{ utils.project_milestone_get_progress(milestone_issues) }}%;"></div>
+        <div class="progress-bar progress-bar-success" style="width: {{ utils.project_milestone_get_done(milestone_issues) }}%;"></div>
+        <div class="progress-bar progress-bar-warning" style="width: {{ utils.project_milestone_get_progress(milestone_issues) }}%;"></div>
       </div>
 
       {% if milestone_issues|length != 0 %}
