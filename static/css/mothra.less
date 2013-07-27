@@ -93,7 +93,7 @@ input[type="color"],
 .navbar {
   margin-bottom: 0;
   background-color: @navbar_background_color;
-  height: @navbar_height;
+  border-radius: 0;
 
   .navbar-brand {
     max-width: none;
@@ -134,7 +134,11 @@ input[type="color"],
   }
 
   .navbar-fixed-top {
+    position: relative;
+  }
 
+  body {
+    padding-top: 0;
   }
 }
 
