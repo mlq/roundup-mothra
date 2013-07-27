@@ -55,6 +55,12 @@
 @sidebar_item_border_width: 0px;
 @sidebar_item_border_color: #4B4B4B;
 
+/* breadcrumb */
+@breadcrumb_background_color: #A7BDC6;
+@breadcrumb_item_color: #28333D;
+@breadcrumb_item_color_active: #5A707A;
+@breadcrumb_item_spacer_color: #5A707A;
+
 /* other */
 @issue_dl_padding: 10px;
 
@@ -320,6 +326,37 @@ input[type="color"],
     left: 0;
     text-align: center;
     width: @sidebar_width;
+  }
+}
+
+.breadcrumb {
+  background-color: @breadcrumb_background_color;
+  margin: -@default_padding;
+  margin-bottom: @default_padding;
+  padding: @default_padding;
+  border-radius: 0;
+
+  li {
+    text-shadow: none;
+
+    a {
+      color: @breadcrumb_item_color;
+    }
+
+    +li:before {
+      color: @breadcrumb_item_spacer_color;
+    }
+  }
+
+  .active {
+    color: @breadcrumb_item_color_active;
+  }
+}
+
+@media (max-width: 767px) {
+  .breadcrumb {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 

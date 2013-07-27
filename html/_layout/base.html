@@ -32,13 +32,13 @@
     </aside>
 
     <section id="content">
+      {% block breadcrumb %}
+      {% endblock %}
       {% if not fluid_layout %}
         <div id="content-wrapper">
       {% endif %}
       <div class="row">
         <div class="col-12">
-          {% block breadcrumb %}
-          {% endblock %}
 
           {% if options.error_message %}
             <div class='alert alert-block alert-danger fade in'>
