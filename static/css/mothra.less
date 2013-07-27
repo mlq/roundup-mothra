@@ -15,6 +15,7 @@
 @navbar_header_color: #A7BDC6;
 @navbar_header_color_hover: #F1FBFF;
 @navbar_header_color_focus: #F1FBFF;
+@navbar_header_icon_color: #F1FBFF;
 @navbar_header_background_color: @navbar_background_color;
 @navbar_header_background_color_hover: @navbar_background_color;
 @navbar_header_background_color_focus: #5A707A;
@@ -24,6 +25,7 @@
 @navbar_items_background_color: #FFFFFF;
 @navbar_item_color: #28333D;
 @navbar_item_color_hover: #28333D;
+@navbar_item_icon_color: #28333D;
 @navbar_item_background_color: #FFFFFF;
 @navbar_item_background_color_hover: #A7BDC6;
 
@@ -138,6 +140,7 @@ input[type="color"],
         }
 
         i {
+          color: @navbar_header_icon_color;
           margin-right: @navbar_header_icon_gap;
         }
       }
@@ -182,6 +185,10 @@ input[type="color"],
           background: none;
           background-color: @navbar_item_background_color_hover;
           color: @navbar_item_color_hover;
+        }
+
+        i {
+          color: @navbar_item_icon_color;
         }
       }
 
