@@ -24,6 +24,19 @@ Dependencies
   * [python2-pytz](http://pypi.python.org/pypi/pytz)
   * [python2-markdown)http://pypi.python.org/pypi/Markdown)
 
+Resources
+---------
+
+  * [Twitter Bootstrap](http://twitter.github.io/bootstrap) (v3.0.0-wip)
+  * [Font Awesome](http://fortawesome.github.io/Font-Awesome) icons (v2.3.1)
+  * [jquery](http://jquery.com) (v1.10.2)
+  * [Flot](http://www.flotcharts.org) (v0.8.1)
+  * [Respond.js](https://github.com/scottjehl/Respond)
+  * [Parsley.js](http://parsleyjs.org) (v1.1.16)
+  * [bootstrap-datepicker](http://www.eyecon.ro/bootstrap-datepicker)
+  * [bootstrap-markdown](http://toopay.github.io/bootstrap-markdown)
+  * [markdown-js](https://github.com/evilstreak/markdown-js)
+
 Installation
 ------------
 

@@ -133,6 +133,10 @@
   {% endif %}
 {% endblock %}
 
+{% block extracss %}
+  <link rel="stylesheet" type="text/css" href="@@file/css/bootstrap-markdown.min.css">
+{% endblock %}
+
 {% block extrajs %}
   <script type="text/javascript">
   $('#tabs a[href="#issue-messages"]').click(function (e) {
@@ -147,4 +151,6 @@
     location.href = "#issue-files"
   })
   </script>
+  <script type="text/javascript" src='@@file/js/bootstrap-markdown.js'></script>
+  <script type="text/javascript" src='@@file/js/markdown.js'></script>
 {% endblock %}
