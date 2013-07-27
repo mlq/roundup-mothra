@@ -3,9 +3,15 @@
 
 <ul class='nav nav-stacked'>
   <!-- PROJECTS -->
+  <li class="nav-header dropdown">
+    <a id="menu-dashboard" href="/">
+      <i class='icon-fixed-width icon-dashboard'></i> {{ i18n.gettext('Dashboard') }}
+    </a>
+  </li>
+  <!-- PROJECTS -->
   {% if request.user.hasPermission('View', 'project') %}
     {% if db.project.list() or request.user.hasPermission('Create', 'project') %}
-    <li class="nav-header dropdown open">
+    <li class="nav-header dropdown">
       <a class="dropdown-toggle" id="menu-projects" data-toggle="dropdown" href="#">
         <i class='icon-fixed-width icon-shield'></i> {{ i18n.gettext('Projects') }}
       </a>
@@ -41,7 +47,7 @@
 
   <!-- QUERIES -->
   {% if request.user.hasPermission('View', 'query') %}
-    <li class="nav-header dropdown open">
+    <li class="nav-header dropdown">
       <a class="dropdown-toggle" id="menu-queries" data-toggle="dropdown" href="#">
         <i class='icon-fixed-width icon-search'></i> {{ i18n.gettext('Queries') }}
       </a>
@@ -65,7 +71,7 @@
 
   <!-- ISSUE -->
   {% if request.user.hasPermission('View', 'issue') %}
-    <li class="nav-header dropdown open">
+    <li class="nav-header dropdown">
       <a class="dropdown-toggle" id="menu-issues" data-toggle="dropdown" href="#">
         <i class='icon-fixed-width icon-ticket'></i> {{ i18n.gettext('Issues') }}
       </a>
@@ -133,7 +139,7 @@
 
   <!-- QUERIES -->
   {% if request.user.hasPermission('View', 'user') %}
-    <li class="nav-header dropdown open">
+    <li class="nav-header dropdown">
       <a class="dropdown-toggle" id="menu-user" data-toggle="dropdown" href="#">
         <i class='icon-fixed-width icon-group'></i> {{ i18n.gettext('User') }}
       </a>
@@ -148,7 +154,7 @@
   {% endif %}
 
   <!-- HELP -->
-  <li class="nav-header dropdown open">
+  <li class="nav-header dropdown">
     <a class="dropdown-toggle" id="menu-help" data-toggle="dropdown" href="#">
       <i class='icon-fixed-width icon-bookmark'></i> {{ i18n.gettext('Help') }}
     </a>
