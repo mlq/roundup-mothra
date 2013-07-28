@@ -73,6 +73,10 @@
 @breadcrumb_item_color_active: #F1FBFF;
 @breadcrumb_item_spacer_color: #F1FBFF;
 
+/* statistics */
+@stat_circle_width: 140px;
+@stat_circle_icon_width: 50px;
+
 /* other */
 @issue_dl_padding: 10px;
 
@@ -488,4 +492,39 @@ ul.parsley-error-list li {
 li.required {
   margin: 0;
   padding: 0;
+}
+
+.stat-circle {
+  display: block;
+  text-align: center;
+  float: left;
+  margin-right: @default_padding * 2;
+
+  .visual {
+    display: inline-block;
+    position: relative;
+
+    .stat-circle-icon {
+      position: absolute;
+      left: (@stat_circle_width - @stat_circle_icon_width) / 2;
+      top: (@stat_circle_width - @stat_circle_icon_width) / 2;
+      height: @stat_circle_icon_width;
+      width: @stat_circle_icon_width;
+      font-size: @stat_circle_icon_width;
+      line-height: @stat_circle_icon_width;
+    }
+  }
+
+  .details {
+    margin-top: 10px;
+
+    .value {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .description {
+      font-size: 13px;
+    }
+  }
 }

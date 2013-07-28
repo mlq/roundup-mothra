@@ -4,23 +4,86 @@
 
 {% set title = "Dashboard" %}
 
-{% block content %}
-  {% if request.user.hasPermission('View', 'issue') and db.issue.list() %}
-    <div class="row">
-      <div class="col-6">
-        <div class="panel">
-          <div class="panel-heading">
-            Issues
-          </div>
-        </div>
+{% macro render_stat_circle(value, max, width, icon, color, desc) %}
+  <div class="stat-circle">
+    <div class="visual">
+      <div class="stat-circle-icon">
+        <i class="{{ icon }}"></i>
+      </div>
+
+      <input type="text"
+             class="dial"
+             value="{{ value }}"
+             data-max="{{ max }}"
+             data-fgColor="{{ color }}"
+             data-displayInput="false"
+             data-width="{{ width }}"
+             data-height="{{ width }}"
+             data-thickness=".2"
+             >
+    </div>
+
+    <div class="details">
+      <div class="value">
+        {{ value }}
+      </div>
+      <div class="description">
+        {{ desc }}
       </div>
     </div>
-  {% endif %}
+  </div>
+{% endmacro %}
+
+{% block content %}
+  {% set issues = db.issue.list() %}
+  {% set number_of_issues = issues|length %}
+  {% set issues_closed = db.issue.filter(filterspec={"status": 7}) %}
+  {% set number_of_closed_issues = issues_closed|length %}
+  {% set number_of_open_issues = number_of_issues - number_of_closed_issues %}
+
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="panel">
+        <div class="panel-heading">
+          Issues
+        </div>
+
+        {{ render_stat_circle(number_of_issues,
+          number_of_issues,
+          "140",
+          "icon-bug",
+          "#58758C",
+          i18n.gettext('Closed issues')
+          )
+        }}
+
+        {{ render_stat_circle(number_of_closed_issues,
+          number_of_issues,
+          "140",
+          "icon-bug",
+          "#90BD2B",
+          i18n.gettext('Closed issues')
+          )
+        }}
+
+        {{ render_stat_circle(number_of_open_issues,
+          number_of_issues,
+          "140",
+          "icon-bug",
+          "#8C4646",
+          i18n.gettext('Open issues')
+          )
+        }}
+
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
 
   {% if request.user.hasPermission('View', 'project') and db.project.list() %}
     <div class="row">
       {% for project in db.project.list() %}
-      <div class="col-4">
+      <div class="col-sm-4">
         <div class="panel">
           <div class="panel-heading">
             <a href="project{{ project.id }}">
@@ -32,11 +95,23 @@
 
           {% set issues = db.issue.filter(filterspec={"project":project.id},
             sort=[('+', 'activity')]) %}
-          {{ issues|length }}
+
+          {{ issues|length }} Issues
 
         </div>
       </div>
       {% endfor %}
     </div> <!-- row -->
   {% endif %}
+{% endblock %}
+
+{% block extrajs %}
+  <script type="text/javascript" src='@@file/js/jquery.knob.js'></script>
+  <script>
+    $(function() {
+        $(".dial").knob({
+          'readOnly': true
+          });
+    });
+  </script>
 {% endblock %}

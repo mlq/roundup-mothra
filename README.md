@@ -33,9 +33,10 @@ Resources
   * [Flot](http://www.flotcharts.org) (v0.8.1)
   * [Respond.js](https://github.com/scottjehl/Respond)
   * [Parsley.js](http://parsleyjs.org) (v1.1.16)
+  * [jquery-Knob](http://github.com/aterrien/jQuery-Knob)
   * [bootstrap-datepicker](http://www.eyecon.ro/bootstrap-datepicker)
   * [bootstrap-markdown](http://toopay.github.io/bootstrap-markdown)
-  * [markdown-js](https://github.com/evilstreak/markdown-js)
+  * [markdown-js](http://github.com/evilstreak/markdown-js)
 
 Installation
 ------------
