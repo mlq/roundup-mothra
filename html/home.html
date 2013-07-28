@@ -40,42 +40,89 @@
   {% set issues_closed = db.issue.filter(filterspec={"status": 7}) %}
   {% set number_of_closed_issues = issues_closed|length %}
   {% set number_of_open_issues = number_of_issues - number_of_closed_issues %}
+  {% set issues_unassigned = db.issue.filter(filterspec={"assignedto":none, "status":7}) %}
+  {% set number_of_unassigned_issues = issues_unassigned|length %}
+
+  {% set projects = db.project.list() %}
+  {% set number_of_projects = projects|length %}
+
+  {% set users = db.user.list() %}
+  {% set number_of_users = users|length %}
 
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-12">
       <div class="panel">
         <div class="panel-heading">
-          Issues
+          {{ i18n.gettext('Statistics') }}
         </div>
 
-        {{ render_stat_circle(number_of_issues,
-          number_of_issues,
-          "140",
-          "icon-bug",
-          "#58758C",
-          i18n.gettext('Closed issues')
-          )
-        }}
+        <div class="row">
+          <div class="col-2">
+            {{ render_stat_circle(number_of_issues,
+              number_of_issues,
+              "100",
+              "icon-ticket",
+              "#58758C",
+              i18n.gettext('Issues')
+              )
+            }}
+          </div>
 
-        {{ render_stat_circle(number_of_closed_issues,
-          number_of_issues,
-          "140",
-          "icon-bug",
-          "#90BD2B",
-          i18n.gettext('Closed issues')
-          )
-        }}
+          <div class="col-2">
+            {{ render_stat_circle(number_of_closed_issues,
+              number_of_issues,
+              "100",
+              "icon-ok-sign",
+              "#90BD2B",
+              i18n.gettext('Closed issues')
+              )
+            }}
+          </div>
 
-        {{ render_stat_circle(number_of_open_issues,
-          number_of_issues,
-          "140",
-          "icon-bug",
-          "#8C4646",
-          i18n.gettext('Open issues')
-          )
-        }}
+          <div class="col-2">
+            {{ render_stat_circle(number_of_open_issues,
+              number_of_issues,
+              "100",
+              "icon-tasks",
+              "#8C4646",
+              i18n.gettext('Open issues')
+              )
+            }}
+          </div>
 
-        <div class="clearfix"></div>
+          <div class="col-2">
+            {{ render_stat_circle(number_of_unassigned_issues,
+              number_of_issues,
+              "100",
+              "icon-bug",
+              "#D96459",
+              i18n.gettext('Unassigned issues')
+              )
+            }}
+          </div>
+
+          <div class="col-2">
+            {{ render_stat_circle(number_of_projects,
+              number_of_projects,
+              "100",
+              "icon-shield",
+              "#F2DD4A",
+              i18n.gettext('Projects')
+              )
+            }}
+          </div>
+
+          <div class="col-2">
+            {{ render_stat_circle(number_of_users,
+              number_of_users,
+              "100",
+              "icon-group",
+              "#2D5955",
+              i18n.gettext('User')
+              )
+            }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
