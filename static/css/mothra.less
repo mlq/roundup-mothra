@@ -4,7 +4,17 @@
 @font_size: 12px;
 @font_family: "Open Sans", sans-serif;
 
-@link_color: #9BC92E;
+@link_color: @color_green;
+
+/* colors */
+@color_red: #8C4646;
+@color_lightred: #D96459;
+@color_orange: #F29966;
+@color_yellow: #F2DD4A;
+@color_blue: #2D5955;
+@color_turuoise: #2D5955;
+@color_lightgreen: #7CA68B;
+@color_green: #90BD2B;
 
 /* navbar */
 @navbar_height: 50px;
@@ -66,6 +76,7 @@
 /* other */
 @issue_dl_padding: 10px;
 
+/* fonts */
 @font-face {
   font-family: 'Open Sans';
   src: url('../font/OpenSans-Regular-webfont.eot');
@@ -81,6 +92,14 @@ body {
   font-size: @font_size;
   font-family: @font_family;
   padding-top: @navbar_height;
+}
+
+.progress-bar-success {
+  background-color: @color_green;
+}
+
+.progress-bar-warning {
+  background-color: @color_yellow;
 }
 
 label, input, button, select, textarea {

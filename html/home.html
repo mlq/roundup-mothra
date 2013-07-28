@@ -1,8 +1,42 @@
 {% extends '_layout/base.html' %}
 
+{% set fluid_layout = true %}
+
 {% set title = "Dashboard" %}
 
 {% block content %}
-  <h1>Home</h1>
-  <p>Lorem ipsum.</p>
+  {% if request.user.hasPermission('View', 'issue') and db.issue.list() %}
+    <div class="row">
+      <div class="col-6">
+        <div class="panel">
+          <div class="panel-heading">
+            Issues
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if request.user.hasPermission('View', 'project') and db.project.list() %}
+    <div class="row">
+      {% for project in db.project.list() %}
+      <div class="col-4">
+        <div class="panel">
+          <div class="panel-heading">
+            <a href="project{{ project.id }}">
+              {{ project.name }}
+            </a>
+          </div>
+
+          <p>{{ project.description }}</p>
+
+          {% set issues = db.issue.filter(filterspec={"project":project.id},
+            sort=[('+', 'activity')]) %}
+          {{ issues|length }}
+
+        </div>
+      </div>
+      {% endfor %}
+    </div> <!-- row -->
+  {% endif %}
 {% endblock %}
