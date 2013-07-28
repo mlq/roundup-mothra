@@ -8,7 +8,7 @@
   <div class="stat-circle">
     <div class="visual">
       <div class="stat-circle-icon">
-        <i class="{{ icon }}"></i>
+        <i class="{{ icon }} icon-fixed-width"></i>
       </div>
 
       <input type="text"
@@ -35,7 +35,7 @@
 {% endmacro %}
 
 {% block content %}
-  {% set issues = db.issue.list() %}
+  {% set issues = db.issue.filter(filterspec={}, sort=[('+', 'activity')]) %}
   {% set number_of_issues = issues|length %}
   {% set issues_closed = db.issue.filter(filterspec={"status": 7}) %}
   {% set number_of_closed_issues = issues_closed|length %}
@@ -57,7 +57,7 @@
         </div>
 
         <div class="row">
-          <div class="col-2">
+          <div class="col-sm-2">
             {{ render_stat_circle(number_of_issues,
               number_of_issues,
               "100",
@@ -68,7 +68,7 @@
             }}
           </div>
 
-          <div class="col-2">
+          <div class="col-sm-2">
             {{ render_stat_circle(number_of_closed_issues,
               number_of_issues,
               "100",
@@ -79,7 +79,7 @@
             }}
           </div>
 
-          <div class="col-2">
+          <div class="col-sm-2">
             {{ render_stat_circle(number_of_open_issues,
               number_of_issues,
               "100",
@@ -90,7 +90,7 @@
             }}
           </div>
 
-          <div class="col-2">
+          <div class="col-sm-2">
             {{ render_stat_circle(number_of_unassigned_issues,
               number_of_issues,
               "100",
@@ -101,7 +101,7 @@
             }}
           </div>
 
-          <div class="col-2">
+          <div class="col-sm-2">
             {{ render_stat_circle(number_of_projects,
               number_of_projects,
               "100",
@@ -112,7 +112,7 @@
             }}
           </div>
 
-          <div class="col-2">
+          <div class="col-sm-2">
             {{ render_stat_circle(number_of_users,
               number_of_users,
               "100",
@@ -123,6 +123,59 @@
             }}
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel">
+        <div class="panel-heading">
+          {{ i18n.gettext('Latest issues') }}
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>{{ i18n.gettext('ID') }}</th>
+              <th>{{ i18n.gettext('Type') }}</th>
+              <th>{{ i18n.gettext('Project') }}</th>
+              <th>{{ i18n.gettext('Name') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for issue in issues %}
+              {% if loop.index0 < 15 %}
+                <tr>
+                  <td>
+                    <a href="issue{{ issue.id }}">
+                      {{ issue.id }}
+                    </a>
+                  </td>
+                  <td>
+                    <a href="project{{ issue.project.id }}">
+                      {{ issue.project.name }}
+                    </a>
+                  </td>
+                  <td>
+                    {% if issue.issue_type.plain() == "feature request" %}
+                      Feature
+                    {% elif issue.issue_type.plain() == "security" %}
+                      Security
+                    {% else %}
+                      Patch
+                    {% endif %}
+                  </td>
+                  <td>
+                    <a href="issue{{ issue.id }}">
+                     {{ issue.title.plain(hyperlink=0) }}
+                    </a>
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
