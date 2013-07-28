@@ -1,7 +1,7 @@
 {% set required_columns = "title,priority,project,issue_type" %}
 
-{% macro render_select(name, list, required) %}
-<select name="{{ name }}"
+{% macro render_select(list, name, property, required) %}
+<select name="{{ name }}" class="form-control"
   {% if required %}
   required="required"
   {% endif %}
@@ -15,10 +15,10 @@
     {% endif %}
     {% for item in list %}
       <option value="{{ item.id }}"
-      {% if context[name].plain()|trim == item.name %}
+      {% if context[name].plain()|trim == item[property] %}
         selected="1"
       {% endif %}
-      >{{ item.name }}</option>
+      >{{ item[property] }}</option>
     {% endfor %}
   </select>
 {% endmacro %}
@@ -35,106 +35,109 @@
   data-validate="parsley"
   novalidate
 >
-  <div class="row">
+  <div class="form-group">
     <label class="col-lg-2 control-label" for="title">{{ i18n.gettext('Title') }}</label>
     <div class="col-lg-10">
-      <input name="title" id="title" type="text" class="input-xxlarge" value="{{ context.title }}" required="required">
+      <input name="title" id="title" type="text" class="form-control" value="{{ context.title }}" required="required">
     </div>
   </div>
 
   {% set projects = db.project.list() %}
-  <div class="row">
+  <div class="form-group">
     <label class="col-lg-2 control-label" for="project">{{ i18n.gettext('Project') }}</label>
     <div class="col-lg-10">
-      {{ render_select("project", projects, True) }}
+      {{ render_select(projects, "project", "name", True) }}
     </div>
   </div>
 
   {% if context.project %}
     {% set versions = db.version.filter(filterspec={'project':context.project.id}) %}
-    <div class="row">
+    <div class="form-group">
       <label class="col-lg-2 control-label" for="version">{{ i18n.gettext('Version') }}</label>
       <div class="col-lg-10">
-        {{ render_select('version', versions, False) }}
+        {{ render_select(versions, "version", "name", False) }}
       </div>
     </div>
 
     {% set milestones = db.milestone.filter(filterspec={'project':context.project.id}) %}
-    <div class="row">
+    <div class="form-group">
       <label class="col-lg-2 control-label" for="milestone">{{ i18n.gettext('Milestone') }}</label>
       <div class="col-lg-10">
-        {{ render_select('milestone', milestones, False) }}
+        {{ render_select(milestones, "milestone", "name", False) }}
       </div>
     </div>
   {% endif %}
 
   {% set priorities = db.priority.list() %}
-  <div class="row">
+  <div class="form-group">
     <label class="col-lg-2 control-label" for="priority">{{ i18n.gettext('Priority') }}</label>
-      <div class="col-lg-10">
-      {{ render_select("priority", priorities, True) }}
+    <div class="col-lg-10">
+      {{ render_select(priorities, "priority", "name", True) }}
     </div>
   </div>
 
   {% set issue_types = db.issue_type.list() %}
-  <div class="row">
+  <div class="form-group">
     <label class="col-lg-2 control-label" for="issue_type">{{ i18n.gettext('Type') }}</label>
     <div class="col-lg-10">
-      {{ render_select('issue_type', issue_types, True) }}
+      {{ render_select(issue_types, "issue_type", "name", True) }}
     </div>
   </div>
 
-  <div class="row">
+  {% set statuses = db.status.list() %}
+  <div class="form-group">
     <label class="col-lg-2 control-label" for="status">{{ i18n.gettext('Status') }}</label>
     <div class="col-lg-10">
-      {{ context.status.menu() }}
+      {{ render_select(statuses, "status", "name", False) }}
     </div>
   </div>
 
-  <div class="row">
+  {% set resolutions = db.resolution.list() %}
+  <div class="form-group">
     <label class="col-lg-2 control-label" for="status">{{ i18n.gettext('Resolution') }}</label>
     <div class="col-lg-10">
-      {{ context.resolution.menu() }}
+      {{ render_select(resolutions, "resolution", "name", False) }}
     </div>
   </div>
 
-  <div class="row">
+  {% set users = db.user.list() %}
+  <div class="form-group">
     <label class="col-lg-2 control-label" for="assignedto">{{ i18n.gettext('Assigned to') }}</label>
     <div class="col-lg-10">
-      {{ context.assignedto.menu() }}
+      {{ render_select(users, "assignedto", "username", False) }}
     </div>
   </div>
 
-  <div class="row">
+  <div class="form-group">
     <label class="col-lg-2 control-label" for="superseder">{{ i18n.gettext('Superseder') }}</label>
     <div class="col-lg-10">
-      <input type="text" name="superseder" value="{{ context.superseder }}">
+      <input class="form-control" type="text" name="superseder" value="{{ context.superseder }}">
     </div>
   </div>
 
-  <div class="row">
+  <div class="form-group">
     <label class="col-lg-2 control-label" for="nosy">{{ i18n.gettext('Nosy list') }}</label>
     <div class="col-lg-10">
-      <input type="text" name="nosy" value="{{ context.nosy }}">
+      <input class="form-control" type="text" name="nosy" value="{{ context.nosy }}">
     </div>
   </div>
 
-  <div class="row">
+  <div class="form-group">
     <label class="col-lg-2 control-label" for="change_note">{{ i18n.gettext('Change note') }}</label>
     <div class="col-lg-10">
-      <textarea name="@note" rows="5" class="input-xxlarge" id="change_note"
+      <textarea name="@note" form-groups="5" class="form-control" id="change_note"
         data-provide="markdown"></textarea>
     </div>
   </div>
 
-  <div class="row">
+  <div class="form-group">
     <label class="col-lg-2 control-label" for="file_upload">{{ i18n.gettext('File') }}</label>
     <div class="col-lg-10">
       <input type="file" name="@file" id="file_upload" title="{{ i18n.gettext('Search for a file to add') }}">
     </div>
   </div>
 
-  <div class="row">
+  <div class="form-group">
     <div class="col-lg-10 col-offset-2">
       <button class="btn btn-default btn-primary" type="submit" name="submit_button">
         {{ i18n.gettext('Submit') }}

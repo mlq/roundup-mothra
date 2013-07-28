@@ -57,38 +57,38 @@
               novalidate>
 
           <legend>{{ i18n.gettext('Edit project settings') }}</legend>
-          <div class="row">
+          <div class="form-group">
             <label class="col-lg-2 control-label" for="inputName">
               {{ i18n.gettext('Name') }}
             </label>
             <div class="col-lg-10">
-              <input type="text" id="inputName" name="name"
+              <input class="form-control" type="text" id="inputName" name="name"
                 placeholder="{{ i18n.gettext('Project name') }}"
                 value="{{ context.name }}" required="required">
             </div>
           </div>
 
-          <div class="row">
+          <div class="form-group">
             <label class="col-lg-2 control-label" for="inputDescription">
               {{ i18n.gettext('Description') }}
             </label>
             <div class="col-lg-10">
-              <textarea id="inputDescription" name="description"
+              <textarea class="form-control" rows="10" id="inputDescription" name="description"
                 placeholder="{{ i18n.gettext('Description') }}">{{ context.description }}</textarea>
             </div>
           </div>
 
-          <div class="row">
+          <div class="form-group">
             <label class="col-lg-2 control-label" for="inputHomepage">
               {{ i18n.gettext('Home page') }}
             </label>
             <div class="col-lg-10">
-              <input type="text" id="inputHomepage" name="homepage"
+              <input class="form-control" type="text" id="inputHomepage" name="homepage"
               placeholder="{{ i18n.gettext('Home page') }}" value="{{
               context.homepage }}" required="required" data-type="url">
             </div>
           </div>
-          <div class="row">
+          <div class="form-group">
             <div class="col-lg-10 col-offset-2">
               <input type='submit' name="submit_button" class='btn btn-primary' value="{{ i18n.gettext('Save') }}">
             </div>
@@ -147,18 +147,18 @@
               data-validate="parsley"
               novalidate>
           <legend>{{ i18n.gettext('New milestone') }}</legend>
-          <div class="row">
+          <div class="form-group">
             <label class="col-lg-2 control-label" for="inputName">
               {{ i18n.gettext('Name') }}
             </label>
             <div class="col-lg-10">
-              <input type="text" id="inputName" name="name"
+              <input class="form-control" type="text" id="inputName" name="name"
                 placeholder="{{ i18n.gettext('Milestone name') }}"
                 required="required">
             </div>
           </div>
 
-          <div class="row">
+          <div class="form-group">
             <div class="col-lg-10 col-offset-2">
               <input type='submit' class='btn btn-primary' value="{{
               i18n.gettext('Create milestone') }}">
@@ -180,7 +180,7 @@
           <thead>
             <tr>
               <th>{{ i18n.gettext('Version') }}</th>
-              <th></th>
+              <th>{{ i18n.gettext('Retire') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -190,7 +190,8 @@
               <td>
                 <form class='form-horizontal' method="POST" action='version{{ version.id }}'>
                   <input type="hidden" name="@action" value="retire">
-                  <input type="submit" value="{{ i18n.gettext('Retire') }}" class='btn'>
+                  <input type="submit" value="{{ i18n.gettext('Retire') }}"
+                  class='btn btn-tiny'>
                 </form>
               </td>
             </tr>
@@ -204,18 +205,19 @@
               action='version'
               data-validate="parsley"
               novalidate>
-          <div class="row">
+          <legend>{{ i18n.gettext('New version') }}</legend>
+          <div class="form-group">
             <label class="col-lg-2 control-label" for="inputName">
               {{ i18n.gettext('Name') }}
             </label>
             <div class="col-lg-10">
-              <input type="text" id="inputName" name="name"
+              <input class="form-control" type="text" id="inputName" name="name"
                 placeholder="{{ i18n.gettext('Version name') }}"
                 required="required">
             </div>
           </div>
 
-          <div class="row">
+          <div class="form-group">
             <div class="col-lg-10 col-offset-2">
               <input type='submit' class='btn btn-primary' value="{{
               i18n.gettext('Create version') }}">

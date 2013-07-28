@@ -43,36 +43,48 @@
   {% if value|trim == "None" %}
     {% set value = "" %}
   {% endif %}
-  <input type="text" name="{{ name }}" value="{{ value }}" id="{{ name }}">
+  <input class="form-control" type="text" name="{{ name }}" value="{{ value }}" id="{{ name }}">
 {% endmacro %}
 
 {% macro column_input(name) %}
-  <input type="checkbox" name="@columns" value="{{ name }}"
-  {% if name in cols %}
-    checked
-  {% endif %}
-  >
+<div class="checkbox">
+  <label>
+    <input type="checkbox" name="@columns" value="{{ name }}"
+    {% if name in cols %}
+      checked
+    {% endif %}
+    >
+  </label>
+</div>
 {% endmacro %}
 
 {% macro sort_input(name) %}
-  <input type="radio" name="@sort" value="{{ name }}"
-  {% if name == sort_on %}
-    checked
-  {% endif %}
-  >
+<div class="radio">
+  <label>
+    <input type="radio" name="@sort" value="{{ name }}"
+    {% if name == sort_on %}
+      checked
+    {% endif %}
+    >
+  </label>
+</div>
 {% endmacro %}
 
 {% macro group_input(name) %}
-  <input type="radio" name="@group" value="{{ name }}"
-  {% if name == sort_on %}
-    checked
-  {% endif %}
-  >
+<div class="radio">
+  <label>
+    <input type="radio" name="@group" value="{{ name }}"
+    {% if name == sort_on %}
+      checked
+    {% endif %}
+    >
+  </label>
+</div>
 {% endmacro %}
 
 {% macro search_select(name, db_klass, db_content) %}
 {% set value = request.form.getvalue(name) %}
-<select name="{{ name }}" id="{{ name }}" value="{{ value }}">
+<select class="form-control" name="{{ name }}" id="{{ name }}" value="{{ value }}">
   <option value="">{{ i18n.gettext("Don't care") }}</option>
   <option value="" disabled="disabled">---</option>
 
@@ -92,7 +104,7 @@
   {% set value = "" %}
   {% endif %}
   <div class="dp input-group date" data-date="{{ utils.get_date() }}" data-date-format="yyyy-mm-dd">
-    <input name={{ name }} id="{{ name }}" value="{{ value }}" size="16" type="text" readonly="">
+    <input class="form-control" name={{ name }} id="{{ name }}" value="{{ value }}" size="16" type="text" readonly="">
     <span class="input-group-addon"><i class="icon-calendar"></i></span>
   </div>
 {% endmacro %}
@@ -232,7 +244,7 @@
             {% else %}
             {% set value = 50 %}
             {% endif %}
-            <input type="text" name="@pagesize" size="3" value="{{ value }}">
+            <input class="form-control" type="text" name="@pagesize" size="3" value="{{ value }}">
           </td>
         </tr>
         <tr>
@@ -243,19 +255,27 @@
             {% else %}
             {% set value = 0 %}
             {% endif %}
-            <input type="text" name="@startwith" size="3" value="{{ value }}">
+            <input class="form-control" type="text" name="@startwith" size="3" value="{{ value }}">
           </td>
         </tr>
         <tr>
           <th>{{  i18n.gettext('Sort descending') }}</th>
           <td colspan="4">
-            <input type="checkbox" name="@sortdir" checked="{{ sort_desc }}">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="@sortdir" checked="{{ sort_desc }}">
+              </label>
+            </div>
           </td>
         </tr>
         <tr>
           <th>{{  i18n.gettext('Group descending') }}</th>
           <td colspan="4">
-            <input type="checkbox" name="@groupdir" checked="{{ group_desc }}">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="@groupdir" checked="{{ group_desc }}">
+              </label>
+            </div>
           </td>
         </tr>
         <tr>
@@ -266,7 +286,7 @@
             {% else %}
             {% set value = "" %}
             {% endif %}
-            <input type="text" name="@queryname" value="{{ value }}">
+            <input class="form-control" type="text" name="@queryname" value="{{ value }}">
             <input type="hidden" name="@old-queryname" value="{{ value }}">
           </td>
         </tr>

@@ -32,38 +32,38 @@
           novalidate
           >
 
-      <div class="row">
+      <div class="form-group">
         <label for="inputName" class="col-lg-2 control-label">
           {{ i18n.gettext('Name') }}
         </label>
         <div class="col-lg-10">
-          <input type="text" id="inputName" name="name"
+          <input class="form-control" type="text" id="inputName" name="name"
             placeholder="{{ i18n.gettext('Project name') }}" required>
         </div>
       </div>
 
-      <div class="row">
+      <div class="form-group">
         <label for="inputDescription" class="col-lg-2 control-label">
           {{ i18n.gettext('Description') }}
         </label>
         <div class="col-lg-10">
-          <textarea id="inputDescription" name="description"
+          <textarea class="form-control" id="inputDescription" name="description"
             placeholder="{{ i18n.gettext('Description') }}">
           </textarea>
         </div>
       </div>
 
-      <div class="row">
+      <div class="form-group">
         <label for="inputHomepage" class="col-lg-2 control-label">
           {{ i18n.gettext('Home page') }}
         </label>
         <div class="col-lg-10">
-          <input type="text" id="inputHomepage" name="homepage"
+          <input class="form-control" type="text" id="inputHomepage" name="homepage"
             placeholder="{{ i18n.gettext('Home page') }}" data-type="url">
         </div>
       </div>
 
-      <div class="row">
+      <div class="form-group">
         <div class="col-lg-10 col-offset-2">
           <button type='submit' class='btn btn-primary'>
             {{ i18n.gettext('Create project') }}

@@ -2,13 +2,13 @@
 
 {% macro render_include(query, request) %}
   {% if query.id not in request.user.queries %}
-  <select name="user{{ request.user.id }}@add@queries">
+  <select class="form-control" name="user{{ request.user.id }}@add@queries">
     <option value="">{{ i18n.gettext('Leave out') }}</option>
     <option value="{{ query.id }}">{{ i18n.gettext('Include') }}</option>
   </select>
   {% endif %}
   {% if query.id in request.user.queries %}
-  <select name="user{{ request.user.id }}@remove@queries">
+  <select class="form-control" name="user{{ request.user.id }}@remove@queries">
     <option value="">{{ i18n.gettext('Leave in') }}</option>
     <option value="{{ query.id }}">{{ i18n.gettext('Remove') }}</option>
   </select>
@@ -63,7 +63,7 @@
             <a href="query{{ query.id }}">{{ i18n.gettext('Edit') }}</a>
           </td>
           <td>
-            <select name="query{{ query.id }}@private_for">
+            <select class="form-control" name="query{{ query.id }}@private_for">
               <option
               {% if query.private_for == request.user.id %}
                 selected="selected"

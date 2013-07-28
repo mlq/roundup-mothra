@@ -49,26 +49,42 @@
     </ul> <!-- nav -->
     <div class="tab-content">
       <div class="tab-pane active" id="tab-file">
-        <pre>{{ context.content }}</pre>
+        <pre>{{ context.type }}</pre>
       </div> <!-- tab-file -->
       {% if context.is_edit_ok() %}
       <div class="tab-pane" id="tab-edit">
         <form class="form-horizontal" method="POST"
           enctype="multipart/form-data" action='{{ context.designator() }}'>
-          <div class="row">
+          <div class="form-group">
             <label class="col-lg-2 control-label" for="name">{{ i18n.gettext('Name') }}</label>
             <div class="col-lg-10">
-              {{ context.name.field() }}
+              <input
+                class="form-control"
+                type="text"
+                name="name"
+                value="{{ context.name.plain() }}"
+                size="30"
+                placeholder="{{ i18n.gettext('Name') }}"
+                required="required"
+                >
             </div>
           </div>
-          <div class="row">
+          <div class="form-group">
             <label class="col-lg-2 control-label" for="type">{{ i18n.gettext('Type') }}</label>
             <div class="col-lg-10">
-              {{ context.type.field() }}
+              <input
+                class="form-control"
+                type="text"
+                name="type"
+                value="{{ context.type.plain() }}"
+                size="30"
+                placeholder="{{ i18n.gettext('Type') }}"
+                required="required"
+                >
             </div>
           </div>
 
-          <div class="row">
+          <div class="form-group">
             <div class="col-lg-10 col-offset-2">
               <button class="btn btn-default btn-primary" type="submit" name="submit_button">
                 {{ i18n.gettext('Submit') }}
