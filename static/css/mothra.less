@@ -37,7 +37,7 @@
 @navbar_item_color_hover: #28333D;
 @navbar_item_icon_color: #28333D;
 @navbar_item_background_color: #FFFFFF;
-@navbar_item_background_color_hover: #A7BDC6;
+@navbar_item_background_color_hover: #F1FBFF;
 
 /* sidebar */
 @sidebar_width: 220px;
@@ -70,8 +70,8 @@
 /* breadcrumb */
 @breadcrumb_background_color: #A7BDC6;
 @breadcrumb_item_color: #28333D;
-@breadcrumb_item_color_active: #5A707A;
-@breadcrumb_item_spacer_color: #5A707A;
+@breadcrumb_item_color_active: #F1FBFF;
+@breadcrumb_item_spacer_color: #F1FBFF;
 
 /* other */
 @issue_dl_padding: 10px;
@@ -179,7 +179,8 @@ input[type="color"],
         background-color: @navbar_header_background_color_focus;
 
         .caret {
-          visibility: hidden;
+          border-top-color: @navbar_header_color_focus;
+          border-bottom-color: @navbar_header_color_focus;
         }
       }
     }
