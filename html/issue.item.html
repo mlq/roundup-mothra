@@ -37,36 +37,40 @@
 {% block content %}
   {% include '_include/permission.html' %}
   {% if context.is_view_ok() %}
-    <ul class="nav nav-tabs" id="tabs">
-      <li class="active">
-        <a href="#tab-issue" data-toggle="tab">
-          {{ title }}
-        </a>
-      </li>
+    {% if context.id %}
+      <ul class="nav nav-tabs" id="tabs">
+        <li class="active">
+          <a href="#tab-issue" data-toggle="tab">
+            {{ i18n.gettext('Issue') }} {{ context.id }} - {{ context.title }}
+          </a>
+        </li>
 
-      {% if context.id %}
-      <li class="pull-right">
-        <a href="#tab-history" data-toggle="tab">
-          <i class="icon-time icon-fixed-width"></i> {{ i18n.gettext('History') }}
-        </a>
-      </li>
-      <li class="pull-right">
-        <a href="#issue-messages">
-          <i class="icon-comments icon-fixed-width"></i> {{ i18n.gettext('Messages') }}
-        </a>
-      </li>
-      {% endif %}
-      {% if context.files %}
-      <li class="pull-right">
-        <a href="#issue-files">
-          <i class="icon-file-alt icon-fixed-width"></i> {{ i18n.gettext('Files') }}
-        </a>
-      </li>
-      {% endif %}
-    </ul>
+        {% if context.id %}
+        <li class="pull-right">
+          <a href="#tab-history" data-toggle="tab">
+            <i class="icon-time icon-fixed-width"></i> {{ i18n.gettext('History') }}
+          </a>
+        </li>
+        <li class="pull-right">
+          <a href="#issue-messages">
+            <i class="icon-comments icon-fixed-width"></i> {{ i18n.gettext('Messages') }}
+          </a>
+        </li>
+        {% endif %}
+        {% if context.files %}
+        <li class="pull-right">
+          <a href="#issue-files">
+            <i class="icon-file-alt icon-fixed-width"></i> {{ i18n.gettext('Files') }}
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    {% endif %}
 
+    {% if context.id %}
     <div class="tab-content">
       <div class="tab-pane active" id="tab-issue">
+    {% endif %}
         <div class="well">
           {% if context.id %}
             <p>
@@ -122,14 +126,18 @@
           </div>
           {% endfor %}
         {% endif %}
+      {% if context.id %}
       </div> <!-- tab-issue -->
+      {% endif %}
       {% if context.id %}
       <div class="tab-pane" id="tab-history">
         <h4>History</h4>
         {{ context.history() }}
       </div> <!-- tab-history -->
       {% endif %}
+    {% if context.id %}
     </div> <!-- tab-content -->
+    {% endif %}
   {% endif %}
 {% endblock %}
 
