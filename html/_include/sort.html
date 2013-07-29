@@ -4,7 +4,7 @@
   <div class='form-group'>
     <label for='group_on'>{{ i18n.gettext('Sort on') }}</label>
     {% for i in range(range_width) %}
-      <select class="form-control" name='@sort{{i}}'>
+      <select class="form-control input-small" name='@sort{{i}}'>
         {% for prop in context.properties() %}
           <option value='{{ prop._name }}'>{{ prop._name }}</option>
         {% endfor %}
@@ -19,7 +19,7 @@
   <div class='form-group'>
     <label for='project'>{{ i18n.gettext('Group on') }}</label>
     {% for i in range(range_width) %}
-      <select class="form-control" name='@group{{i}}'>
+      <select class="form-control input-small" name='@group{{i}}'>
         {% for prop in context.properties() %}
           <option value='{{ prop._name }}'>{{ prop._name }}</option>
         {% endfor %}

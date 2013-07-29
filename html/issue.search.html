@@ -43,7 +43,7 @@
   {% if value|trim == "None" %}
     {% set value = "" %}
   {% endif %}
-  <input class="form-control" type="text" name="{{ name }}" value="{{ value }}" id="{{ name }}">
+  <input class="form-control input-small" type="text" name="{{ name }}" value="{{ value }}" id="{{ name }}">
 {% endmacro %}
 
 {% macro column_input(name) %}
@@ -84,7 +84,7 @@
 
 {% macro search_select(name, db_klass, db_content) %}
 {% set value = request.form.getvalue(name) %}
-<select class="form-control" name="{{ name }}" id="{{ name }}" value="{{ value }}">
+<select class="form-control input-small" name="{{ name }}" id="{{ name }}" value="{{ value }}">
   <option value="">{{ i18n.gettext("Don't care") }}</option>
   <option value="" disabled="disabled">---</option>
 
@@ -104,8 +104,8 @@
   {% set value = "" %}
   {% endif %}
   <div class="dp input-group date" data-date="{{ utils.get_date() }}" data-date-format="yyyy-mm-dd">
-    <input class="form-control" name={{ name }} id="{{ name }}" value="{{ value }}" size="16" type="text" readonly="">
-    <span class="input-group-addon"><i class="icon-calendar"></i></span>
+    <input class="form-control input-small" name={{ name }} id="{{ name }}" value="{{ value }}" size="16" type="text" readonly="">
+    <span class="input-group-addon input-small"><i class="icon-calendar"></i></span>
   </div>
 {% endmacro %}
 
@@ -114,7 +114,7 @@
   {% include '_include/permission.html' %}
 
   <form method="GET" name ="itemSynopsis" action ='{{  request.classname }}'>
-    <table class="table">
+    <table class="table table-condensed">
       <thead>
         <tr>
           <th></th>
@@ -244,7 +244,7 @@
             {% else %}
             {% set value = 50 %}
             {% endif %}
-            <input class="form-control" type="text" name="@pagesize" size="3" value="{{ value }}">
+            <input class="form-control input-small" type="text" name="@pagesize" size="3" value="{{ value }}">
           </td>
         </tr>
         <tr>
@@ -255,7 +255,7 @@
             {% else %}
             {% set value = 0 %}
             {% endif %}
-            <input class="form-control" type="text" name="@startwith" size="3" value="{{ value }}">
+            <input class="form-control input-small" type="text" name="@startwith" size="3" value="{{ value }}">
           </td>
         </tr>
         <tr>
@@ -286,7 +286,7 @@
             {% else %}
             {% set value = "" %}
             {% endif %}
-            <input class="form-control" type="text" name="@queryname" value="{{ value }}">
+            <input class="form-control input-small" type="text" name="@queryname" value="{{ value }}">
             <input type="hidden" name="@old-queryname" value="{{ value }}">
           </td>
         </tr>

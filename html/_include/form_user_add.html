@@ -1,35 +1,35 @@
 <div class='form-group'>
   <label class='col-lg-2 control-label' for='username'>{{ i18n.gettext('Username') }}</label>
   <div class='col-lg-10'>
-      <input class="form-control" type='text' name="username" required="required">
+      <input class="form-control input-small" type='text' name="username" required="required">
   </div>
 </div>
 
 <div class='form-group'>
   <label class='col-lg-2 control-label' for='realname'>{{ i18n.gettext('Full name') }}</label>
   <div class='col-lg-10'>
-      <input class="form-control" type='text' name="realname">
+      <input class="form-control input-small" type='text' name="realname">
   </div>
 </div>
 
 <div class='form-group'>
   <label class='col-lg-2 control-label' for='address'>{{ i18n.gettext('Email') }}</label>
   <div class='col-lg-10'>
-    <input class="form-control" type='text' name="address" required="required" data-type="email">
+    <input class="form-control input-small" type='text' name="address" required="required" data-type="email">
   </div>
 </div>
 
 <div class='form-group'>
   <label class='col-lg-2 control-label' for='password'>{{ i18n.gettext('Password') }}</label>
   <div class='col-lg-10'>
-    <input class="form-control" id="password" type='password' name='password' required="required">
+    <input class="form-control input-small" id="password" type='password' name='password' required="required">
   </div>
 </div>
 
 <div class='form-group'>
   <label class='col-lg-2 control-label' for='@confirm@password'>{{ i18n.gettext('Confirm Password') }}</label>
   <div class='col-lg-10'>
-    <input class="form-control" type='password' name='@confirm@password' data-equalto="#password">
+    <input class="form-control input-small" type='password' name='@confirm@password' data-equalto="#password">
   </div>
 </div>
 
@@ -38,7 +38,7 @@
     <label class='col-lg-2 control-label' for='roles'>{{ i18n.gettext('Roles (comma
       seperated)') }}</label>
     <div class='col-lg-10'>
-      <input class="form-control" type='text' name='roles' value='{{ context.roles }}'>
+      <input class="form-control input-small" type='text' name='roles' value='{{ context.roles }}'>
     </div>
   </div>
 {% endif %}
@@ -46,14 +46,14 @@
 <div class='form-group'>
   <label class='col-lg-2 control-label' for='website'>{{ i18n.gettext('Website') }}</label>
   <div class='col-lg-10'>
-    <input class="form-control" type='text' name="website">
+    <input class="form-control input-small" type='text' name="website">
   </div>
 </div>
 
 <div class='form-group'>
   <label class='col-lg-2 control-label' for='timezone'>{{ i18n.gettext('Timezone') }}</label>
   <div class='col-lg-10'>
-    <select class="form-control" name="timezone">
+    <select class="form-control input-small" name="timezone">
       <option value=""></option>
       {% for timezone in utils.get_timezones() %}
         <option value="{{ timezone }}"

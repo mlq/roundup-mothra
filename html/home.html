@@ -171,21 +171,16 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-sm-12">
       <div class="panel">
         <div class="panel-heading">
           {{ i18n.gettext('Latest issues') }}
         </div>
 
-        <table class="table">
+        <table class="table no-margin">
           <thead>
             <tr>
               <th>{{ i18n.gettext('ID') }}</th>
-              <th>{{ i18n.gettext('Type') }}</th>
               <th>{{ i18n.gettext('Project') }}</th>
               <th>{{ i18n.gettext('Name') }}</th>
             </tr>
@@ -195,23 +190,14 @@
               {% if loop.index0 < 15 %}
                 <tr>
                   <td>
-                    <a href="issue{{ issue.id }}">
+                    <a href="issue{{ issue.id }}" class="text-url">
                       {{ issue.id }}
                     </a>
                   </td>
                   <td>
-                    <a href="project{{ issue.project.id }}">
+                    <a href="project{{ issue.project.id }}" class="text-url">
                       {{ issue.project.name }}
                     </a>
-                  </td>
-                  <td>
-                    {% if issue.issue_type.plain() == "feature request" %}
-                      Feature
-                    {% elif issue.issue_type.plain() == "security" %}
-                      Security
-                    {% else %}
-                      Patch
-                    {% endif %}
                   </td>
                   <td>
                     <a href="issue{{ issue.id }}">

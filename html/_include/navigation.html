@@ -97,7 +97,7 @@
             'assignedto': request.user.id,
             '@dispname': i18n.gettext('Your Issues'),
           }) }}">
-            <i class="icon-fixed-width icon-pushpin"></i> {{ i18n.gettext('Your Issues') }}
+            <i class="icon-fixed-width icon-tasks"></i> {{ i18n.gettext('Your Issues') }}
           </a>
         </li>
       {% endif %}
@@ -113,7 +113,7 @@
           'assignedto': '-1',
           '@dispname': i18n.gettext('Show Unassigned'),
          }) }}">
-           <i class="icon-fixed-width icon-file"></i> {{ i18n.gettext('Show Unassigned') }}
+           <i class="icon-fixed-width icon-file-alt"></i> {{ i18n.gettext('Show Unassigned') }}
          </a>
       </li>
       <li>
@@ -126,7 +126,7 @@
           'status': status_notresolved,
           '@dispname': i18n.gettext('Show All'),
         }) }}">
-          <i class="icon-fixed-width icon-file-alt"></i> {{ i18n.gettext('Show All') }}
+          <i class="icon-fixed-width icon-file"></i> {{ i18n.gettext('Show All') }}
         </a>
       </li>
       <li>
