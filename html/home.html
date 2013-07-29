@@ -43,7 +43,7 @@
 {% endmacro %}
 
 {% block content %}
-  {% set issues = db.issue.filter(filterspec={}, sort=[('+', 'activity')]) %}
+  {% set issues = db.issue.filter(filterspec={}, sort=[('-', 'activity')]) %}
   {% set number_of_issues = issues|length %}
   {% set issues_closed = db.issue.filter(filterspec={"status": 7}) %}
   {% set number_of_closed_issues = issues_closed|length %}
