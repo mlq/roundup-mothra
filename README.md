@@ -37,6 +37,7 @@ Resources
   * [bootstrap-datepicker](http://www.eyecon.ro/bootstrap-datepicker)
   * [bootstrap-markdown](http://toopay.github.io/bootstrap-markdown)
   * [markdown-js](http://github.com/evilstreak/markdown-js)
+  * [LESS Elements](https://github.com/dmitryf/elements)
 
 Installation
 ------------
