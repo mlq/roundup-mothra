@@ -1,36 +1,44 @@
 {% extends '_layout/base.html' %}
 
+{% set columns = "id,activity,title,creator,project, status, type" %}
+{% set status_resolved = "7" %}
+{% set status_notresolved = "-1,1,2,3,4,5,6" %}
 {% set fluid_layout = true %}
-
 {% set title = "Dashboard" %}
 
-{% macro render_stat_circle(value, max, width, icon, color, desc) %}
+{% macro render_stat_circle(value, max, width, icon, color, url, desc) %}
   <div class="stat-circle">
-    <div class="visual">
-      <div class="stat-circle-icon">
-        <i class="{{ icon }}"></i>
+    {% if url %}
+    <a href="{{ url }}">
+    {% endif %}
+      <div class="visual">
+        <div class="stat-circle-icon">
+          <i class="{{ icon }}"></i>
+        </div>
+
+        <input type="text"
+               class="dial"
+               value="{{ value }}"
+               data-max="{{ max }}"
+               data-fgColor="{{ color }}"
+               data-displayInput="false"
+               data-width="{{ width }}"
+               data-height="{{ width }}"
+               data-thickness=".2"
+               >
       </div>
 
-      <input type="text"
-             class="dial"
-             value="{{ value }}"
-             data-max="{{ max }}"
-             data-fgColor="{{ color }}"
-             data-displayInput="false"
-             data-width="{{ width }}"
-             data-height="{{ width }}"
-             data-thickness=".2"
-             >
-    </div>
-
-    <div class="details">
-      <div class="value">
-        {{ value }}
+      <div class="details">
+        <div class="value">
+          {{ value }}
+        </div>
+        <div class="description">
+          {{ desc }}
+        </div>
       </div>
-      <div class="description">
-        {{ desc }}
-      </div>
-    </div>
+    {% if url %}
+    </a>
+    {% endif %}
   </div>
 {% endmacro %}
 
@@ -58,75 +66,108 @@
 
         <div class="row">
           <div class="col-sm-2">
-            <a href="issue">
             {{ render_stat_circle(number_of_issues,
               number_of_issues,
               "100",
               "icon-ticket",
               "#58758C",
+              "issue",
               i18n.gettext('Issues')
               )
             }}
-            </a>
           </div>
 
+          {% set url = request.indexargs_url('issue', {
+              '@sort': '-activity',
+              '@group': 'priority',
+              '@filter': 'status,assignedto',
+              '@columns': columns,
+              '@search_text': '',
+              'status': status_resolved,
+              'assignedto': '-1',
+              '@dispname': i18n.gettext('Open issues'),
+            })
+          %}
           <div class="col-sm-2">
             {{ render_stat_circle(number_of_closed_issues,
               number_of_issues,
               "100",
               "icon-ok-sign",
               "#90BD2B",
+              url,
               i18n.gettext('Closed issues')
               )
             }}
           </div>
 
+          {% set url = request.indexargs_url('issue', {
+              '@sort': '-activity',
+              '@group': 'priority',
+              '@filter': 'status,assignedto',
+              '@columns': columns,
+              '@search_text': '',
+              'status': status_notresolved,
+              'assignedto': '-1',
+              '@dispname': i18n.gettext('Open issues'),
+            })
+          %}
           <div class="col-sm-2">
             {{ render_stat_circle(number_of_open_issues,
               number_of_issues,
               "100",
               "icon-tasks",
               "#8C4646",
+              url,
               i18n.gettext('Open issues')
               )
             }}
           </div>
 
+          {% set url = request.indexargs_url('issue', {
+              '@sort': '-activity',
+              '@group': 'priority',
+              '@filter': 'status,assignedto',
+              '@columns': columns,
+              '@search_text': '',
+              'status': status_notresolved,
+              'assignedto': '-1',
+              '@dispname': i18n.gettext('Unassigned issues'),
+            })
+          %}
           <div class="col-sm-2">
             {{ render_stat_circle(number_of_unassigned_issues,
               number_of_issues,
               "100",
               "icon-bug",
               "#D96459",
+              url,
               i18n.gettext('Unassigned issues')
               )
             }}
           </div>
 
           <div class="col-sm-2">
-            <a href="project">
             {{ render_stat_circle(number_of_projects,
               number_of_projects,
               "100",
               "icon-shield",
               "#F2DD4A",
+              "project",
               i18n.gettext('Projects')
               )
             }}
-            </a>
           </div>
 
           <div class="col-sm-2">
-            <a href="user">
             {{ render_stat_circle(number_of_users,
               number_of_users,
               "100",
               "icon-group",
               "#2D5955",
+              "user",
               i18n.gettext('Users')
               )
             }}
-            </a>
           </div>
         </div>
       </div>
