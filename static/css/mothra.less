@@ -3,6 +3,7 @@
 
 @font_size: 12px;
 @font_family: "Open Sans", sans-serif;
+@font_color: #333333;
 
 @link_color: @color_green;
 
@@ -95,6 +96,8 @@
 body {
   font-size: @font_size;
   font-family: @font_family;
+  color:  @font_color;
+
   padding-top: @navbar_height;
 }
 
@@ -497,8 +500,6 @@ li.required {
 .stat-circle {
   display: block;
   text-align: center;
-  float: left;
-  margin-right: @default_padding * 2;
 
   .visual {
     display: inline-block;
@@ -526,5 +527,16 @@ li.required {
     .description {
       font-size: 13px;
     }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 980px) {
+  .stat-circle {
+  }
+}
+
+@media (max-width: 767px) {
+  .stat-circle {
+    margin-bottom: @default_padding;
   }
 }
