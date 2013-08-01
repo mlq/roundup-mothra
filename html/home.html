@@ -184,6 +184,7 @@
             <tr>
               <th>{{ i18n.gettext('ID') }}</th>
               <th>{{ i18n.gettext('Project') }}</th>
+              <th>{{ i18n.gettext('Activity') }}</th>
               <th>{{ i18n.gettext('Name') }}</th>
               <th>{{ i18n.gettext('Status') }}</th>
             </tr>
@@ -201,6 +202,9 @@
                     <a href="project{{ issue.project.id }}" class="text-url">
                       {{ issue.project.name }}
                     </a>
+                  </td>
+                  <td>
+                    {{ issue.activity.reldate() }}
                   </td>
                   <td>
                     <a href="issue{{ issue.id }}">
