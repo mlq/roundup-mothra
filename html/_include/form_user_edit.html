@@ -44,6 +44,32 @@
   </div>
 {% endif %}
 
+{% if request.user.hasRole('Admin') %}
+<div class='form-group'>
+  <label class='col-lg-2 control-label' for='subscribe'>{{ i18n.gettext('Subscribe') }}</label>
+  <div class='col-lg-10'>
+    <div class="radio">
+      <label>
+        <input type="radio" name="subscribe" value="yes"
+        {% if context.subscribe %}
+          checked="checked"
+        {% endif %}>
+        {{ i18n.gettext('Receive email notifications of new issues') }}
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="subscribe" value="no"
+        {% if not context.subscribe %}
+          checked="checked"
+        {% endif %}>
+        {{ i18n.gettext('Do not receive email notifications of new issues') }}
+      </label>
+    </div>
+  </div>
+</div>
+{% endif %}
+
 <div class='form-group'>
   <label class='col-lg-2 control-label' for='website'>{{ i18n.gettext('Website') }}</label>
   <div class='col-lg-10'>

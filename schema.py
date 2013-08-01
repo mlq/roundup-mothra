@@ -92,14 +92,15 @@ query = Class(db, "query",
 # User
 #   A user of the tracker
 user = Class(db, "user",
-    username = String(),
-    password = Password(),
-    address  = String(),
-    realname = String(),
-    website  = String(),
-    queries  = Multilink('query'),
-    roles    = String(), # comma-separated string of Role names
-    timezone = String()
+    username  = String(),
+    password  = Password(),
+    address   = String(),
+    realname  = String(),
+    website   = String(),
+    queries   = Multilink('query'),
+    roles     = String(), # comma-separated string of Role names
+    subscribe = Boolean(),
+    timezone  = String()
   )
 user.setkey("username")
 
