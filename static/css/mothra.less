@@ -120,6 +120,13 @@ a {
   color: @link_color;
 }
 
+.nav  {
+  .caret {
+    border-top-color: @link_color;
+    border-bottom-color: @link_color;
+  }
+}
+
 a.text-url {
   color: @font_color;
 }
@@ -473,6 +480,10 @@ input[type="color"],
   }
 }
 
+.label {
+  font-size: 85%;
+}
+
 .btn-tiny {
   font-size: @font_size;
   padding: 2px 4px;
@@ -565,4 +576,17 @@ li.required {
 
 .md-editor textarea, .md-preview {
   padding: @default_padding;
+}
+
+.progress {
+  position: relative;
+
+  .value {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    text-indent: 50%;
+    background: none;
+  }
 }

@@ -49,9 +49,9 @@ def project_get_issues_by_milestone(project, milestone):
 
 def project_milestone_get_progress(issues):
   if len(issues) == 0:
-    return 0
+    return 0.0
 
-  done = 0
+  done = 0.0
   for issue in issues:
     if issue.status.plain() == 'in-progress':
       done += 1
@@ -60,9 +60,9 @@ def project_milestone_get_progress(issues):
 
 def project_milestone_get_done(issues):
   if len(issues) == 0:
-    return 0
+    return 0.0
 
-  done = 0
+  done = 0.0
   for issue in issues:
     if issue.status.plain() == 'resolved':
       done += 1

@@ -36,12 +36,11 @@
 
     {% if milestone_issues|length != 0 %}
       <div class="progress">
-        <div class="progress-bar progress-bar-success"
-          style="width: {{ utils.project_milestone_get_done(milestone_issues) }}%;">
-        </div>
-        <div class="progress-bar progress-bar-warning"
-          style="width: {{ utils.project_milestone_get_progress(milestone_issues) }}%;">
-        </div>
+        {% set done = utils.project_milestone_get_done(milestone_issues) %}
+        {% set progress = utils.project_milestone_get_progress(milestone_issues) %}
+        <div class="progress-bar progress-bar-success" style="width: {{ done }}%;"></div>
+        <div class="progress-bar progress-bar-warning" style="width: {{ progress }}%;"></div>
+        <span class="value">{{ done + progress }}%</span>
       </div>
 
       <table class="table">
