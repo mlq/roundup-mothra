@@ -1,0 +1,78 @@
+{% extends '_layout/base.html' %}
+
+{% set title = context.name.plain() %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li>
+    <a href="/">
+      Home
+    </a>
+  </li>
+  <li>
+    <a href="project{{ context.project.id }}">
+      {{ context.project.name }}
+    </a>
+  </li>
+  <li>
+    Versions
+  </li>
+  <li class="active">
+    {{ title }}
+  </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+  {% include '_include/permission.html' %}
+
+  {% if context.is_view_ok() %}
+    <h2>{{ i18n.gettext('Version') }} {{ context.name }}</h2>
+
+    {% set version_issues =
+    db.issue.filter(filterspec={"version":context.id}, sort=[('+', 'status'), ('+', 'creation')]) %}
+
+    {% if version_issues|length != 0 %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>{{ i18n.gettext('ID') }}</th>
+            <th>{{ i18n.gettext('Type') }}</th>
+            <th>{{ i18n.gettext('Name') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for issue in version_issues %}
+          {% if issue.status.plain() == "resolved" %}
+          <tr class="success">
+          {% elif issue.status.plain() == "in-progress" %}
+          <tr class="warning">
+          {% else %}
+          <tr>
+          {% endif %}
+            <td>
+              <a href="issue{{ issue.id }}">
+                {{ issue.id }}
+              </a>
+            </td>
+            <td>
+              {% if issue.issue_type.plain() == "feature request" %}
+                Feature
+              {% elif issue.issue_type.plain() == "security" %}
+                Security
+              {% else %}
+                Patch
+              {% endif %}
+            </td>
+            <td>
+              <a href="issue{{ issue.id }}">
+               {{ issue.title.plain(hyperlink=0) }}
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  {% endif %}
+{% endblock %}
