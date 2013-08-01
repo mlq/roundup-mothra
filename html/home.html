@@ -6,13 +6,12 @@
 {% set status_resolved = "7" %}
 {% set status_notresolved = "-1,1,2,3,4,5,6" %}
 {% set fluid_layout = true %}
+{% set number_of_latest_issues = 15 %}
 {% set title = "Dashboard" %}
 
 {% macro render_stat_circle(value, max, width, icon, color, url, desc) %}
   <div class="stat-circle">
-    {% if url %}
     <a href="{{ url }}">
-    {% endif %}
       <div class="visual">
         <div class="stat-circle-icon">
           <i class="{{ icon }}"></i>
@@ -38,9 +37,7 @@
           {{ desc }}
         </div>
       </div>
-    {% if url %}
     </a>
-    {% endif %}
   </div>
 {% endmacro %}
 
@@ -191,7 +188,7 @@
           </thead>
           <tbody>
             {% for issue in issues %}
-              {% if loop.index0 < 15 %}
+              {% if loop.index0 < number_of_latest_issues %}
                 <tr>
                   <td>
                     <a href="issue{{ issue.id }}" class="text-url">
@@ -199,20 +196,28 @@
                     </a>
                   </td>
                   <td>
-                    <a href="project{{ issue.project.id }}" class="text-url">
-                      {{ issue.project.name }}
-                    </a>
+                    {% if issue.project %}
+                      <a href="project{{ issue.project.id }}" class="text-url">
+                        {{ issue.project.name }}
+                      </a>
+                    {% endif %}
                   </td>
                   <td>
-                    {{ issue.activity.reldate() }}
+                    {% if issue.activity %}
+                      {{ issue.activity.reldate() }}
+                    {% endif %}
                   </td>
                   <td>
-                    <a href="issue{{ issue.id }}">
-                     {{ issue.title.plain(hyperlink=0) }}
-                    </a>
+                    {% if issue.title %}
+                      <a href="issue{{ issue.id }}">
+                       {{ issue.title.plain(hyperlink=0) }}
+                      </a>
+                    {% endif %}
                   </td>
                   <td>
-                    {{ macro_issue.render_issue_status(issue.status.plain()) }}
+                    {% if issue.status %}
+                      {{ macro_issue.render_issue_status(issue.status.plain()) }}
+                    {% endif %}
                   </td>
                 </tr>
               {% endif %}
