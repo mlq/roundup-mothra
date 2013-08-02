@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% set issues = db.issue.filter(filterspec={"project":context.id}, sort=[('+', 'activity')]) %}
-{% set milestones = db.milestone.filter(filterspec={"project":context.id}) %}
+{% set milestones = db.milestone.filter(filterspec={"project":context.id}, sort=[('+', 'name')]) %}
 {% set versions = db.version.filter(filterspec={"project":context.id}) %}
 
 {% block content %}
