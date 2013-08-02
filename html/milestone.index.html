@@ -1,6 +1,6 @@
 {% extends '_layout/base.html' %}
 
-{% set title = context.name.plain() %}
+{% set title = "Milestones" %}
 
 {% block breadcrumb %}
 <ul class="breadcrumb">
@@ -9,24 +9,20 @@
       Home
     </a>
   </li>
-  <li>
-    <a href="project">
-      {{ i18n.gettext('Projects') }}
-    </a>
-  </li>
-  <li>
-    <a href="project{{ context.project.id }}">
-      {{ context.project.name }}
-    </a>
-  </li>
-  <li>
-    <a href="{{ request.indexargs_url('milestone', {
-      '@filter': 'project',
-      'project': 1,
-      }) }}">
-      {{ i18n.gettext('Milestones') }}
-    </a>
-  </li>
+  {% if request.form.project %}
+    {% set project_id = request.form.project.value %}
+    {% set project = db.project.getItem(project_id) %}
+    <li>
+      <a href="project">
+        {{ i18n.gettext('Projects') }}
+      </a>
+    </li>
+    <li>
+      <a href="project{{ project_id }}">
+        {{ project.name }}
+      </a>
+    </li>
+  {% endif %}
   <li class="active">
     {{ title }}
   </li>
@@ -37,10 +33,11 @@
   {% include '_include/permission.html' %}
 
   {% if context.is_view_ok() %}
-    <h2>{{ context.name }}</h2>
+    {% for milestone in request.batch() %}
+    <h2>{{ milestone.name }}</h2>
 
     {% set milestone_issues =
-    db.issue.filter(filterspec={"milestone":context.id}, sort=[('+', 'status'), ('+', 'creation')]) %}
+    db.issue.filter(filterspec={"milestone":milestone.id}, sort=[('+', 'status'), ('+', 'creation')]) %}
 
     {% if milestone_issues|length != 0 %}
       <div class="progress">
@@ -92,5 +89,7 @@
         </tbody>
       </table>
     {% endif %}
+    {% endfor %}
+  </ul>
   {% endif %}
 {% endblock %}
