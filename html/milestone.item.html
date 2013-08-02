@@ -23,7 +23,7 @@
     <a href="{{ request.indexargs_url('milestone', {
       '@sort': '+name',
       '@filter': 'project',
-      'project': 1,
+      'project': context.project.id,
       }) }}">
       {{ i18n.gettext('Milestones') }}
     </a>
