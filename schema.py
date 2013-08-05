@@ -110,6 +110,7 @@ msg = FileClass(db, "msg",
     author     = Link("user", do_journal = 'no'),
     recipients = Multilink("user", do_journal = 'no'),
     date       = Date(),
+    summary    = String(),
     files      = Multilink("file"),
     messageid  = String(),
     inreplyto  = String()
@@ -144,7 +145,7 @@ issue = IssueClass(db, "issue",
 # GENERAL
 #
 # User can register a new user
-db.security.addPermission(name='Register', klass='user', 
+db.security.addPermission(name='Register', klass='user',
     description='User is allowed to register new user')
 
 # REGULAR USERS
