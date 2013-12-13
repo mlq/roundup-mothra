@@ -58,172 +58,176 @@
 
   <div class="row">
     <div class="col-sm-12">
-      <div class="panel">
+      <div class="panel panel-default">
         <div class="panel-heading">
           {{ i18n.gettext('Statistics') }}
         </div>
 
-        <div class="row">
-          <div class="col-sm-2">
-            {{ render_stat_circle(number_of_issues,
-              number_of_issues,
-              "100",
-              "fa fa-ticket",
-              "#58758C",
-              "issue",
-              i18n.gettext('Issues')
-              )
-            }}
-          </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-2">
+              {{ render_stat_circle(number_of_issues,
+                number_of_issues,
+                "100",
+                "fa fa-ticket",
+                "#58758C",
+                "issue",
+                i18n.gettext('Issues')
+                )
+              }}
+            </div>
 
-          {% set url = request.indexargs_url('issue', {
-              '@sort': '-activity',
-              '@group': 'priority',
-              '@filter': 'status,assignedto',
-              '@columns': columns,
-              '@search_text': '',
-              'status': status_resolved,
-              'assignedto': '-1',
-              '@dispname': i18n.gettext('Open issues'),
-            })
-          %}
-          <div class="col-sm-2">
-            {{ render_stat_circle(number_of_closed_issues,
-              number_of_issues,
-              "100",
-              "fa fa-check",
-              "#90BD2B",
-              url,
-              i18n.gettext('Closed issues')
-              )
-            }}
-          </div>
+            {% set url = request.indexargs_url('issue', {
+                '@sort': '-activity',
+                '@group': 'priority',
+                '@filter': 'status,assignedto',
+                '@columns': columns,
+                '@search_text': '',
+                'status': status_resolved,
+                'assignedto': '-1',
+                '@dispname': i18n.gettext('Open issues'),
+              })
+            %}
+            <div class="col-sm-2">
+              {{ render_stat_circle(number_of_closed_issues,
+                number_of_issues,
+                "100",
+                "fa fa-check",
+                "#90BD2B",
+                url,
+                i18n.gettext('Closed issues')
+                )
+              }}
+            </div>
 
-          {% set url = request.indexargs_url('issue', {
-              '@sort': '-activity',
-              '@group': 'priority',
-              '@filter': 'status,assignedto',
-              '@columns': columns,
-              '@search_text': '',
-              'status': status_notresolved,
-              'assignedto': '-1',
-              '@dispname': i18n.gettext('Open issues'),
-            })
-          %}
-          <div class="col-sm-2">
-            {{ render_stat_circle(number_of_open_issues,
-              number_of_issues,
-              "100",
-              "fa fa-tasks",
-              "#8C4646",
-              url,
-              i18n.gettext('Open issues')
-              )
-            }}
-          </div>
+            {% set url = request.indexargs_url('issue', {
+                '@sort': '-activity',
+                '@group': 'priority',
+                '@filter': 'status,assignedto',
+                '@columns': columns,
+                '@search_text': '',
+                'status': status_notresolved,
+                'assignedto': '-1',
+                '@dispname': i18n.gettext('Open issues'),
+              })
+            %}
+            <div class="col-sm-2">
+              {{ render_stat_circle(number_of_open_issues,
+                number_of_issues,
+                "100",
+                "fa fa-tasks",
+                "#8C4646",
+                url,
+                i18n.gettext('Open issues')
+                )
+              }}
+            </div>
 
-          {% set url = request.indexargs_url('issue', {
-              '@sort': '-activity',
-              '@group': 'priority',
-              '@filter': 'status,assignedto',
-              '@columns': columns,
-              '@search_text': '',
-              'status': status_notresolved,
-              'assignedto': '-1',
-              '@dispname': i18n.gettext('Unassigned issues'),
-            })
-          %}
-          <div class="col-sm-2">
-            {{ render_stat_circle(number_of_unassigned_issues,
-              number_of_issues,
-              "100",
-              "fa fa-bug",
-              "#D96459",
-              url,
-              i18n.gettext('Unassigned issues')
-              )
-            }}
-          </div>
+            {% set url = request.indexargs_url('issue', {
+                '@sort': '-activity',
+                '@group': 'priority',
+                '@filter': 'status,assignedto',
+                '@columns': columns,
+                '@search_text': '',
+                'status': status_notresolved,
+                'assignedto': '-1',
+                '@dispname': i18n.gettext('Unassigned issues'),
+              })
+            %}
+            <div class="col-sm-2">
+              {{ render_stat_circle(number_of_unassigned_issues,
+                number_of_issues,
+                "100",
+                "fa fa-bug",
+                "#D96459",
+                url,
+                i18n.gettext('Unassigned issues')
+                )
+              }}
+            </div>
 
-          <div class="col-sm-2">
-            {{ render_stat_circle(number_of_projects,
-              number_of_projects,
-              "100",
-              "fa fa-shield",
-              "#F2DD4A",
-              "project",
-              i18n.gettext('Projects')
-              )
-            }}
-          </div>
+            <div class="col-sm-2">
+              {{ render_stat_circle(number_of_projects,
+                number_of_projects,
+                "100",
+                "fa fa-shield",
+                "#F2DD4A",
+                "project",
+                i18n.gettext('Projects')
+                )
+              }}
+            </div>
 
-          <div class="col-sm-2">
-            {{ render_stat_circle(number_of_users,
-              number_of_users,
-              "100",
-              "fa fa-group",
-              "#2D5955",
-              "user",
-              i18n.gettext('Users')
-              )
-            }}
+            <div class="col-sm-2">
+              {{ render_stat_circle(number_of_users,
+                number_of_users,
+                "100",
+                "fa fa-group",
+                "#2D5955",
+                "user",
+                i18n.gettext('Users')
+                )
+              }}
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="panel">
+      <div class="panel panel-default">
         <div class="panel-heading">
           {{ i18n.gettext('Latest issues') }}
         </div>
 
-        <table class="table no-margin">
-          <thead>
-            <tr>
-              <th>{{ i18n.gettext('ID') }}</th>
-              <th>{{ i18n.gettext('Project') }}</th>
-              <th>{{ i18n.gettext('Activity') }}</th>
-              <th>{{ i18n.gettext('Name') }}</th>
-              <th>{{ i18n.gettext('Status') }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for issue in issues %}
-              {% if loop.index0 < number_of_latest_issues %}
-                <tr>
-                  <td>
-                    <a href="issue{{ issue.id }}" class="text-url">
-                      {{ issue.id }}
-                    </a>
-                  </td>
-                  <td>
-                    {% if issue.project %}
-                      <a href="project{{ issue.project.id }}" class="text-url">
-                        {{ issue.project.name }}
+        <div class="panel-body">
+          <table class="table no-margin">
+            <thead>
+              <tr>
+                <th>{{ i18n.gettext('ID') }}</th>
+                <th>{{ i18n.gettext('Project') }}</th>
+                <th>{{ i18n.gettext('Activity') }}</th>
+                <th>{{ i18n.gettext('Name') }}</th>
+                <th>{{ i18n.gettext('Status') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for issue in issues %}
+                {% if loop.index0 < number_of_latest_issues %}
+                  <tr>
+                    <td>
+                      <a href="issue{{ issue.id }}" class="text-url">
+                        {{ issue.id }}
                       </a>
-                    {% endif %}
-                  </td>
-                  <td>
-                    {% if issue.activity %}
-                      {{ issue.activity.reldate() }}
-                    {% endif %}
-                  </td>
-                  <td>
-                    {% if issue.title %}
-                      <a href="issue{{ issue.id }}">
-                       {{ issue.title.plain(hyperlink=0) }}
-                      </a>
-                    {% endif %}
-                  </td>
-                  <td>
-                    {% if issue.status %}
-                      {{ macro_issue.render_issue_status(issue.status.plain()) }}
-                    {% endif %}
-                  </td>
-                </tr>
-              {% endif %}
-            {% endfor %}
-          </tbody>
-        </table>
+                    </td>
+                    <td>
+                      {% if issue.project %}
+                        <a href="project{{ issue.project.id }}" class="text-url">
+                          {{ issue.project.name }}
+                        </a>
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if issue.activity %}
+                        {{ issue.activity.reldate() }}
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if issue.title %}
+                        <a href="issue{{ issue.id }}">
+                         {{ issue.title.plain(hyperlink=0) }}
+                        </a>
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if issue.status %}
+                        {{ macro_issue.render_issue_status(issue.status.plain()) }}
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -232,20 +236,22 @@
     <div class="row">
       {% for project in db.project.list() %}
       <div class="col-sm-4">
-        <div class="panel">
+        <div class="panel panel-default">
           <div class="panel-heading">
             <a href="project{{ project.id }}">
               {{ project.name }}
             </a>
           </div>
 
-          <p>{{ project.description }}</p>
+          <div class="panel-body">
+            <p>{{ project.description }}</p>
 
-          {% set issues = db.issue.filter(filterspec={"project":project.id},
-            sort=[('+', 'activity')]) %}
+            {% set issues = db.issue.filter(filterspec={"project":project.id},
+              sort=[('+', 'activity')]) %}
 
-          {{ issues|length }} Issues
+            {{ issues|length }} Issues
 
+          </div>
         </div>
       </div>
       {% endfor %}

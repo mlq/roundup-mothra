@@ -108,7 +108,7 @@
         {% if context.messages %}
           <h4 id="issue-messages">Messages</h4>
           {% for msg in context.messages %}
-          <div class="panel">
+          <div class="panel panel-default">
             <div class="panel-heading">
               <a href='msg{{ msg.id }}'>
                 <i class="fa fa-comment"></i>
@@ -122,7 +122,9 @@
               </div>
             </div>
 
-            <pre>{{ utils.markdown(msg.content.hyperlinked()) }}</pre>
+            <div class="panel-body">
+              <pre>{{ utils.markdown(msg.content.hyperlinked()) }}</pre>
+            </div>
           </div>
           {% endfor %}
         {% endif %}

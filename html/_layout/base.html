@@ -26,7 +26,7 @@
         {% include '_include/navigation.html' %}
       </nav>
 
-      <footer class="copyright hidden-sm">
+      <footer class="copyright hidden-xs">
         {% include '_include/footer.html' %}
       </footer>
     </aside>
@@ -36,6 +36,8 @@
       {% endblock %}
       {% if not fluid_layout %}
         <div id="content-wrapper">
+      {% else %}
+        <div id="content-fluid">
       {% endif %}
       <div class="row">
         <div class="col-12">
@@ -64,16 +66,14 @@
             <p>Lorem ipsum.</p>
           {% endblock %}
 
-          <footer class="copyright visible-sm">
+          <footer class="copyright visible-xs">
             <div class="text-center">
               {% include '_include/footer.html' %}
             </div>
           </footer>
         </div>
       </div>
-      {% if not fluid_layout %}
       </div>
-      {% endif %}
     </section>
 
     <script type="text/javascript" src='@@file/js/jquery.min.js'></script>

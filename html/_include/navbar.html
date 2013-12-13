@@ -1,4 +1,4 @@
-<header class="navbar navbar-fixed-top">
+<header class="navbar navbar-default navbar-fixed-top">
   <a class="navbar-brand" href="/">
     <i class="fa fa-heart"></i> mothra
   </a>
@@ -8,7 +8,7 @@
     <i class="fa fa-ellipsis-v"></i>
   </button>
 
-  <nav id="top-menu" class="nav-collapse navbar-responsive-collapse collapse">
+  <nav id="top-menu" class="navbar-collapse navbar-responsive-collapse collapse">
     <ul class="nav navbar-nav pull-right">
       {% if request.user.hasPermission('Register', 'user') %}
         <li>
