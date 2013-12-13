@@ -5,7 +5,7 @@
   <!-- PROJECTS -->
   <li class="nav-header dropdown">
     <a id="menu-dashboard" href="/">
-      <i class='icon-fixed-width icon-dashboard'></i> {{ i18n.gettext('Dashboard') }}
+      <i class='fa fa-fw fa-dashboard'></i> {{ i18n.gettext('Dashboard') }}
     </a>
   </li>
   <!-- PROJECTS -->
@@ -13,21 +13,21 @@
     {% if db.project.list() or request.user.hasPermission('Create', 'project') %}
     <li class="nav-header dropdown">
       <a class="dropdown-toggle" id="menu-projects" data-toggle="dropdown" href="#">
-        <i class='icon-fixed-width icon-shield'></i> {{ i18n.gettext('Projects') }}
+        <i class='fa fa-fw fa-shield'></i> {{ i18n.gettext('Projects') }}
       </a>
 
       <ul class="dropdown-menu" role="menu" aria-labelledby="menu-projects">
         {% for project in db.project.list() %}
         <li>
           <a href="project{{ project.id }}">
-            <i class="icon-fixed-width icon-leaf"></i> {{ project.name }}
+            <i class="fa fa-fw fa-leaf"></i> {{ project.name }}
           </a>
         </li>
         {% endfor %}
 
         <li>
           <a href="project">
-            <i class="icon-fixed-width icon-list"></i>
+            <i class="fa fa-fw fa-list"></i>
             {{ i18n.gettext('View all') }}
           </a>
         </li>
@@ -35,7 +35,7 @@
         {% if request.user.hasPermission('Create', 'project') %}
         <li>
           <a href="project?@template=add">
-            <i class="icon-fixed-width icon-plus"></i>
+            <i class="fa fa-fw fa-plus"></i>
             {{ i18n.gettext('Create New') }}
           </a>
         </li>
@@ -49,21 +49,21 @@
   {% if request.user.hasPermission('View', 'query') %}
     <li class="nav-header dropdown">
       <a class="dropdown-toggle" id="menu-queries" data-toggle="dropdown" href="#">
-        <i class='icon-fixed-width icon-search'></i> {{ i18n.gettext('Queries') }}
+        <i class='fa fa-fw fa-search'></i> {{ i18n.gettext('Queries') }}
       </a>
 
     <ul class="dropdown-menu" role="menu" aria-labelledby="menu-queries">
       {% for query in request.user.queries %}
       <li>
         <a href="{{ query.klass }}?{{ query.url }}">
-          <i class="icon-fixed-width icon-pushpin"></i> {{ query.name }}
+          <i class="fa fa-fw fa-thumb-tack"></i> {{ query.name }}
         </a>
       </li>
       {% endfor %}
 
       <li>
         <a href="query?@template=edit">
-          <i class="icon-fixed-width icon-pencil"></i> {{ i18n.gettext('Edit') }}
+          <i class="fa fa-fw fa-pencil"></i> {{ i18n.gettext('Edit') }}
         </a>
       </li>
     </ul>
@@ -73,14 +73,14 @@
   {% if request.user.hasPermission('View', 'issue') %}
     <li class="nav-header dropdown">
       <a class="dropdown-toggle" id="menu-issues" data-toggle="dropdown" href="#">
-        <i class='icon-fixed-width icon-ticket'></i> {{ i18n.gettext('Issues') }}
+        <i class='fa fa-fw fa-ticket'></i> {{ i18n.gettext('Issues') }}
       </a>
 
       <ul class="dropdown-menu" role="menu" aria-labelledby="menu-issues">
       {% if request.user.hasPermission('Create', 'issue') %}
         <li>
           <a href="issue?@template=item">
-            <i class="icon-fixed-width icon-plus"></i> {{ i18n.gettext('Create New') }}
+            <i class="fa fa-fw fa-plus"></i> {{ i18n.gettext('Create New') }}
           </a>
         </li>
       {% endif %}
@@ -97,7 +97,7 @@
             'assignedto': request.user.id,
             '@dispname': i18n.gettext('Your Issues'),
           }) }}">
-            <i class="icon-fixed-width icon-tasks"></i> {{ i18n.gettext('Your Issues') }}
+            <i class="fa fa-fw fa-tasks"></i> {{ i18n.gettext('Your Issues') }}
           </a>
         </li>
       {% endif %}
@@ -113,7 +113,7 @@
           'assignedto': '-1',
           '@dispname': i18n.gettext('Show Unassigned'),
          }) }}">
-           <i class="icon-fixed-width icon-file-alt"></i> {{ i18n.gettext('Show Unassigned') }}
+           <i class="fa fa-fw fa-file-o"></i> {{ i18n.gettext('Show Unassigned') }}
          </a>
       </li>
       <li>
@@ -126,12 +126,12 @@
           'status': status_notresolved,
           '@dispname': i18n.gettext('Show All'),
         }) }}">
-          <i class="icon-fixed-width icon-file"></i> {{ i18n.gettext('Show All') }}
+          <i class="fa fa-fw fa-file"></i> {{ i18n.gettext('Show All') }}
         </a>
       </li>
       <li>
         <a href="issue?@template=search">
-          <i class="icon-fixed-width icon-search"></i> {{ i18n.gettext('Search') }}
+          <i class="fa fa-fw fa-search"></i> {{ i18n.gettext('Search') }}
         </a>
       </li>
     </ul>
@@ -141,13 +141,13 @@
   {% if request.user.hasPermission('View', 'user') %}
     <li class="nav-header dropdown">
       <a class="dropdown-toggle" id="menu-user" data-toggle="dropdown" href="#">
-        <i class='icon-fixed-width icon-group'></i> {{ i18n.gettext('User') }}
+        <i class='fa fa-fw fa-group'></i> {{ i18n.gettext('User') }}
       </a>
 
     <ul class="dropdown-menu" role="menu" aria-labelledby="menu-queries">
       <li>
         <a href="user">
-          <i class="icon-fixed-width icon-list"></i> {{ i18n.gettext('User List') }}
+          <i class="fa fa-fw fa-list"></i> {{ i18n.gettext('User List') }}
         </a>
       </li>
     </ul>
@@ -156,13 +156,13 @@
   <!-- HELP -->
   <li class="nav-header dropdown">
     <a class="dropdown-toggle" id="menu-help" data-toggle="dropdown" href="#">
-      <i class='icon-fixed-width icon-bookmark'></i> {{ i18n.gettext('Help') }}
+      <i class='fa fa-fw fa-bookmark'></i> {{ i18n.gettext('Help') }}
     </a>
 
     <ul class="dropdown-menu" role="menu" aria-labelledby="menu-help">
       <li>
         <a href="http://www.roundup-tracker.org">
-          <i class="icon-fixed-width icon-question-sign"></i> Roundup docs
+          <i class="fa fa-fw fa-question"></i> Roundup docs
         </a>
       </li>
     </ul>

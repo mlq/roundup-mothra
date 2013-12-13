@@ -33,13 +33,13 @@
       {% if context.is_edit_ok() %}
       <li class="pull-right">
         <a href="user{{context.id}}?@template=edit">
-          <i class="icon-pencil icon-fixed-width"></i> {{ i18n.gettext('Edit') }}
+          <i class="fa fa-pencil fa-fw"></i> {{ i18n.gettext('Edit') }}
         </a>
       </li>
       {% endif %}
       <li class="pull-right">
         <a href="#tab-history" data-toggle="tab">
-          <i class="icon-time icon-fixed-width"></i> {{ i18n.gettext('History') }}
+          <i class="fa fa-clock-o fa-fw"></i> {{ i18n.gettext('History') }}
         </a>
       </li>
     </ul>

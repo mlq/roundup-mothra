@@ -18,7 +18,7 @@
     <tr>
       <td>
         <a href='file{{ file.id }}'>
-          <i class="icon-file"></i> {{ file.name }}
+          <i class="fa fa-file"></i> {{ file.name }}
         </a>
       </td>
       <td>{{ file.type }}</td>
@@ -26,17 +26,17 @@
       <td>{{ file.creation }}</td>
       <td>
         <a href='{{ file.download_url() }}'>
-          <i class="icon-download-alt"></i> {{ i18n.gettext('Download') }}
+          <i class="fa fa-download"></i> {{ i18n.gettext('Download') }}
         </a>
       </td>
       {% if file.is_edit_ok() %}
         <td>
-          <a href='file{{ file.id }}'><i class="icon-pencil"></i> {{ i18n.gettext('Edit') }}</a>
+          <a href='file{{ file.id }}'><i class="fa fa-pencil"></i> {{ i18n.gettext('Edit') }}</a>
         </td>
         <td>
           <form method="POST" action='issue{{ context.id }}'>
             <button class="btn btn-tiny" type="submit" value="remove">
-              <i class="icon-trash"></i> {{ i18n.gettext('Remove') }}
+              <i class="fa fa-trash-o"></i> {{ i18n.gettext('Remove') }}
             </button>
 
             <input type="hidden" name="@remove@files" value='{{ file.id }}'>

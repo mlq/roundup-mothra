@@ -1,11 +1,11 @@
 <header class="navbar navbar-fixed-top">
   <a class="navbar-brand" href="/">
-    <i class="icon-heart"></i> mothra
+    <i class="fa fa-heart"></i> mothra
   </a>
 
   <button type="button" class="navbar-toggle collapsed"
     data-toggle="collapse" data-target=".navbar-responsive-collapse">
-    <i class="icon-ellipsis-vertical"></i>
+    <i class="fa fa-ellipsis-v"></i>
   </button>
 
   <nav id="top-menu" class="nav-collapse navbar-responsive-collapse collapse">
@@ -13,7 +13,7 @@
       {% if request.user.hasPermission('Register', 'user') %}
         <li>
           <a href="user?@template=register">
-            <i class="icon-fixed-width icon-hand-up"></i> {{ i18n.gettext('Register') }}
+            <i class="fa fa-fw fa-hand-o-up"></i> {{ i18n.gettext('Register') }}
           </a>
         </li>
       {% endif %}
@@ -21,7 +21,7 @@
       {% if request.user.username == 'anonymous' %}
         <li class="dropdown">
           <a class="dropdown-toggle" id="login-menu" data-toggle="dropdown" href="#">
-            <i class="icon-fixed-width icon-signin"></i> Login
+            <i class="fa fa-fw fa-sign-in"></i> Login
             <span class="caret"></span>
           </a>
           <div class="dropdown-menu" role="form" aria-labelledby="login-menu">
@@ -64,21 +64,21 @@
         {% if request.user.hasPermission('View', 'user') %}
           <li class='dropdown'>
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-              <i class='icon-eye-open'></i> {{ i18n.gettext('Administration') }}
+              <i class='fa fa-eye-open'></i> {{ i18n.gettext('Administration') }}
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="user-menu">
             {% if request.user.hasPermission('View', 'user') %}
               <li>
                 <a href="user">
-                  <i class="icon-fixed-width icon-group"></i> {{ i18n.gettext('User List') }}
+                  <i class="fa fa-fw fa-group"></i> {{ i18n.gettext('User List') }}
                 </a>
               </li>
             {% endif %}
             {% if request.user.hasPermission('Create', 'user') %}
               <li>
                 <a href="user?@template=add">
-                  <i class="icon-fixed-width icon-plus"></i> {{ i18n.gettext('Add User') }}
+                  <i class="fa fa-fw fa-plus"></i> {{ i18n.gettext('Add User') }}
                 </a>
               </li>
             {% endif %}
@@ -87,13 +87,13 @@
         {% endif %}
         <li class='dropdown'>
           <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-            <i class='icon-user'></i> {{ i18n.gettext('Your Profile') }}
+            <i class='fa fa-user'></i> {{ i18n.gettext('Your Profile') }}
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="user-menu">
             <li>
               <a href="user{{ request.user.id }}">
-                <i class="icon-fixed-width icon-cogs"></i> {{ i18n.gettext('Your Details') }}
+                <i class="fa fa-fw fa-cogs"></i> {{ i18n.gettext('Your Details') }}
               </a>
               <li>
                 <a href="{{ request.indexargs_url('issue', {
@@ -106,12 +106,12 @@
                   'assignedto': request.user.id,
                   '@dispname': i18n.gettext('Your tasks'),
                 }) }}">
-                  <i class="icon-fixed-width icon-tasks"></i> {{ i18n.gettext('Your Issues') }}
+                  <i class="fa fa-fw fa-tasks"></i> {{ i18n.gettext('Your Issues') }}
                 </a>
               </li>
               <li>
                 <a href="{{ request.indexargs_url('', {'@action':'logout'}) }}">
-                  <i class="icon-fixed-width icon-signout"></i> {{ i18n.gettext('Logout') }}
+                  <i class="fa fa-fw fa-sign-out"></i> {{ i18n.gettext('Logout') }}
                 </a>
               </li>
             </li>

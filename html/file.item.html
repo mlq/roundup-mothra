@@ -31,19 +31,19 @@
 
       <li class="pull-right">
         <a href="#tab-history" data-toggle="tab">
-          <i class="icon-time icon-fixed-width"></i> {{ i18n.gettext('History') }}
+          <i class="fa fa-clock-o fa-fw"></i> {{ i18n.gettext('History') }}
         </a>
       </li>
       {% if context.is_edit_ok() %}
       <li class="pull-right">
         <a href="#tab-edit" data-toggle="tab">
-          <i class="icon-pencil icon-fixed-width"></i> {{ i18n.gettext('Edit') }}
+          <i class="fa fa-pencil fa-fw"></i> {{ i18n.gettext('Edit') }}
         </a>
       </li>
       {% endif %}
       <li class="pull-right">
         <a href='file{{ context.id }}/{{ context.name }}'>
-          <i class="icon-download-alt"></i> {{ i18n.gettext('Download') }}
+          <i class="fa fa-download"></i> {{ i18n.gettext('Download') }}
         </a>
       </li>
     </ul> <!-- nav -->

@@ -48,19 +48,19 @@
         {% if context.id %}
         <li class="pull-right">
           <a href="#tab-history" data-toggle="tab">
-            <i class="icon-time icon-fixed-width"></i> {{ i18n.gettext('History') }}
+            <i class="fa fa-clock-o fa-fw"></i> {{ i18n.gettext('History') }}
           </a>
         </li>
         <li class="pull-right">
           <a href="#issue-messages">
-            <i class="icon-comments icon-fixed-width"></i> {{ i18n.gettext('Messages') }}
+            <i class="fa fa-comments fa-fw"></i> {{ i18n.gettext('Messages') }}
           </a>
         </li>
         {% endif %}
         {% if context.files %}
         <li class="pull-right">
           <a href="#issue-files">
-            <i class="icon-file-alt icon-fixed-width"></i> {{ i18n.gettext('Files') }}
+            <i class="fa fa-file-o fa-fw"></i> {{ i18n.gettext('Files') }}
           </a>
         </li>
         {% endif %}
@@ -111,7 +111,7 @@
           <div class="panel">
             <div class="panel-heading">
               <a href='msg{{ msg.id }}'>
-                <i class="icon-comment"></i>
+                <i class="fa fa-comment"></i>
               </a>
               <a href="user{{ msg.author.id }}">
                 {{ msg.author }}
