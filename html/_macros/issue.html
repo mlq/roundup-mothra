@@ -1,20 +1,20 @@
 {% macro render_issue_status(status) %}
   {% if status == "unread" %}
-    {% set label = "label-important" %}
+    {% set label = "label-danger" %}
   {% elif status == "confirmed" %}
-    {% set label = "label-inverse" %}
+    {% set label = "label-default" %}
   {% elif status == "deferred" %}
-    {% set label = "" %}
+    {% set label = "label-default" %}
   {% elif status == "feedback" %}
     {% set label = "label-info" %}
   {% elif status == "in-progress" %}
     {% set label = "label-warning" %}
   {% elif status == "testing" %}
-    {% set label = "label-testing" %}
+    {% set label = "label-primary" %}
   {% elif status == "resolved" %}
     {% set label = "label-success" %}
   {% elif status == "" %}
-    {% set label = "" %}
+    {% set label = "label-default" %}
     {% set status = "no status" %}
   {% endif %}
 
