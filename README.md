@@ -35,7 +35,7 @@ Resources
   * [Parsley.js](http://parsleyjs.org) (v1.1.16)
   * [jquery-Knob](http://github.com/aterrien/jQuery-Knob)
   * [bootstrap-datepicker](http://www.eyecon.ro/bootstrap-datepicker)
-  * [bootstrap-markdown](http://toopay.github.io/bootstrap-markdown)
+  * [bootstrap-markdown](http://toopay.github.io/bootstrap-markdown) (2.1.0)
   * [markdown-js](http://github.com/evilstreak/markdown-js) (v.0.6.0-beta1)
   * [LESS Elements](https://github.com/dmitryf/elements)
 
