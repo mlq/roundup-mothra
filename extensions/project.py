@@ -5,8 +5,8 @@ import sys
 import re
 
 from roundup import date, hyperdb
-from roundup.cgi.actions import Action  
-from roundup.cgi.actions import EditCommon 
+from roundup.cgi.actions import Action
+from roundup.cgi.actions import EditCommon
 from roundup.cgi import exceptions
 
 def flot_data_issues_status(issues):
@@ -56,7 +56,7 @@ def project_milestone_get_progress(issues):
     if issue.status.plain() == 'in-progress':
       done += 1
 
-  return (done / len(issues)) * 100;
+  return int(round((done / len(issues)) * 100));
 
 def project_milestone_get_done(issues):
   if len(issues) == 0:
@@ -67,7 +67,7 @@ def project_milestone_get_done(issues):
     if issue.status.plain() == 'resolved':
       done += 1
 
-  return (done / len(issues)) * 100;
+  return int(round((done / len(issues)) * 100));
 
 def init(instance):
     #Methods used by the workpackages
