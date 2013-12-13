@@ -36,7 +36,7 @@ Resources
   * [jquery-Knob](http://github.com/aterrien/jQuery-Knob)
   * [bootstrap-datepicker](http://www.eyecon.ro/bootstrap-datepicker)
   * [bootstrap-markdown](http://toopay.github.io/bootstrap-markdown)
-  * [markdown-js](http://github.com/evilstreak/markdown-js)
+  * [markdown-js](http://github.com/evilstreak/markdown-js) (v.0.6.0-beta1)
   * [LESS Elements](https://github.com/dmitryf/elements)
 
 Installation
