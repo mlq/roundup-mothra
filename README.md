@@ -28,7 +28,7 @@ Resources
 ---------
 
   * [Twitter Bootstrap](http://twitter.github.io/bootstrap) (v3.0.0-wip)
-  * [Font Awesome](http://fortawesome.github.io/Font-Awesome) icons (v2.3.1)
+  * [Font Awesome](http://fortawesome.github.io/Font-Awesome) icons (v4.0.3)
   * [jquery](http://jquery.com) (v1.10.2)
   * [Flot](http://www.flotcharts.org) (v0.8.2)
   * [Respond.js](https://github.com/scottjehl/Respond) (v1.4.0)
