@@ -1,5 +1,5 @@
 /* ===================================================
- * bootstrap-markdown.js v1.1.4
+ * bootstrap-markdown.js v2.1.0
  * http://github.com/toopay/bootstrap-markdown
  * ===================================================
  * Copyright 2013 Taufan Aditya
@@ -95,7 +95,7 @@
             // Attach the button object
             btnGroupContainer.append('<button class="'
                                     +btnClass
-                                    +' btn-small" title="'
+                                    +' btn-default btn-sm" title="'
                                     +button.title
                                     +'" tabindex="'
                                     +tabIndex
@@ -105,9 +105,9 @@
                                     +buttonHandler
                                     +'"'
                                     +buttonToggle
-                                    +'><i class="'
+                                    +'><span class="'
                                     +button.icon
-                                    +'"></i> '
+                                    +'"></span> '
                                     +btnText
                                     +'</button>')
 
@@ -189,7 +189,7 @@
       if (this.$editor == null) {
         // Create the panel
         var editorHeader = $('<div/>', {
-                            'class': 'md-header'
+                            'class': 'md-header btn-toolbar'
                             })
 
         // Build the main buttons
@@ -675,7 +675,7 @@
         data: [{
           name: 'cmdBold',
           title: 'Bold',
-          icon: 'icon icon-bold',
+          icon: 'glyphicon glyphicon-bold',
           callback: function(e){
             // Give/remove ** surround the selection
             var chunk, cursor, selected = e.getSelection(), content = e.getContent()
@@ -704,7 +704,7 @@
         },{
           name: 'cmdItalic',
           title: 'Italic',
-          icon: 'icon icon-italic',
+          icon: 'glyphicon glyphicon-italic',
           callback: function(e){
             // Give/remove * surround the selection
             var chunk, cursor, selected = e.getSelection(), content = e.getContent()
@@ -733,7 +733,7 @@
         },{
           name: 'cmdHeading',
           title: 'Heading',
-          icon: 'icon icon-font',
+          icon: 'glyphicon glyphicon-header',
           callback: function(e){
             // Append/remove ### surround the selection
             var chunk, cursor, selected = e.getSelection(), content = e.getContent(), pointer, prevChar
@@ -742,7 +742,7 @@
               // Give extra word
               chunk = 'heading text'
             } else {
-              chunk = selected.text
+              chunk = selected.text + '\n';
             }
 
             // transform selection and set the cursor into chunked text
@@ -751,12 +751,12 @@
               e.setSelection(selected.start-pointer,selected.end)
               e.replaceSelection(chunk)
               cursor = selected.start-pointer
-            } else if (prevChar = content.substr(selected.start-1,1), !!prevChar && prevChar != '\n') {
-              e.replaceSelection('\n\n### '+chunk+'\n')
+            } else if (selected.start > 0 && (prevChar = content.substr(selected.start-1,1), !!prevChar && prevChar != '\n')) {
+              e.replaceSelection('\n\n### '+chunk)
               cursor = selected.start+6
             } else {
               // Empty string before element
-              e.replaceSelection('### '+chunk+'\n')
+              e.replaceSelection('### '+chunk)
               cursor = selected.start+4
             }
 
@@ -769,7 +769,7 @@
         data: [{
           name: 'cmdUrl',
           title: 'URL/Link',
-          icon: 'icon icon-globe',
+          icon: 'glyphicon glyphicon-globe',
           callback: function(e){
             // Give [] surround the selection and prepend the link
             var chunk, cursor, selected = e.getSelection(), content = e.getContent(), link
@@ -783,7 +783,7 @@
 
             link = prompt('Insert Hyperlink','http://')
 
-            if (link != null) {
+            if (link != null && link != '' && link != 'http://') {
               // transform selection and set the cursor into chunked text
               e.replaceSelection('['+chunk+']('+link+')')
               cursor = selected.start+1
@@ -795,7 +795,7 @@
         },{
           name: 'cmdImage',
           title: 'Image',
-          icon: 'icon icon-picture',
+          icon: 'glyphicon glyphicon-picture',
           callback: function(e){
             // Give ![] surround the selection and prepend the image link
             var chunk, cursor, selected = e.getSelection(), content = e.getContent(), link
@@ -827,7 +827,7 @@
         data: [{
           name: 'cmdList',
           title: 'List',
-          icon: 'icon icon-list',
+          icon: 'glyphicon glyphicon-list',
           callback: function(e){
             // Prepend/Give - surround the selection
             var chunk, cursor, selected = e.getSelection(), content = e.getContent()
@@ -879,8 +879,8 @@
           toggle: true,
           title: 'Preview',
           btnText: 'Preview',
-          btnClass: 'btn btn-inverse',
-          icon: 'icon icon-white icon-search',
+          btnClass: 'btn btn-primary btn-sm',
+          icon: 'glyphicon glyphicon-search',
           callback: function(e){
             // Check the preview mode and toggle based on this flag
             var isPreview = e.$isPreview,content
