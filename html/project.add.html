@@ -28,7 +28,7 @@
     <form class="form-horizontal"
           method="POST"
           action='{{ context.designator() }}'
-          data-validate="parsley"
+          parsley-validate
           novalidate
           >
 
@@ -59,7 +59,7 @@
         </label>
         <div class="col-lg-10">
           <input class="form-control input-small" type="text" id="inputHomepage" name="homepage"
-            placeholder="{{ i18n.gettext('Home page') }}" data-type="url">
+            placeholder="{{ i18n.gettext('Home page') }}" parsley-type="url">
         </div>
       </div>
 

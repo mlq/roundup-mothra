@@ -16,7 +16,7 @@
   <label class='col-lg-2 control-label' for='address'>{{ i18n.gettext('Email') }}</label>
   <div class='col-lg-10'>
     <input class="form-control input-small" type='text' name="address" value="{{ context.address }}"
-    required="required" data-type="email">
+    required="required" parsley-type="email">
   </div>
 </div>
 
@@ -30,7 +30,7 @@
 <div class='form-group'>
   <label class='col-lg-2 control-label' for='@confirm@password'>{{ i18n.gettext('Confirm Password') }}</label>
   <div class='col-lg-10'>
-    <input class="form-control input-small" type='password' name='@confirm@password' value="{{ context.password }}" data-equalto="#password">
+    <input class="form-control input-small" type='password' name='@confirm@password' value="{{ context.password }}" parsley-equalto="#password">
   </div>
 </div>
 
@@ -73,7 +73,8 @@
 <div class='form-group'>
   <label class='col-lg-2 control-label' for='website'>{{ i18n.gettext('Website') }}</label>
   <div class='col-lg-10'>
-    <input class="form-control input-small" type='text' name="website" value="{{ context.website }}">
+    <input class="form-control input-small" type='text' name="website"
+      value="{{ context.website }}" parsley-type="url">
   </div>
 </div>
 

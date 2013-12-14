@@ -26,7 +26,7 @@
           </a>
           <div class="dropdown-menu" role="form" aria-labelledby="login-menu">
             <form method="POST" action='{{ request.base }}'
-              data-validate="parsley"
+              parsley-validate
               novalidate>
               <fieldset>
                 <label for="login-name">{{ i18n.gettext('Username') }}</label>

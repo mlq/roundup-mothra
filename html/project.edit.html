@@ -53,7 +53,7 @@
         <form class='form-horizontal'
               method="POST"
               action='{{ context.designator() }}'
-              data-validate="parsley"
+              parsley-validate
               novalidate>
 
           <legend>{{ i18n.gettext('Edit project settings') }}</legend>
@@ -85,7 +85,7 @@
             <div class="col-lg-10">
               <input class="form-control input-small" type="text" id="inputHomepage" name="homepage"
               placeholder="{{ i18n.gettext('Home page') }}" value="{{
-              context.homepage }}" required="required" data-type="url">
+              context.homepage }}" required="required" parsley-type="url">
             </div>
           </div>
           <div class="form-group">
@@ -102,7 +102,7 @@
         <form class='form-horizontal'
                method="POST"
                action='project{{ context.id }}'
-                data-validate="parsley"
+                parsley-validate
                 novalidate>
           <legend>{{ i18n.gettext('Retire project') }}</legend>
           <input type="hidden" name="@template" value="index">
@@ -129,7 +129,7 @@
                 <form class='form-horizontal'
                       method="POST"
                       action='milestone{{ milestone.id }}'
-                      data-validate="parsley"
+                      parsley-validate
                       novalidate>
                   <input type="hidden" name="@action" value="retire">
                   <input type="submit" value="{{ i18n.gettext('Retire') }}" class='btn btn-tiny'>
@@ -144,7 +144,7 @@
         <form class='form-horizontal'
               method="POST"
               action='milestone'
-              data-validate="parsley"
+              parsley-validate
               novalidate>
           <legend>{{ i18n.gettext('New milestone') }}</legend>
           <div class="form-group">
@@ -204,7 +204,7 @@
         <form class='form-horizontal'
               method="POST"
               action='version'
-              data-validate="parsley"
+              parsley-validate
               novalidate>
           <legend>{{ i18n.gettext('New version') }}</legend>
           <div class="form-group">
