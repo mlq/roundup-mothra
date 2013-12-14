@@ -39,6 +39,7 @@ Resources
   * [markdown-js](http://github.com/evilstreak/markdown-js) (v0.6.0-beta1)
   * [LESS Elements](https://github.com/dmitryf/elements)
   * [selectize.js](https://github.com/brianreavis/selectize.js) (v0.8.5)
+  * [roundup-json](https://github.com/s1341/roundup-json)
 
 Installation
 ------------
